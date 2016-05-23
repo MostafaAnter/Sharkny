@@ -28,4 +28,6 @@ dependencies {
     compile 'com.akexorcist:localizationactivity:1.0.9'
     // butter knife
     compile 'com.jakewharton:butterknife:7.0.1'
+    // bottom navigation
+    compile 'com.github.armcha:LuseenBottomNavigation:1.6.1'
 }
