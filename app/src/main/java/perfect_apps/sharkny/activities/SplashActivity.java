@@ -12,7 +12,6 @@ import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import perfect_apps.sharkny.HomeActivity;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.store.SharknyPrefStore;
 import perfect_apps.sharkny.utils.Constants;
