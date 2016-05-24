@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/colorPrimary"
+    tools:context="perfect_apps.sharkny.activities.MyAccountActivity"
+    tools:showIn="@layout/activity_my_account"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:background="@drawable/circle_green"
+                android:orientation="vertical"
+                android:gravity="center">
+                <ImageView
+                    android:contentDescription="@null"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/profile_white"/>
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile"
+                    android:textAllCaps="false"
+                    android:textSize="10sp"
+                    android:textColor="#FFFFFF"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/linear2"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:background="@drawable/circle_green"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:gravity="center">
+                    <ImageView
+                        android:contentDescription="@null"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/profile_finance_icon"/>
+                    <TextView
+                        android:id="@+id/text2"
+                        android:textSize="10sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/finance"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear3"
+                    android:layout_width="110dp"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_height="110dp"
+                    android:background="@drawable/circle_green"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <ImageView
+                        android:contentDescription="@null"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/profile_franchise_icon"/>
+                    <TextView
+                        android:id="@+id/text3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/advantages"
+                        android:textAllCaps="false"
+                        android:textSize="10sp"
+                        android:textColor="#FFFFFF"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/linear4"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:background="@drawable/circle_green"
+                    android:orientation="vertical"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:gravity="center">
+                    <ImageView
+                        android:contentDescription="@null"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/profile_other_services"/>
+                    <TextView
+                        android:id="@+id/text4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/other_services"
+                        android:textAllCaps="false"
+                        android:textSize="10sp"
+                        android:textColor="#FFFFFF"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear5"
+                    android:layout_width="110dp"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_height="110dp"
+                    android:background="@drawable/circle_green"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <ImageView
+                        android:contentDescription="@null"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/profiel_projects_icon"/>
+                    <TextView
+                        android:id="@+id/text5"
+                        android:textSize="10sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/projects"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</LinearLayout>

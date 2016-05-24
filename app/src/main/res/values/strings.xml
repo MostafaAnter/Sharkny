@@ -11,4 +11,14 @@
     <string name="finance">Finance</string>
     <string name="projects">Projects</string>
     <string name="other_services">Other Services</string>
+
+    <string name="home_button1">Deals\n1</string>
+    <string name="home_button2">Current Projects\n4</string>
+    <string name="home_button3">Advantages\n3</string>
+    <string name="home_button4">Finance\n3</string>
+    <string name="home_button5">My Account</string>
+    <string name="home_button6">Other Services\n2</string>
+    <string name="title_activity_my_account">MyAccountActivity</string>
+    <string name="profile">My Profile</string>
+    <string name="advantages">Advantages</string>
 </resources>
