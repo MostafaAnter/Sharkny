@@ -31,6 +31,51 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="perfect_apps.sharkny.activities.HomeActivity" />
         </activity>
+        <activity
+            android:name=".activities.AccountProfileActivity"
+            android:label="@string/title_activity_account_profile"
+            android:parentActivityName=".activities.MyAccountActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.MyAccountActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AccountFinanceActivity"
+            android:label="@string/title_activity_account_finance"
+            android:parentActivityName=".activities.MyAccountActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.MyAccountActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AccountAdvanageActivity"
+            android:label="@string/title_activity_account_advanage"
+            android:parentActivityName=".activities.MyAccountActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.MyAccountActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AccountProjectActivity"
+            android:label="@string/title_activity_account_project"
+            android:parentActivityName=".activities.MyAccountActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.MyAccountActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AccountServicesActivity"
+            android:label="@string/title_activity_account_services"
+            android:parentActivityName=".activities.MyAccountActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.MyAccountActivity" />
+        </activity>
     </application>
 
 </manifest>

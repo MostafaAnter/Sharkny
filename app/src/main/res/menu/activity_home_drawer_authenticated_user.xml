@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group1">
+        <item
+            android:id="@+id/my_profile"
+            android:icon="@drawable/my_profile_ic"
+            android:title="@string/drawer_authenticated_my_profile" />
+        <item
+            android:id="@+id/inbox"
+            android:icon="@drawable/message_ic"
+            android:title="@string/drawer_authenticated_inbox" />
+        <item
+            android:id="@+id/sent_mail"
+            android:icon="@drawable/message_ic"
+            android:title="@string/drawer_authenticated_sent_mail" />
+        <item
+            android:id="@+id/sign_out"
+            android:icon="@drawable/sign_out_ic"
+            android:title="@string/drawer_authenticated_sign_out" />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/about_ic"
+            android:title="@string/drawer_menu_about" />
+
+        <item
+            android:id="@+id/contact"
+            android:icon="@drawable/contact_ic"
+            android:title="@string/drawer_menu_contact_us" />
+        <item
+            android:id="@+id/favorite"
+            android:icon="@drawable/favorite_ic"
+            android:title="@string/drawer_authenticated_favorite" />
+    </group>
+
+</menu>

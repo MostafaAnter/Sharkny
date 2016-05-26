@@ -11,4 +11,15 @@
     <string name="home_button6">Other Services\n2</string>
     <string name="profile">My Profile</string>
     <string name="advantages">Advantages</string>
+    <string name="drawer_authenticated_favorite">Favorites</string>
+    <string name="drawer_authenticated_inbox">Inbox</string>
+    <string name="drawer_authenticated_my_profile">Profile</string>
+    <string name="drawer_authenticated_sign_out">Sign Out</string>
+    <string name="drawer_authenticated_sent_mail">Sent Mail</string>
+    <string name="drawer_menu_about">About Sharkny</string>
+    <string name="drawer_menu_contact_us">Contact us</string>
+    <string name="drawer_menu_login">Login</string>
+    <string name="drawer_menu_register">Sign up</string>
+    <string name="language_arabic">Arabic</string>
+    <string name="language_english">English</string>
 </resources>

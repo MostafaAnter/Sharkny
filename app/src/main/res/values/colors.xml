@@ -8,4 +8,8 @@
     <color name="secondColor">#E91E63</color>
     <color name="thirdColor">#FF5722</color>
     <color name="fourthColor">#4CAF50</color>
+
+
+
+    <attr name="sc_unchecked_tint_color" format="color" />
 </resources>

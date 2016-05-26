@@ -18,7 +18,23 @@
     <string name="home_button4">Finance\n3</string>
     <string name="home_button5">My Account</string>
     <string name="home_button6">Other Services\n2</string>
-    <string name="title_activity_my_account">MyAccountActivity</string>
+    <string name="title_activity_my_account" translatable="false">MyAccountActivity</string>
     <string name="profile">My Profile</string>
     <string name="advantages">Advantages</string>
+    <string name="title_activity_account_profile" translatable="false">AccountProfileActivity</string>
+    <string name="title_activity_account_finance" translatable="false">AccountFinanceActivity</string>
+    <string name="title_activity_account_advanage" translatable="false">AccountAdvanageActivity</string>
+    <string name="title_activity_account_project" translatable="false">AccountProjectActivity</string>
+    <string name="title_activity_account_services" translatable="false">AccountServicesActivity</string>
+    <string name="drawer_menu_login">Login</string>
+    <string name="drawer_menu_register">Sign up</string>
+    <string name="drawer_menu_about">About Sharkny</string>
+    <string name="drawer_menu_contact_us">Contact us</string>
+    <string name="drawer_authenticated_my_profile">Profile</string>
+    <string name="drawer_authenticated_inbox">Inbox</string>
+    <string name="drawer_authenticated_sent_mail">Sent Mail</string>
+    <string name="drawer_authenticated_sign_out">Sign Out</string>
+    <string name="drawer_authenticated_favorite">Favorites</string>
+    <string name="language_english">English</string>
+    <string name="language_arabic">Arabic</string>
 </resources>

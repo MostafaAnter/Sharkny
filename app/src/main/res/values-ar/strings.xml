@@ -11,4 +11,15 @@
     <string name="home_button6">خدمات أخرى\n2</string>
     <string name="profile">الملف الشخصي</string>
     <string name="advantages">الأمتيازات</string>
+    <string name="drawer_authenticated_favorite">المفضلة</string>
+    <string name="drawer_authenticated_inbox">البريد الوارد</string>
+    <string name="drawer_authenticated_my_profile">الملف الشخصي</string>
+    <string name="drawer_authenticated_sign_out">تسجيل الخروج</string>
+    <string name="drawer_authenticated_sent_mail">الرسائل المرسلة</string>
+    <string name="drawer_menu_about">عن شاركنى</string>
+    <string name="drawer_menu_contact_us">أتصل بنا</string>
+    <string name="drawer_menu_login">الدخول</string>
+    <string name="drawer_menu_register">التسجيل</string>
+    <string name="language_arabic">عربي</string>
+    <string name="language_english">إنجليزي</string>
 </resources>

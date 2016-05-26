@@ -3,18 +3,24 @@ package perfect_apps.sharkny.activities;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
@@ -31,6 +37,9 @@ import perfect_apps.sharkny.fragments.FragmentFout;
 import perfect_apps.sharkny.fragments.FragmentOne;
 import perfect_apps.sharkny.fragments.FragmentThree;
 import perfect_apps.sharkny.fragments.FragmentTwo;
+import perfect_apps.sharkny.store.SharknyPrefStore;
+import perfect_apps.sharkny.utils.Constants;
+import perfect_apps.sharkny.utils.CustomTypefaceSpan;
 
 public class HomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,11 +49,18 @@ public class HomeActivity extends LocalizationActivity
 
 
     @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.nav_view) NavigationView navigationView;
     private TextView mTitle;
+    private RadioButton radioButtonEn, radioButtonAr;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!getLanguage().equalsIgnoreCase("en")){
+            setLanguage("ar");
+        }
 
         // set bottom navigation
         int[] image = {R.drawable.home_icon,
@@ -53,8 +69,6 @@ public class HomeActivity extends LocalizationActivity
                 R.drawable.news_other_services};
         int[] color = {ContextCompat.getColor(this, R.color.firstColor), ContextCompat.getColor(this, R.color.secondColor),
                 ContextCompat.getColor(this, R.color.thirdColor), ContextCompat.getColor(this, R.color.fourthColor)};
-
-        setLanguage("ar");
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
@@ -67,9 +81,49 @@ public class HomeActivity extends LocalizationActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
+        navigationView.setNavigationItemSelectedListener(this);
+        changeFontOfNavigation();
+        // if user is authenticated change menu :)
+        if (true) {
+            navigationView.getMenu().clear(); //clear old inflated items.
+            navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_user);
+            changeFontOfNavigation();
+        }
+
+
+        // access components inside header
+        // to access item inside header
+        View header = navigationView.getHeaderView(0);
+        radioButtonEn = (RadioButton) header.findViewById(R.id.button21);
+        radioButtonAr = (RadioButton) header.findViewById(R.id.button22);
+        // change font
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/thin.ttf");
+        radioButtonAr.setTypeface(font);
+        radioButtonEn.setTypeface(font);
+        if(getLanguage().equalsIgnoreCase("en")){
+            radioButtonEn.setChecked(true);
+        }else {
+            radioButtonAr.setChecked(true);
+        }
+        radioButtonEn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    setLanguage("en");
+                    changeFirstTimeOpenAppState();
+                }
+            }
+        });
+        radioButtonAr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    setLanguage("ar");
+                    changeFirstTimeOpenAppState();
+                }
+            }
+        });
 
         // this section for bottom navigation
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigation);
@@ -151,13 +205,23 @@ public class HomeActivity extends LocalizationActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.login) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.register) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.about) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.contact) {
+
+        }else if (id == R.id.my_profile) {
+
+        }else if (id == R.id.inbox) {
+
+        }else if (id == R.id.sent_mail) {
+
+        }else if (id == R.id.sign_out) {
+
+        }else if (id == R.id.favorite) {
 
         }
 
@@ -176,9 +240,9 @@ public class HomeActivity extends LocalizationActivity
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
+
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
-
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
@@ -202,8 +266,8 @@ public class HomeActivity extends LocalizationActivity
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-    }
 
+    }
     private void changeToolbarTitlePrograming(){
         bottomNavigationView.setOnBottomNavigationItemClickListener(new OnBottomNavigationItemClickListener() {
             @Override
@@ -243,5 +307,34 @@ public class HomeActivity extends LocalizationActivity
         });
     }
 
+    //change font of drawer
+    private void changeFontOfNavigation(){
+        Menu m = navigationView.getMenu();
+        for (int i=0;i<m.size();i++) {
+            MenuItem mi = m.getItem(i);
 
+            //for aapplying a font to subMenu ...
+            SubMenu subMenu = mi.getSubMenu();
+            if (subMenu!=null && subMenu.size() >0 ) {
+                for (int j=0; j <subMenu.size();j++) {
+                    MenuItem subMenuItem = subMenu.getItem(j);
+                    applyFontToMenuItem(subMenuItem);
+                }
+            }
+
+            //the method we have create in activity
+            applyFontToMenuItem(mi);
+        }
+    }
+
+    private void applyFontToMenuItem(MenuItem mi) {
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/thin.ttf");
+        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mi.setTitle(mNewTitle);
+    }
+
+    private void changeFirstTimeOpenAppState(){
+        new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_FIRST_TIME_OPEN_APP_STATE, 1);
+    }
 }

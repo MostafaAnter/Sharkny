@@ -4,21 +4,21 @@
     <group android:checkableBehavior="single"
         android:id="@+id/group1">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/login"
+            android:icon="@drawable/ic_lock"
+            android:title="@string/drawer_menu_login" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/register"
+            android:icon="@drawable/register_ic"
+            android:title="@string/drawer_menu_register" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/about"
+            android:icon="@drawable/about_ic"
+            android:title="@string/drawer_menu_about" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/contact"
+            android:icon="@drawable/contact_ic"
+            android:title="@string/drawer_menu_contact_us" />
     </group>
 
 </menu>
