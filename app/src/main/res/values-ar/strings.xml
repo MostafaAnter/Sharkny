@@ -22,4 +22,9 @@
     <string name="drawer_menu_register">التسجيل</string>
     <string name="language_arabic">عربي</string>
     <string name="language_english">إنجليزي</string>
+    <string name="Deals">الصفقات</string>
+    <string name="new_ideas">الأفكار الجديدة</string>
+    <string name="stand_projects">المشاريع القائمة</string>
+    <string name="company">شركات</string>
+    <string name="personally">شخصى</string>
 </resources>

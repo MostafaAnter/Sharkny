@@ -2,8 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    android:gravity="top">
 
+    <RelativeLayout
+        android:id="@+id/relative1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:minHeight="40dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center">
+
+        <info.hoang8f.android.segmented.SegmentedGroup
+            android:id="@+id/segmented2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal"
+            segmentedgroup:sc_border_width="1dp"
+            segmentedgroup:sc_corner_radius="10dp"
+            segmentedgroup:sc_tint_color="@color/colorAccent"
+            segmentedgroup:sc_unchecked_tint_color="@color/colorPrimary"
+            segmentedgroup:sc_checked_text_color="@color/colorPrimary">
+
+            <RadioButton
+                android:id="@+id/button21"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/company"
+                style="@style/RadioButton" />
+
+            <RadioButton
+                android:id="@+id/button22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/personally"
+                style="@style/RadioButton" />
+        </info.hoang8f.android.segmented.SegmentedGroup>
+
+    </RelativeLayout>
     <include layout="@layout/forcast_item"/>
 
 

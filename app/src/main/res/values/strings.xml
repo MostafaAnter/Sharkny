@@ -37,4 +37,9 @@
     <string name="drawer_authenticated_favorite">Favorites</string>
     <string name="language_english">English</string>
     <string name="language_arabic">Arabic</string>
+    <string name="stand_projects">Stand Projects</string>
+    <string name="new_ideas">New Ideas</string>
+    <string name="Deals">Deals</string>
+    <string name="company">Companies</string>
+    <string name="personally">Personally</string>
 </resources>
