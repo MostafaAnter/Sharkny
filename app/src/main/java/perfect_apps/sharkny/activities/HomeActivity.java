@@ -1,5 +1,6 @@
 package perfect_apps.sharkny.activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -336,5 +337,11 @@ public class HomeActivity extends LocalizationActivity
 
     private void changeFirstTimeOpenAppState(){
         new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_FIRST_TIME_OPEN_APP_STATE, 1);
+    }
+
+    @Override
+    public void onAfterLocaleChanged() {
+        super.onAfterLocaleChanged();
+        startActivity(new Intent(this, SplashActivity.class));
     }
 }

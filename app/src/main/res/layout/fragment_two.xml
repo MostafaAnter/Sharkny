@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:minHeight="40dp"
+        android:minHeight="45dp"
         android:background="@color/colorPrimary"
         android:gravity="center">
 
@@ -17,8 +17,8 @@
             android:id="@+id/segmented2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layoutDirection="ltr"
+            android:layout_margin="10dp"
             android:orientation="horizontal"
             segmentedgroup:sc_border_width="1dp"
             segmentedgroup:sc_corner_radius="10dp"
@@ -34,7 +34,7 @@
                 android:text="@string/stand_projects"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="12sp"
+                android:textSize="9sp"
                 style="@style/RadioButton" />
 
             <RadioButton
@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="12sp"
+                android:textSize="9sp"
                 android:text="@string/new_ideas"
                 style="@style/RadioButton" />
             <RadioButton
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:textSize="12sp"
+                android:textSize="9sp"
                 android:maxLines="1"
                 android:text="@string/Deals"
                 style="@style/RadioButton" />
@@ -62,7 +62,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="12sp"
+                android:textSize="9sp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/advantages"
