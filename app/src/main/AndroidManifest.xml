@@ -126,6 +126,55 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="perfect_apps.sharkny.activities.AccountProjectActivity" />
         </activity>
+        <activity
+            android:name=".activities.FavoriteActivity"
+            android:label="@string/title_activity_favorite"
+            android:parentActivityName=".activities.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.InboxActivity"
+            android:label="@string/title_activity_inbox"
+            android:parentActivityName=".activities.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SentMailActivity"
+            android:label="@string/title_activity_sent_mail"
+            android:parentActivityName=".activities.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.MessageDetailActivity"
+            android:label="@string/title_activity_message_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".activities.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:parentActivityName=".activities.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

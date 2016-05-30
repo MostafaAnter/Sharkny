@@ -60,4 +60,10 @@
     <string name="title_activity_add_finance">Add Finance</string>
     <string name="title_activity_add_serveice">Add Serveice</string>
     <string name="title_activity_add_project">Add Project</string>
+    <string name="title_activity_favorite">Favorite</string>
+    <string name="title_activity_inbox" translatable="false">InboxActivity</string>
+    <string name="title_activity_sent_mail" translatable="false">SentMailActivity</string>
+    <string name="title_activity_message_detail">Message</string>
+    <string name="title_activity_search">Search</string>
+    <string name="title_activity_register" translatable="false">RegisterActivity</string>
 </resources>

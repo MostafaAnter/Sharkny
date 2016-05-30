@@ -194,6 +194,8 @@ public class HomeActivity extends LocalizationActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
+            startActivity(new Intent(HomeActivity.this, SearchActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
             return true;
         }
 
@@ -212,6 +214,8 @@ public class HomeActivity extends LocalizationActivity
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         } else if (id == R.id.register) {
+            startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.about) {
 
@@ -229,7 +233,8 @@ public class HomeActivity extends LocalizationActivity
             navigationView.inflateMenu(R.menu.activity_home_drawer);
             changeFontOfNavigation();
         }else if (id == R.id.favorite) {
-
+            startActivity(new Intent(HomeActivity.this, FavoriteActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -39,4 +39,7 @@
     <string name="title_activity_add_finance">إضافة تمويل</string>
     <string name="title_activity_add_project">إضافة مشروع</string>
     <string name="title_activity_add_serveice">إضافة خدمة</string>
+    <string name="title_activity_favorite">المفضلة</string>
+    <string name="title_activity_message_detail">رسالة</string>
+    <string name="title_activity_search">البحث</string>
 </resources>

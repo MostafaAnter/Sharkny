@@ -404,7 +404,9 @@ public class LoginActivity extends LocalizationActivity implements LoaderCallbac
             showProgress(false);
 
             if (success) {
-                finish();
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
