@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="perfect_apps.sharkny">
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -75,6 +80,51 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="perfect_apps.sharkny.activities.MyAccountActivity" />
+        </activity>
+        <activity
+            android:name=".activities.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".activities.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AddAdvantageActivity"
+            android:label="@string/title_activity_add_advantage"
+            android:parentActivityName=".activities.AccountAdvanageActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.AccountAdvanageActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AddFinanceActivity"
+            android:label="@string/title_activity_add_finance"
+            android:parentActivityName=".activities.AccountFinanceActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.AccountFinanceActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AddServeiceActivity"
+            android:label="@string/title_activity_add_serveice"
+            android:parentActivityName=".activities.AccountServicesActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.AccountServicesActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AddProjectActivity"
+            android:label="@string/title_activity_add_project"
+            android:parentActivityName=".activities.AccountProjectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.AccountProjectActivity" />
         </activity>
     </application>
 

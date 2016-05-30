@@ -38,6 +38,7 @@ public class MyAccountActivity extends LocalizationActivity {
         ButterKnife.bind(this);
         setToolbar();
         changeTextFont();
+        setOnViewClick();
 
     }
 
@@ -97,6 +98,48 @@ public class MyAccountActivity extends LocalizationActivity {
         textView3.setTypeface(sharknyFont);
         textView4.setTypeface(sharknyFont);
         textView5.setTypeface(sharknyFont);
+    }
+
+    private void setOnViewClick(){
+        linearLayout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyAccountActivity.this, AccountProfileActivity.class));
+                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+            }
+        });
+
+        linearLayout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyAccountActivity.this, AccountFinanceActivity.class));
+                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+            }
+        });
+
+        linearLayout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyAccountActivity.this, AccountAdvanageActivity.class));
+                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+            }
+        });
+
+        linearLayout4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyAccountActivity.this, AccountServicesActivity.class));
+                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+            }
+        });
+
+        linearLayout5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyAccountActivity.this, AccountProjectActivity.class));
+                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+            }
+        });
     }
 
 }

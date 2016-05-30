@@ -8,21 +8,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 
 import perfect_apps.sharkny.R;
 
-public class AccountServicesActivity extends LocalizationActivity {
+public class AddProjectActivity extends LocalizationActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_services);
+        setContentView(R.layout.activity_add_project);
         setToolbar();
-
     }
 
     private void setToolbar() {
@@ -32,7 +30,7 @@ public class AccountServicesActivity extends LocalizationActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AccountServicesActivity.this, MyAccountActivity.class)
+                startActivity(new Intent(AddProjectActivity.this, AccountProjectActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                 overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
                 finish();
@@ -60,19 +58,6 @@ public class AccountServicesActivity extends LocalizationActivity {
         }
         mTitle.setTypeface(sharknyFont);
 
-        /*
-        * change action of image in bar
-        * */
-        ImageView adds = (ImageView) toolbar.findViewById(R.id.adds);
-        adds.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AccountServicesActivity.this, AddServeiceActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
-            }
-        });
-
 
     }
 
@@ -80,10 +65,9 @@ public class AccountServicesActivity extends LocalizationActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(AccountServicesActivity.this, MyAccountActivity.class)
+        startActivity(new Intent(AddProjectActivity.this, AccountProjectActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
         finish();
     }
-
 }

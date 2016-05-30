@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="perfect_apps.sharkny.activities.AccountFinanceActivity">
+    tools:context="perfect_apps.sharkny.activities.AddServeiceActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,21 +22,12 @@
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/finance"
+                android:text="@string/title_activity_add_serveice"
                 android:textColor="#000000"
                 style="?android:attr/textAppearanceLarge" />
-            <ImageView
-                android:id="@+id/adds"
-                android:contentDescription="@null"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:src="@drawable/add_button"
-                android:padding="10dp"/>
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_account_finance" />
-
+    <include layout="@layout/content_add_serveice" />
 </android.support.design.widget.CoordinatorLayout>

@@ -42,4 +42,22 @@
     <string name="Deals">Deals</string>
     <string name="company">Companies</string>
     <string name="personally">Personally</string>
+    <string name="title_activity_login" translatable="false">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in </string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale" translatable="false">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_add_advantage">Add Advantages</string>
+    <string name="title_activity_add_finance">Add Finance</string>
+    <string name="title_activity_add_serveice">Add Serveice</string>
+    <string name="title_activity_add_project">Add Project</string>
 </resources>

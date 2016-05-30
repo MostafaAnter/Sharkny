@@ -27,4 +27,16 @@
     <string name="stand_projects">المشاريع القائمة</string>
     <string name="company">شركات</string>
     <string name="personally">شخصى</string>
+    <string name="action_sign_in">دخول</string>
+    <string name="action_sign_in_short">دخول</string>
+    <string name="error_field_required">هذه الخانة مطلوبة</string>
+    <string name="error_incorrect_password">خطأ</string>
+    <string name="error_invalid_email">غير صحيح</string>
+    <string name="error_invalid_password">الباسورد قصير</string>
+    <string name="prompt_password">الباسورد</string>
+    <string name="prompt_email">الإيميل</string>
+    <string name="title_activity_add_advantage">إضافة امتياز</string>
+    <string name="title_activity_add_finance">إضافة تمويل</string>
+    <string name="title_activity_add_project">إضافة مشروع</string>
+    <string name="title_activity_add_serveice">إضافة خدمة</string>
 </resources>

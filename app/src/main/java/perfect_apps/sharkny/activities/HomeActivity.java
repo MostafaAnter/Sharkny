@@ -86,7 +86,7 @@ public class HomeActivity extends LocalizationActivity
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
         // if user is authenticated change menu :)
-        if (true) {
+        if (isAuthenticated()) {
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_user);
             changeFontOfNavigation();
@@ -208,6 +208,9 @@ public class HomeActivity extends LocalizationActivity
 
         if (id == R.id.login) {
             // Handle the camera action
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         } else if (id == R.id.register) {
 
         } else if (id == R.id.about) {
@@ -221,7 +224,10 @@ public class HomeActivity extends LocalizationActivity
         }else if (id == R.id.sent_mail) {
 
         }else if (id == R.id.sign_out) {
-
+            signOut();
+            navigationView.getMenu().clear(); //clear old inflated items.
+            navigationView.inflateMenu(R.menu.activity_home_drawer);
+            changeFontOfNavigation();
         }else if (id == R.id.favorite) {
 
         }
@@ -343,5 +349,18 @@ public class HomeActivity extends LocalizationActivity
     public void onAfterLocaleChanged() {
         super.onAfterLocaleChanged();
         startActivity(new Intent(this, SplashActivity.class));
+    }
+
+    private boolean isAuthenticated(){
+        int authenticatedState = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+
+        if ((authenticatedState == 1)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void signOut(){
+        new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_AUTHENTICATION_STATE, 0);
     }
 }
