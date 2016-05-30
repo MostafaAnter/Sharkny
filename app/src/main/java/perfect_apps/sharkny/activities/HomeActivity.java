@@ -224,8 +224,12 @@ public class HomeActivity extends LocalizationActivity
         }else if (id == R.id.my_profile) {
 
         }else if (id == R.id.inbox) {
+            startActivity(new Intent(HomeActivity.this, InboxActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         }else if (id == R.id.sent_mail) {
+            startActivity(new Intent(HomeActivity.this, SentMailActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         }else if (id == R.id.sign_out) {
             signOut();
