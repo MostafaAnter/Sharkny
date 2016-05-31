@@ -25,6 +25,10 @@ import perfect_apps.sharkny.R;
 public class SearchActivity extends LocalizationActivity {
 
     @Bind(R.id.spinner1) Spinner spinner1;
+    @Bind(R.id.spinner2) Spinner spinner2;
+    @Bind(R.id.spinner3) Spinner spinner3;
+    @Bind(R.id.spinner4) Spinner spinner4;
+    @Bind(R.id.spinner5) Spinner spinner5;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,11 @@ public class SearchActivity extends LocalizationActivity {
 
         setToolbar();
         populateSpinner1();
+        populateSpinner2();
+        populateSpinner3();
+        populateSpinner4();
+        populateSpinner5();
+
 
     }
 
@@ -125,6 +134,254 @@ public class SearchActivity extends LocalizationActivity {
         spinner1.setAdapter(spinnerArrayAdapter);
 
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                // If user change the default selection
+                // First item is disable and it is used for hint
+                if(position > 0){
+                    // Notify the selected item text
+                    Toast.makeText
+                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    private void populateSpinner2(){
+
+        // you will just change R.array.search & spinner1 reference :)
+
+        final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.search2));
+        // Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.spinner_item, plantsList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner2.setAdapter(spinnerArrayAdapter);
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                // If user change the default selection
+                // First item is disable and it is used for hint
+                if(position > 0){
+                    // Notify the selected item text
+                    Toast.makeText
+                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    private void populateSpinner3(){
+
+        // you will just change R.array.search & spinner1 reference :)
+
+        final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.search3));
+        // Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.spinner_item, plantsList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner3.setAdapter(spinnerArrayAdapter);
+
+        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                // If user change the default selection
+                // First item is disable and it is used for hint
+                if(position > 0){
+                    // Notify the selected item text
+                    Toast.makeText
+                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    private void populateSpinner4(){
+
+        // you will just change R.array.search & spinner1 reference :)
+
+        final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.search4));
+        // Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.spinner_item, plantsList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner4.setAdapter(spinnerArrayAdapter);
+
+        spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                // If user change the default selection
+                // First item is disable and it is used for hint
+                if(position > 0){
+                    // Notify the selected item text
+                    Toast.makeText
+                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    private void populateSpinner5(){
+
+        // you will just change R.array.search & spinner1 reference :)
+
+        final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.search5));
+        // Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.spinner_item, plantsList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner5.setAdapter(spinnerArrayAdapter);
+
+        spinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);

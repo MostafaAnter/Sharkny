@@ -26,8 +26,8 @@
     <string name="title_activity_account_advanage" translatable="false">AccountAdvanageActivity</string>
     <string name="title_activity_account_project" translatable="false">AccountProjectActivity</string>
     <string name="title_activity_account_services" translatable="false">AccountServicesActivity</string>
-    <string name="drawer_menu_login">Login</string>
-    <string name="drawer_menu_register">Sign up</string>
+    <string name="drawer_menu_login">SignIn</string>
+    <string name="drawer_menu_register">Register</string>
     <string name="drawer_menu_about">About Sharkny</string>
     <string name="drawer_menu_contact_us">Contact us</string>
     <string name="drawer_authenticated_my_profile">Profile</string>
@@ -45,7 +45,7 @@
     <string name="title_activity_login" translatable="false">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">UserName</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in </string>
     <string name="action_sign_in_short">Sign in</string>
@@ -75,6 +75,24 @@
         <item>Finance</item>
         <item>Franchise</item>
         <item>Other Services</item>
+    </string-array>
+
+    <string-array name="search2">
+        <item>Project Type</item>
+    </string-array>
+
+    <string-array name="search3">
+        <item>Country</item>
+    </string-array>
+
+    <string-array name="search4">
+        <item>Finance Type</item>
+        <item>Person</item>
+        <item>Companies</item>
+    </string-array>
+
+    <string-array name="search5">
+        <item>Franchise Type</item>
     </string-array>
 
 </resources>

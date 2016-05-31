@@ -34,7 +34,7 @@
     <string name="error_invalid_email">غير صحيح</string>
     <string name="error_invalid_password">الباسورد قصير</string>
     <string name="prompt_password">الباسورد</string>
-    <string name="prompt_email">الإيميل</string>
+    <string name="prompt_email">أسم المستخدم</string>
     <string name="title_activity_add_advantage">إضافة امتياز</string>
     <string name="title_activity_add_finance">إضافة تمويل</string>
     <string name="title_activity_add_project">إضافة مشروع</string>
@@ -51,6 +51,24 @@
         <item>التمويل</item>
         <item>الإمتيازات</item>
         <item>خدمات أخرى</item>
+    </string-array>
+
+    <string-array name="search2">
+        <item>نوع المشروع</item>
+    </string-array>
+
+    <string-array name="search3">
+        <item>الدولة</item>
+    </string-array>
+
+    <string-array name="search4">
+        <item>نوع التمويل</item>
+        <item>شخصى</item>
+        <item>شركات</item>
+    </string-array>
+
+    <string-array name="search5">
+        <item>نوع الامتيازات</item>
     </string-array>
 
 </resources>
