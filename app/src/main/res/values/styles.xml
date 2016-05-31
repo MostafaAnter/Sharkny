@@ -22,4 +22,13 @@
         <item name="color">@android:color/black</item>
     </style>
 
+    <style name="myTheme.actionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">#000000</item>
+    </style>
+
+    <style name="myTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="actionBarTheme">@style/myTheme.actionBar</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>
