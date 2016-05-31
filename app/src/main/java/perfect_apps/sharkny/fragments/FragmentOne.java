@@ -37,6 +37,9 @@ public class FragmentOne extends Fragment {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         ButterKnife.bind(this, view);
 
+        // hide search view
+
+
         changeTypeFace();
         setButtonsClick();
         return view;

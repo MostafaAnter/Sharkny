@@ -14,13 +14,13 @@
 
     <string name="home_button1">Deals\n1</string>
     <string name="home_button2">Current Projects\n4</string>
-    <string name="home_button3">Advantages\n3</string>
+    <string name="home_button3">Franchise\n3</string>
     <string name="home_button4">Finance\n3</string>
     <string name="home_button5">My Account</string>
     <string name="home_button6">Other Services\n2</string>
     <string name="title_activity_my_account" translatable="false">MyAccountActivity</string>
     <string name="profile">My Profile</string>
-    <string name="advantages">Advantages</string>
+    <string name="advantages">Franchise</string>
     <string name="title_activity_account_profile" translatable="false">AccountProfileActivity</string>
     <string name="title_activity_account_finance" translatable="false">AccountFinanceActivity</string>
     <string name="title_activity_account_advanage" translatable="false">AccountAdvanageActivity</string>
@@ -56,7 +56,7 @@
     <string name="permission_rationale" translatable="false">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_add_advantage">Add Advantages</string>
+    <string name="title_activity_add_advantage">Add Franchise</string>
     <string name="title_activity_add_finance">Add Finance</string>
     <string name="title_activity_add_serveice">Add Serveice</string>
     <string name="title_activity_add_project">Add Project</string>
@@ -66,4 +66,15 @@
     <string name="title_activity_message_detail">Message</string>
     <string name="title_activity_search">Search</string>
     <string name="title_activity_register" translatable="false">RegisterActivity</string>
+    <string name="search_about">Search About</string>
+
+    <string-array name="search1">
+        <item>Section</item>
+        <item>All</item>
+        <item>Projects</item>
+        <item>Finance</item>
+        <item>Franchise</item>
+        <item>Other Services</item>
+    </string-array>
+
 </resources>

@@ -42,4 +42,15 @@
     <string name="title_activity_favorite">المفضلة</string>
     <string name="title_activity_message_detail">رسالة</string>
     <string name="title_activity_search">البحث</string>
+    <string name="search_about">البحث عن</string>
+
+    <string-array name="search1">
+        <item>القسم</item>
+        <item>الكل</item>
+        <item>المشاريع</item>
+        <item>التمويل</item>
+        <item>الإمتيازات</item>
+        <item>خدمات أخرى</item>
+    </string-array>
+
 </resources>
