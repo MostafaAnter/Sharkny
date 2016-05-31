@@ -54,7 +54,7 @@ public class AddServeiceActivity extends LocalizationActivity {
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         Typeface sharknyFont;
         if (getLanguage().equalsIgnoreCase("en")){
-            sharknyFont = Typeface.createFromAsset(getAssets(), "fonts/daisy2.ttf");
+            sharknyFont = Typeface.createFromAsset(getAssets(), "fonts/daisy.ttf");
         }else {
             sharknyFont = Typeface.createFromAsset(getAssets(), "fonts/daisy.ttf");
         }

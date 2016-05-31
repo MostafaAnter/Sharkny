@@ -70,5 +70,6 @@
     <string-array name="search5">
         <item>نوع الامتيازات</item>
     </string-array>
+    <string name="select_profile_pic">أختر صورة الملف الشخصى</string>
 
 </resources>

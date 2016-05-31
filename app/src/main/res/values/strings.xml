@@ -67,6 +67,7 @@
     <string name="title_activity_search">Search</string>
     <string name="title_activity_register" translatable="false">RegisterActivity</string>
     <string name="search_about">Search About</string>
+    <string name="select_profile_pic">Select Profile Picture</string>
 
     <string-array name="search1">
         <item>Section</item>
