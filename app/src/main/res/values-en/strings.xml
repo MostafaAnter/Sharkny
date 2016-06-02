@@ -103,6 +103,9 @@
     <string name="male">Male</string>
     <string name="mobile">Mobile</string>
     <string name="save">Save</string>
+    <string name="details">Details</string>
+    <string name="investment_value">Investment Value</string>
+    <string name="safeguards">Safeguards</string>
 
 
 </resources>

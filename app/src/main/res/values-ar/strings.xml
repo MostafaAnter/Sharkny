@@ -101,5 +101,8 @@
     <string name="male">ذكر</string>
     <string name="mobile">تليفون</string>
     <string name="save">حفظ</string>
+    <string name="details">التفاصيل</string>
+    <string name="investment_value">قيمة الإستثمار</string>
+    <string name="safeguards">الضمانات</string>
 
 </resources>
