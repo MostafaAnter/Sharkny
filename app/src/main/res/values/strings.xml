@@ -68,6 +68,16 @@
     <string name="title_activity_register" translatable="false">RegisterActivity</string>
     <string name="search_about">Search About</string>
     <string name="select_profile_pic">Select Profile Picture</string>
+    <string name="user_name">User Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="mobile">Mobile</string>
+    <string name="job">Job</string>
+    <string name="age">Age</string>
+    <string name="address">Address</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
     <string-array name="search1">
         <item>Section</item>
@@ -94,6 +104,10 @@
 
     <string-array name="search5">
         <item>Franchise Type</item>
+    </string-array>
+
+    <string-array name="national">
+        <item>National</item>
     </string-array>
 
 </resources>

@@ -70,6 +70,19 @@
     <string-array name="search5">
         <item>نوع الامتيازات</item>
     </string-array>
+    <string-array name="national">
+        <item>الجنسية</item>
+    </string-array>
     <string name="select_profile_pic">أختر صورة الملف الشخصى</string>
+    <string name="user_name">أسم المستخدم</string>
+    <string name="confirm_password">تأكيد الباسورد</string>
+    <string name="full_name">الأسم بالكامل</string>
+    <string name="email">الإيميل</string>
+    <string name="address">العنوان</string>
+    <string name="age">العمر</string>
+    <string name="female">أنثى</string>
+    <string name="job">الوظيفة</string>
+    <string name="male">ذكر</string>
+    <string name="mobile">تليفون</string>
 
 </resources>
