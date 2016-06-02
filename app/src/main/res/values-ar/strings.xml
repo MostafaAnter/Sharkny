@@ -133,4 +133,34 @@
         <item>item4</item>
     </string-array>
 
+    <!-- for add project -->
+    <string-array name="add_project1">
+        <item>تاريخ البداية</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+    <string-array name="add_project2">
+        <item>تاريخ النهاية</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+    <string-array name="add_project3">
+        <item>نوع المشروع</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+    <string-array name="add_project4">
+        <item>مجال المشروع</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+
 </resources>
