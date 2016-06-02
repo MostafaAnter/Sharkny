@@ -110,4 +110,27 @@
     <string name="select_service_pic">أختر صورة الخدمة</string>
     <string name="select_project_pic">أختر صورة المشروع</string>
 
+    <!-- for add advantage -->
+    <string-array name="add_advantage1">
+        <item>نوع الأمتياز</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+    <string-array name="add_advantage2">
+        <item>مجال الأمتياز</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+    <string-array name="add_advantage3">
+        <item>الدولة المقيم بها</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+
 </resources>

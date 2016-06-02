@@ -112,5 +112,29 @@
     <string name="select_project_pic">Select Project Picture</string>
     <string name="select_service_pic">Select Service Picture</string>
 
+    <!-- for add advantage -->
+    <string-array name="add_advantage1">
+        <item>Franchise Type</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+    <string-array name="add_advantage2">
+        <item>Franchise Field</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+    <string-array name="add_advantage3">
+        <item>Country That Live In</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+
+
 
 </resources>
