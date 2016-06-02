@@ -198,6 +198,8 @@ public class HomeActivity extends LocalizationActivity
         } else if (id == R.id.contact) {
 
         }else if (id == R.id.my_profile) {
+            startActivity(new Intent(HomeActivity.this, AccountProfileActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         }else if (id == R.id.inbox) {
             startActivity(new Intent(HomeActivity.this, InboxActivity.class));

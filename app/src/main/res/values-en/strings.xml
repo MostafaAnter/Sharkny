@@ -55,10 +55,18 @@
 
     <string-array name="search2">
         <item>Project Type</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
 
     <string-array name="search3">
         <item>Country</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
 
     <string-array name="search4">
@@ -69,10 +77,18 @@
 
     <string-array name="search5">
         <item>Franchise Type</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
 
     <string-array name="national">
         <item>National</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
 
     <string name="select_profile_pic">Select Profile Picture</string>
@@ -86,6 +102,7 @@
     <string name="job">Job</string>
     <string name="male">Male</string>
     <string name="mobile">Mobile</string>
+    <string name="save">Save</string>
 
 
 </resources>

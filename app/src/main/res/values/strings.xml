@@ -78,6 +78,7 @@
     <string name="address">Address</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="save">Save</string>
 
     <string-array name="search1">
         <item>Section</item>
@@ -90,10 +91,19 @@
 
     <string-array name="search2">
         <item>Project Type</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+
     </string-array>
 
     <string-array name="search3">
         <item>Country</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
 
     <string-array name="search4">
@@ -104,10 +114,18 @@
 
     <string-array name="search5">
         <item>Franchise Type</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
 
     <string-array name="national">
         <item>National</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
 
 </resources>

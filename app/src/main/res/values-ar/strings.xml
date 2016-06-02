@@ -55,10 +55,18 @@
 
     <string-array name="search2">
         <item>نوع المشروع</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
 
     <string-array name="search3">
         <item>الدولة</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
 
     <string-array name="search4">
@@ -69,9 +77,17 @@
 
     <string-array name="search5">
         <item>نوع الامتيازات</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
     <string-array name="national">
         <item>الجنسية</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
     </string-array>
     <string name="select_profile_pic">أختر صورة الملف الشخصى</string>
     <string name="user_name">أسم المستخدم</string>
@@ -84,5 +100,6 @@
     <string name="job">الوظيفة</string>
     <string name="male">ذكر</string>
     <string name="mobile">تليفون</string>
+    <string name="save">حفظ</string>
 
 </resources>
