@@ -197,5 +197,8 @@
         <item>item3</item>
         <item>item4</item>
     </string-array>
+    <string name="title_activity_detail" translatable="false">DetailActivity</string>
+    <string name="let_message">Sent Message</string>
+    <string name="idea_owner">Idea Owner</string>
 
 </resources>

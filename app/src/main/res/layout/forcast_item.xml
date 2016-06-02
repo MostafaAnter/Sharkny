@@ -22,12 +22,14 @@
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/mainImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 android:src="@drawable/test_image_b" />
 
             <ImageView
+                android:id="@+id/certifiedImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/verified_ic" />
@@ -44,9 +46,11 @@
             android:padding="4dp">
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="hi how are uhi how are youhi how are you"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@android:color/white" />
 
         </LinearLayout>
@@ -65,9 +69,11 @@
             android:padding="4dp">
 
             <TextView
+                android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="hi how are e youhi how are youhi how are you"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@android:color/white" />
         </LinearLayout>
     </LinearLayout>

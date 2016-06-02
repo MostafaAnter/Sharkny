@@ -2,6 +2,7 @@ package perfect_apps.sharkny.activities;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -196,6 +197,7 @@ public class HomeActivity extends LocalizationActivity
         } else if (id == R.id.about) {
 
         } else if (id == R.id.contact) {
+            sendFeedBack();
 
         }else if (id == R.id.my_profile) {
             startActivity(new Intent(HomeActivity.this, AccountProfileActivity.class));
@@ -349,5 +351,16 @@ public class HomeActivity extends LocalizationActivity
 
     private void signOut(){
         new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_AUTHENTICATION_STATE, 0);
+    }
+
+    private void sendFeedBack(){
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+        sendIntent.setType("plain/text");
+        sendIntent.setData(Uri.parse("support@sharkny.net"));
+        sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+        sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "support@sharkny.net" });
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "hello. this is a message sent from my Android app :-)");
+        startActivity(sendIntent);
     }
 }
