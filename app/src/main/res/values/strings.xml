@@ -85,6 +85,8 @@
     <string name="select_project_pic">Select Project Picture</string>
     <string name="select_service_pic">Select Service Picture</string>
     <string name="select_franchise_pic">Select Franchise Picture</string>
+    <string name="select_finance_pic">Select Finance Picture</string>
+    <string name="ratio_invest">Investment Ratio</string>
 
     <string-array name="search1">
         <item>Section</item>

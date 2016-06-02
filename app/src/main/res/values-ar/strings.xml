@@ -104,5 +104,10 @@
     <string name="details">التفاصيل</string>
     <string name="investment_value">قيمة الإستثمار</string>
     <string name="safeguards">الضمانات</string>
+    <string name="ratio_invest">نسبة الإستثمار</string>
+    <string name="select_finance_pic">أختر صورة التمويل</string>
+    <string name="select_franchise_pic">أختر صورة الأمتياز</string>
+    <string name="select_service_pic">أختر صورة الخدمة</string>
+    <string name="select_project_pic">أختر صورة المشروع</string>
 
 </resources>
