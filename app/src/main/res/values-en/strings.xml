@@ -165,6 +165,15 @@
         <item>item4</item>
     </string-array>
 
+    <!-- for add finance -->
+    <string-array name="add_finance1">
+        <item>Finance Type</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+    </string-array>
+
 
 
 </resources>
