@@ -45,7 +45,6 @@ public class FavoriteActivity extends LocalizationActivity {
         // populate mDataSet
         mDataset = new ArrayList<>();
         setRecyclerViewAndSwipe();
-
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -127,6 +126,7 @@ public class FavoriteActivity extends LocalizationActivity {
         finish();
     }
 
+    // populate recycler and Swip
     @Override
     protected void onStart() {
         super.onStart();
