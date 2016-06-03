@@ -28,7 +28,7 @@ public class MessageViewAdapter extends RecyclerView.Adapter<MessageViewAdapter.
     private List<MessageModel> mDataSet;
 
     // manage enter animate
-    private static final int ANIMATED_ITEMS_COUNT = 5; // number of item that animated is 1
+    private static final int ANIMATED_ITEMS_COUNT = 2; // number of item that animated is 1
     private int lastAnimatedPosition = -1;
 
 

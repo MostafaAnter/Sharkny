@@ -26,7 +26,7 @@ public class MessageInboxViewAdapter extends RecyclerView.Adapter<MessageInboxVi
     private List<MessageModel> mDataSet;
 
     // manage enter animate
-    private static final int ANIMATED_ITEMS_COUNT = 5; // number of item that animated is 1
+    private static final int ANIMATED_ITEMS_COUNT = 2; // number of item that animated is 1
     private int lastAnimatedPosition = -1;
 
 
@@ -41,6 +41,7 @@ public class MessageInboxViewAdapter extends RecyclerView.Adapter<MessageInboxVi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.name) TextView userName;
         @Bind(R.id.message) TextView messageBody;
+        @Bind(R.id.answer) TextView answer;
 
         public ViewHolder(View v) {
             super(v);
@@ -52,6 +53,10 @@ public class MessageInboxViewAdapter extends RecyclerView.Adapter<MessageInboxVi
                     Log.d(TAG, "Element " + getPosition() + " clicked.");
                 }
             });
+        }
+
+        public TextView getAnswer() {
+            return answer;
         }
 
         public TextView getUserName() {
@@ -90,6 +95,8 @@ public class MessageInboxViewAdapter extends RecyclerView.Adapter<MessageInboxVi
         if (mDataSet.get(position).getMessageBody() != null) {
             viewHolder.getMessageBody().setText(mDataSet.get(position).getMessageBody());
         }
+
+        viewHolder.getAnswer().setText("رد");
 
 
     }
