@@ -15,6 +15,8 @@
     <color name="swipe_color_3">#0a80d1</color>
     <color name="swipe_color_4">#7CAF00</color>
 
+    <color name="messageBackground">#ededed</color>
+
 
 
     <attr name="sc_unchecked_tint_color" format="color" />
