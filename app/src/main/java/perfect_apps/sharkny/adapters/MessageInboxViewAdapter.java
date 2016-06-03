@@ -1,6 +1,8 @@
 package perfect_apps.sharkny.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.activities.MessageDetailActivity;
 import perfect_apps.sharkny.models.MessageModel;
 import perfect_apps.sharkny.utils.Utils;
 
@@ -51,6 +54,11 @@ public class MessageInboxViewAdapter extends RecyclerView.Adapter<MessageInboxVi
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "Element " + getPosition() + " clicked.");
+
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, MessageDetailActivity.class);
+                    context.startActivity(intent);
+                    ((FragmentActivity)context).overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
                 }
             });
         }
