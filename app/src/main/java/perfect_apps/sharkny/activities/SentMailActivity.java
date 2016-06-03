@@ -18,11 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import perfect_apps.sharkny.R;
-import perfect_apps.sharkny.adapters.ForecastViewAdapter;
 import perfect_apps.sharkny.adapters.MessageViewAdapter;
-import perfect_apps.sharkny.models.ForecastView;
 import perfect_apps.sharkny.models.MessageModel;
-import perfect_apps.sharkny.utils.DividerItemDecoration;
 
 public class SentMailActivity extends LocalizationActivity {
 
@@ -108,9 +105,6 @@ public class SentMailActivity extends LocalizationActivity {
         // set added recycler view
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
-        RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
-        mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mAdapter = new MessageViewAdapter(this, mDataset);
         mRecyclerView.setAdapter(mAdapter);

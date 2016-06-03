@@ -3,10 +3,7 @@ package perfect_apps.sharkny.activities;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,9 +19,7 @@ import java.util.List;
 
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.adapters.MessageInboxViewAdapter;
-import perfect_apps.sharkny.adapters.MessageViewAdapter;
 import perfect_apps.sharkny.models.MessageModel;
-import perfect_apps.sharkny.utils.DividerItemDecoration;
 
 public class InboxActivity extends LocalizationActivity {
 
@@ -108,9 +103,6 @@ public class InboxActivity extends LocalizationActivity {
         // set added recycler view
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
-        RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
-        mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mAdapter = new MessageInboxViewAdapter(this, mDataset);
         mRecyclerView.setAdapter(mAdapter);
