@@ -80,6 +80,7 @@ public class FragmentTwo extends Fragment {
         // Retrieve the SwipeRefreshLayout and ListView instances
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         // Set the color scheme of the SwipeRefreshLayout by providing 4 color resource ids
+        //noinspection ResourceAsColor
         mSwipeRefreshLayout.setColorScheme(
                 R.color.swipe_color_1, R.color.swipe_color_2,
                 R.color.swipe_color_3, R.color.swipe_color_4);
