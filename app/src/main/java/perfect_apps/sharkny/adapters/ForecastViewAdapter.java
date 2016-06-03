@@ -1,12 +1,13 @@
 package perfect_apps.sharkny.adapters;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.models.ForecastView;
+import perfect_apps.sharkny.utils.Utils;
 
 /**
  * Created by mostafa on 15/04/16.
@@ -24,12 +26,11 @@ public class ForecastViewAdapter extends RecyclerView.Adapter<ForecastViewAdapte
     private static Context mContext;
     private List<ForecastView> mDataSet;
 
-    /**
-     * Initialize the constructor of the Adapter.
-     *
-     * @param mDataSet String[] containing the data to populate views to be used by RecyclerView.
-     * @param mContext Context hold context
-     */
+    // manage enter animate
+    private static final int ANIMATED_ITEMS_COUNT = 2; // number of item that animated is 1
+    private int lastAnimatedPosition = -1;
+
+
     public ForecastViewAdapter(Context mContext, List<ForecastView> mDataSet) {
         this.mDataSet = mDataSet;
         this.mContext = mContext;
@@ -41,6 +42,9 @@ public class ForecastViewAdapter extends RecyclerView.Adapter<ForecastViewAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.title) TextView titelView;
         @Bind(R.id.description) TextView descriptionView;
+        @Bind(R.id.mainImage) ImageView imageView;
+        @Bind(R.id.certifiedImage) ImageView certifiedImage;
+
         public ViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
@@ -60,6 +64,22 @@ public class ForecastViewAdapter extends RecyclerView.Adapter<ForecastViewAdapte
             });
         }
 
+        public TextView getTitelView() {
+            return titelView;
+        }
+
+        public TextView getDescriptionView() {
+            return descriptionView;
+        }
+
+        public ImageView getImageView() {
+            return imageView;
+        }
+
+        public ImageView getCertifiedImage() {
+            return certifiedImage;
+        }
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -76,16 +96,43 @@ public class ForecastViewAdapter extends RecyclerView.Adapter<ForecastViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
+        // active animation when Enter
+        runEnterAnimation(viewHolder.itemView, position);
 
-        // Get element from your dataset at this position and replace the contents of the view
-        // with that element
-       // viewHolder.getTextView().setText(mDataSet[position]);
+        // set title if title not null
+        if (mDataSet.get(position).getTitle() != null) {
+            viewHolder.getTitelView().setText(mDataSet.get(position).getTitle());
+        }
+
+        // set description if description not null
+        if (mDataSet.get(position).getDescription() != null) {
+            viewHolder.getDescriptionView().setText(mDataSet.get(position).getDescription());
+        }
+
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mDataSet.size();
+    }
+
+    // manage enter animation function
+    private void runEnterAnimation(View view, int position) {
+        if (position >= ANIMATED_ITEMS_COUNT - 1) {
+            return;
+        }
+
+        if (position > lastAnimatedPosition) {
+            lastAnimatedPosition = position;
+            view.setTranslationY(Utils.getScreenHeight(mContext));
+            view.animate()
+                    .translationY(0)
+                    .setInterpolator(new DecelerateInterpolator(3.f))
+                    .setDuration(700)
+                    .start();
+        }
     }
 
 }

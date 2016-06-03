@@ -9,6 +9,12 @@
     <color name="thirdColor">#FF5722</color>
     <color name="fourthColor">#4CAF50</color>
 
+    <!-- swipe colors -->
+    <color name="swipe_color_1">#bf3026</color>
+    <color name="swipe_color_2">#99CC00</color>
+    <color name="swipe_color_3">#0a80d1</color>
+    <color name="swipe_color_4">#7CAF00</color>
+
 
 
     <attr name="sc_unchecked_tint_color" format="color" />

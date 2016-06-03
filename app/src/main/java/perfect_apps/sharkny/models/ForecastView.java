@@ -9,6 +9,17 @@ public class ForecastView {
     private int imageDrawable;
     private boolean certified;
 
+    public ForecastView(){
+
+    }
+
+    public ForecastView(String title, String description, int imageDrawable, boolean certified){
+        this.title = title;
+        this.description = description;
+        this.imageDrawable = imageDrawable;
+        this.certified = certified;
+    }
+
     public String getTitle() {
         return title;
     }
