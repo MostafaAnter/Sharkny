@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/mobile"
                 android:imeOptions="actionUnspecified"
-                android:inputType="textEmailAddress"
+                android:inputType="phone"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -203,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/age"
                 android:imeOptions="actionUnspecified"
-                android:inputType="textEmailAddress"
+                android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -281,7 +281,8 @@
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:text="@string/drawer_menu_register"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:onClick="register"/>
 
 
 

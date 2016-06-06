@@ -5,14 +5,20 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +44,7 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.parse.JsonParser;
+import perfect_apps.sharkny.utils.Utils;
 
 public class RegisterActivity extends LocalizationActivity {
 
@@ -50,6 +57,26 @@ public class RegisterActivity extends LocalizationActivity {
     @Bind(R.id.spinner1) Spinner spinner1;
     @Bind(R.id.spinner2) Spinner spinner2;
 
+    // edit text
+    @Bind(R.id.editText1) EditText userName;
+    @Bind(R.id.editText2) EditText password;
+    @Bind(R.id.editText3) EditText confirmPassword;
+    @Bind(R.id.text_input3) TextInputLayout textInputLayout;
+    @Bind(R.id.editText4) EditText fullName;
+    @Bind(R.id.editText5) EditText email;
+    @Bind(R.id.editText6) EditText mobile;
+    @Bind(R.id.editText7) EditText job;
+    @Bind(R.id.editText8) EditText age;
+    @Bind(R.id.editText9) EditText address;
+    // radio button
+    @Bind(R.id.button21) RadioButton radioButtonMale;
+    @Bind(R.id.button22) RadioButton radioButtonFemale;
+
+    private static int genderType;
+    private static Uri profileImagePath;
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +85,28 @@ public class RegisterActivity extends LocalizationActivity {
         ButterKnife.bind(this);
         setToolbar();
         setOnLinearSelected();
+        fetchUtilData();
+
+        confirmPassword.addTextChangedListener(new MyTextWatcher(confirmPassword));
+
+        radioButtonMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    genderType = 1;
+
+                }
+            }
+        });
+
+        radioButtonFemale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    genderType = 2;
+                }
+            }
+        });
     }
 
     private void setToolbar() {
@@ -131,6 +180,7 @@ public class RegisterActivity extends LocalizationActivity {
                         data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
                 Uri uri = Uri.fromFile(new File(photos.get(0)));
                 setSelectedPhotoInsideCircleShap(uri);
+                profileImagePath = uri;
             }
         }
     }
@@ -271,40 +321,119 @@ public class RegisterActivity extends LocalizationActivity {
 
    // fetch country and nationality
     private void fetchUtilData(){
-        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("Loading...");
-        pDialog.setCancelable(false);
-        pDialog.show();
-        String  tag_string_req = "string_req";
-        String url;
-        if (getLanguage().equalsIgnoreCase("en")){
-            url = "http://sharkny.net/en/api/countries/";
+        if (Utils.isOnline(RegisterActivity.this)) {
+            final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            pDialog.setTitleText("wait...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+            String  tag_string_req = "string_req";
+            String url;
+            if (getLanguage().equalsIgnoreCase("en")){
+                url = "http://sharkny.net/en/api/countries/";
+            }else {
+                url = "http://sharkny.net/en/api/countries/index";
+            }
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    populateSpinner1(JsonParser.parseJsonFeed(response));
+                    populateSpinner2(JsonParser.parseJsonFeed(response));
+                    pDialog.hide();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pDialog.hide();
+                }
+            });
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
         }else {
-            url = "http://sharkny.net/en/api/countries/index";
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please check your Network connection!")
+                    .show();
         }
-        StringRequest strReq = new StringRequest(Request.Method.GET,
-                url, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                populateSpinner1(JsonParser.parseJsonFeed(response));
-                populateSpinner2(JsonParser.parseJsonFeed(response));
-                pDialog.hide();
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                pDialog.hide();
-            }
-        });
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
 
+    private boolean attempRegister(){
+        if (!userName.getText().toString().trim().isEmpty()
+                && !password.getText().toString().trim().isEmpty()
+                && !fullName.getText().toString().trim().isEmpty()
+                && !email.getText().toString().trim().isEmpty()){
+            return true;
+
+        }else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please complete data!")
+                    .show();
+            return false;
+        }
+    }
 
 
+    public void register(View view) {
+        // check on required data
+        if (attempRegister()) {
+            if (Utils.isOnline(RegisterActivity.this)) {
+
+                // make request
+
+
+            }else {
+                // show error message
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("Please check your Network connection!")
+                        .show();
+            }
+        }
+    }
+
+    // for confirm password
+    private class MyTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.editText3:
+                    if (validateConFirmPassword()) {
+                        textInputLayout.setErrorEnabled(false);
+                    }else {
+                        textInputLayout.setError("not match");
+                    }
+                    break;
+            }
+        }
+    }
+
+    private boolean validateConFirmPassword(){
+        String passwordText = password.getText().toString().trim();
+        String confirmPas = confirmPassword.getText().toString().trim();
+
+        if (passwordText.equalsIgnoreCase(confirmPas)){
+            return true;
+        }
+        else return false;
+    }
 }
