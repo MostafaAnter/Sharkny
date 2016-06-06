@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,6 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
@@ -26,9 +32,12 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.app.AppController;
+import perfect_apps.sharkny.parse.JsonParser;
 
 public class RegisterActivity extends LocalizationActivity {
 
@@ -48,8 +57,6 @@ public class RegisterActivity extends LocalizationActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         setToolbar();
-        populateSpinner1();
-        populateSpinner2();
         setOnLinearSelected();
     }
 
@@ -138,14 +145,14 @@ public class RegisterActivity extends LocalizationActivity {
                 .into(circleImageView);
     }
 
-    private void populateSpinner1(){
+    private void populateSpinner1(List<String> mlist){
 
         // you will just change R.array.search & spinner1 reference :)
 
-        final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.national));
+        //final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.national));
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner_item, plantsList){
+                this,R.layout.spinner_item, mlist){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -200,14 +207,14 @@ public class RegisterActivity extends LocalizationActivity {
 
     }
 
-    private void populateSpinner2(){
+    private void populateSpinner2(List<String> mList){
 
         // you will just change R.array.search & spinner1 reference :)
 
-        final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.search3));
+       // final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.search3));
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner_item, plantsList){
+                this,R.layout.spinner_item, mList){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -259,6 +266,42 @@ public class RegisterActivity extends LocalizationActivity {
             }
         });
 
+
+    }
+
+   // fetch country and nationality
+    private void fetchUtilData(){
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Loading...");
+        pDialog.setCancelable(false);
+        pDialog.show();
+        String  tag_string_req = "string_req";
+        String url;
+        if (getLanguage().equalsIgnoreCase("en")){
+            url = "http://sharkny.net/en/api/countries/";
+        }else {
+            url = "http://sharkny.net/en/api/countries/index";
+        }
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                populateSpinner1(JsonParser.parseJsonFeed(response));
+                populateSpinner2(JsonParser.parseJsonFeed(response));
+                pDialog.hide();
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                pDialog.hide();
+            }
+        });
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
 

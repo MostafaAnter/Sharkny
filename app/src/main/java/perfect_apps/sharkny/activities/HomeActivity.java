@@ -26,6 +26,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
 
@@ -34,6 +36,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.fragments.FragmentFout;
 import perfect_apps.sharkny.fragments.FragmentOne;
@@ -54,6 +57,7 @@ public class HomeActivity extends LocalizationActivity
     @Bind(R.id.nav_view) NavigationView navigationView;
     private TextView mTitle;
     private RadioButton radioButtonEn, radioButtonAr;
+    private CircleImageView user_pic;
 
 
     @Override
@@ -97,6 +101,14 @@ public class HomeActivity extends LocalizationActivity
         // access components inside header
         // to access item inside header
         View header = navigationView.getHeaderView(0);
+        user_pic = (CircleImageView) header.findViewById(R.id.user_avatar);
+        if (isAuthenticated()){
+            Glide.with(HomeActivity.this).load(new SharknyPrefStore(this).getPreferenceValue(Constants.PREFERENCE_USER_IMAGE_URL))
+                    .thumbnail(0.5f)
+                    .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(user_pic);
+        }
         radioButtonEn = (RadioButton) header.findViewById(R.id.button21);
         radioButtonAr = (RadioButton) header.findViewById(R.id.button22);
         // change font
@@ -187,8 +199,7 @@ public class HomeActivity extends LocalizationActivity
 
         if (id == R.id.login) {
             // Handle the camera action
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         } else if (id == R.id.register) {
             startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
@@ -343,7 +354,7 @@ public class HomeActivity extends LocalizationActivity
     private boolean isAuthenticated(){
         int authenticatedState = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
 
-        if ((authenticatedState == 1)) {
+        if ((authenticatedState != 0)) {
             return true;
         }
         return false;

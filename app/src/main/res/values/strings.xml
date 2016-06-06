@@ -153,10 +153,7 @@
     </string-array>
     <string-array name="add_advantage3">
         <item>Country That Live In</item>
-        <item>item1</item>
-        <item>item2</item>
-        <item>item3</item>
-        <item>item4</item>
+        <item>Afghanistan</item>
     </string-array>
 
     <!-- for add project -->
@@ -206,5 +203,6 @@
     <string name="project_type">Project Type</string>
     <string name="guarantees">Guarantees</string>
     <string name="country">Country</string>
+    
 
 </resources>
