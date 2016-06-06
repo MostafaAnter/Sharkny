@@ -28,7 +28,7 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
-
+#############################################################################################
 # for pick Photo
 # Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -52,4 +52,11 @@
 -keep class android.support.design.** { *; }
 -keep interface android.support.design.** { *; }
 -keep public class android.support.design.R$* { *; }
+#############################################################################################
+# retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+#############################################################################################
 
