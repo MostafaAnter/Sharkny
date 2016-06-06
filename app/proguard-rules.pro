@@ -53,10 +53,9 @@
 -keep interface android.support.design.** { *; }
 -keep public class android.support.design.R$* { *; }
 #############################################################################################
-# retrofit
--dontwarn retrofit2.**
--keep class retrofit2.** { *; }
--keepattributes Signature
--keepattributes Exceptions
+# volley
+-keep class com.android.volley.**{*;}
+-dontwarn com.android.volley.**
+-keep class cn.pedant.SweetAlert.**{*;}
 #############################################################################################
 
