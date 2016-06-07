@@ -20,23 +20,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 
+import com.android.volley.Cache;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import info.hoang8f.android.segmented.SegmentedGroup;
+import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.activities.HomeActivity;
 import perfect_apps.sharkny.activities.SearchActivity;
 import perfect_apps.sharkny.adapters.ForecastViewAdapter;
+import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.listener.OnLoadMoreListener;
+import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.models.ForecastView;
+import perfect_apps.sharkny.parse.JsonParser;
+import perfect_apps.sharkny.utils.Utils;
 
 /**
  * Created by mostafa on 23/05/16.
  */
 public class FragmentTwo extends Fragment {
+
+    private static int pageNumber = 5;
 
     @Bind(R.id.button21) RadioButton radioButton1;
     @Bind(R.id.button22) RadioButton radioButton2;
@@ -48,7 +64,7 @@ public class FragmentTwo extends Fragment {
     // for recycler view
     private RecyclerView mRecyclerView;
     private ForecastViewAdapter mAdapter;
-    private List<ForecastView> mDataset;
+    private List<BubleItem> mDataset;
 
     // for swipe to refresh
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -76,37 +92,7 @@ public class FragmentTwo extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        mAdapter = new ForecastViewAdapter(getActivity(), mDataset, mRecyclerView);
-        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                Log.e("haint", "Load More");
-                mDataset.add(null);
-                mAdapter.notifyItemInserted(mDataset.size() - 1);
-
-                //Load more data for recyclerView
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.e("haint", "Load More 2");
-
-                        //Remove loading item
-                        mDataset.remove(mDataset.size() - 1);
-                        mAdapter.notifyItemRemoved(mDataset.size());
-
-                        //Load data
-                        int index = mDataset.size();
-                        int end = index + 20;
-                        for (int i = index; i < end; i++) {
-                            ForecastView forecastView = new ForecastView("Bank Masr", "The Worest Bank for ever", 0, true);
-                            mDataset.add(forecastView);
-                        }
-                        mAdapter.notifyDataSetChanged();
-                        mAdapter.setLoaded();
-                    }
-                }, 5000);
-            }
-        });
+        mAdapter = new ForecastViewAdapter(getActivity(), mDataset);
         mRecyclerView.setAdapter(mAdapter);
 
         // Retrieve the SwipeRefreshLayout and ListView instances
@@ -180,17 +166,16 @@ public class FragmentTwo extends Fragment {
 
     private void makeNewsRequest(){
         clearDataSet();
-        // add some fake data
-        ForecastView forecastView = new ForecastView("Bank Masr", "The Worest Bank for ever", 0, true);
-
-
-        for (int i = 0; i < 8; i++) {
-            mDataset.add(i, forecastView);
-            mAdapter.notifyItemInserted(i);
+        if(Utils.isOnline(getActivity())){
+            fetchData();
+        }else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please check your Network connection!")
+                    .show();
         }
 
-
-        onRefreshComplete();
     }
 
     private void changeFont(){
@@ -222,5 +207,56 @@ public class FragmentTwo extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void fetchData(){
+        if (!mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(true);
+        }
+
+        // load first 5 item
+        String url = BuildConfig.Get_Projects + pageNumber;
+
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if(entry != null){
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // handle data, like converting it to xml, json, bitmap etc.,
+                onRefreshComplete();
+                List<BubleItem> mList = JsonParser.parseBublesItem(data);
+                for (int i = 0; i < mList.size(); i++) {
+                    mDataset.add(mList.get(i));
+                    mAdapter.notifyDataSetChanged();
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else{
+        // Cached response doesn't exists. Make network call here
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    onRefreshComplete();
+                    List<BubleItem> mList = JsonParser.parseBublesItem(response);
+                    for (int i = 0; i < mList.size(); i++) {
+                        mDataset.add(mList.get(i));
+                        mAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    onRefreshComplete();
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq);
+        }
     }
 }

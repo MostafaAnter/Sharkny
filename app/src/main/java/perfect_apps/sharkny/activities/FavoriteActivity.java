@@ -23,6 +23,7 @@ import java.util.List;
 
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.adapters.ForecastViewAdapter;
+import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.models.ForecastView;
 
 public class FavoriteActivity extends LocalizationActivity {
@@ -30,7 +31,7 @@ public class FavoriteActivity extends LocalizationActivity {
     // for recycler view
     private RecyclerView mRecyclerView;
     private ForecastViewAdapter mAdapter;
-    private List<ForecastView> mDataset;
+    private List<BubleItem> mDataset;
 
     // for swipe to refresh
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -61,7 +62,7 @@ public class FavoriteActivity extends LocalizationActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mAdapter = new ForecastViewAdapter(this, mDataset, mRecyclerView);
+        mAdapter = new ForecastViewAdapter(this, mDataset);
         mRecyclerView.setAdapter(mAdapter);
 
         // Retrieve the SwipeRefreshLayout and ListView instances
@@ -169,7 +170,7 @@ public class FavoriteActivity extends LocalizationActivity {
 
 
         for (int i = 0; i < 8; i++) {
-            mDataset.add(i, forecastView);
+           // mDataset.add(i, forecastView);
             mAdapter.notifyItemInserted(i);
         }
 

@@ -22,6 +22,7 @@ import java.util.List;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.activities.SearchActivity;
 import perfect_apps.sharkny.adapters.ForecastViewAdapter;
+import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.models.ForecastView;
 
 /**
@@ -32,7 +33,7 @@ public class FragmentFout extends Fragment {
     // for recycler view
     private RecyclerView mRecyclerView;
     private ForecastViewAdapter mAdapter;
-    private List<ForecastView> mDataset;
+    private List<BubleItem> mDataset;
 
     // for swipe to refresh
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -58,7 +59,7 @@ public class FragmentFout extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        mAdapter = new ForecastViewAdapter(getActivity(), mDataset, mRecyclerView);
+        mAdapter = new ForecastViewAdapter(getActivity(), mDataset);
         mRecyclerView.setAdapter(mAdapter);
 
         // Retrieve the SwipeRefreshLayout and ListView instances
@@ -157,7 +158,7 @@ public class FragmentFout extends Fragment {
 
 
         for (int i = 0; i < 3; i++) {
-            mDataset.add(i, forecastView);
+            //mDataset.add(i, forecastView);
             mAdapter.notifyItemInserted(i);
         }
 
