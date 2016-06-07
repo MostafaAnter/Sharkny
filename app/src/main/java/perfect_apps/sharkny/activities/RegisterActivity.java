@@ -24,27 +24,39 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
+import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
+import perfect_apps.sharkny.models.Countries;
 import perfect_apps.sharkny.parse.JsonParser;
+import perfect_apps.sharkny.store.SharknyPrefStore;
+import perfect_apps.sharkny.utils.AppHelper;
+import perfect_apps.sharkny.utils.Constants;
 import perfect_apps.sharkny.utils.Utils;
+import perfect_apps.sharkny.utils.VolleyMultipartRequest;
 
 public class RegisterActivity extends LocalizationActivity {
 
@@ -60,6 +72,7 @@ public class RegisterActivity extends LocalizationActivity {
     // edit text
     @Bind(R.id.editText1) EditText userName;
     @Bind(R.id.editText2) EditText password;
+    @Bind(R.id.text_input2) TextInputLayout textInputLayout0;
     @Bind(R.id.editText3) EditText confirmPassword;
     @Bind(R.id.text_input3) TextInputLayout textInputLayout;
     @Bind(R.id.editText4) EditText fullName;
@@ -75,6 +88,9 @@ public class RegisterActivity extends LocalizationActivity {
     private static int genderType;
     private static Uri profileImagePath;
 
+    private static String nationality = "";
+    private static String country = "";
+
 
 
 
@@ -88,6 +104,7 @@ public class RegisterActivity extends LocalizationActivity {
         fetchUtilData();
 
         confirmPassword.addTextChangedListener(new MyTextWatcher(confirmPassword));
+        password.addTextChangedListener(new MyTextWatcher(password));
 
         radioButtonMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -242,8 +259,9 @@ public class RegisterActivity extends LocalizationActivity {
                 // First item is disable and it is used for hint
                 if(position > 0){
                     // Notify the selected item text
+                    nationality = "" + position;
                     Toast.makeText
-                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            (getApplicationContext(),  selectedItemText + " Done!", Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -304,8 +322,9 @@ public class RegisterActivity extends LocalizationActivity {
                 // First item is disable and it is used for hint
                 if(position > 0){
                     // Notify the selected item text
+                    country = "" + position;
                     Toast.makeText
-                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            (getApplicationContext(), selectedItemText + "Done!", Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -339,20 +358,57 @@ public class RegisterActivity extends LocalizationActivity {
 
                 @Override
                 public void onResponse(String response) {
-                    populateSpinner1(JsonParser.parseJsonFeed(response));
-                    populateSpinner2(JsonParser.parseJsonFeed(response));
-                    pDialog.hide();
+                    List<String> nationalityList = new ArrayList<>();
+                    for (Countries countriy : JsonParser.parseNationalitiesFeed(response)){
+                        nationalityList.add(countriy.getTitle());
+                    }
+                    populateSpinner1(nationalityList);
+                    pDialog.dismissWithAnimation();
 
                 }
             }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    pDialog.hide();
+                    pDialog.dismissWithAnimation();
                 }
             });
             // Adding request to request queue
             AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+
+
+            //fetch countries
+            String  tag_contries_req = "string_req";
+            String countriesurl;
+            if (getLanguage().equalsIgnoreCase("en")){
+                countriesurl = "http://sharkny.net/en/api/countries/";
+            }else {
+                countriesurl = "http://sharkny.net/en/api/countries/index";
+            }
+            StringRequest strCountriesReq = new StringRequest(Request.Method.GET,
+                    countriesurl, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    List<String> countryList = new ArrayList<>();
+                    for (Countries countriy : JsonParser.parseCountriesFeed(response)){
+                        countryList.add(countriy.getTitle());
+                    }
+                    populateSpinner2(countryList);
+                    pDialog.dismissWithAnimation();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pDialog.dismissWithAnimation();
+                }
+            });
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strCountriesReq, tag_contries_req);
+
         }else {
             // show error message
             new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
@@ -387,6 +443,104 @@ public class RegisterActivity extends LocalizationActivity {
             if (Utils.isOnline(RegisterActivity.this)) {
 
                 // make request
+                final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Loading...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+                // post data
+                // Tag used to cancel the request
+                String tag_string_req = "string_req";
+                String url = BuildConfig.Register_User;
+                // begin of request
+                VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        pDialog.dismissWithAnimation();
+                        String resultResponse = new String(response.data);
+                        try {
+                            JSONObject result = new JSONObject(resultResponse);
+                            /*String status = result.getString("status");
+                            String message = result.getString("message");*/
+
+                            Log.d("response", resultResponse);
+                            parseFeed(resultResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                        NetworkResponse networkResponse = error.networkResponse;
+                        String errorMessage = "Unknown error";
+                        if (networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                errorMessage = "Request timeout";
+                            } else if (error.getClass().equals(NoConnectionError.class)) {
+                                errorMessage = "Failed to connect server";
+                            }
+                        } else {
+                            String result = new String(networkResponse.data);
+                            try {
+                                JSONObject response = new JSONObject(result);
+                                String status = response.getString("status");
+                                String message = response.getString("message");
+
+                                Log.e("Error Status", status);
+                                Log.e("Error Message", message);
+
+                                if (networkResponse.statusCode == 404) {
+                                    errorMessage = "Resource not found";
+                                } else if (networkResponse.statusCode == 401) {
+                                    errorMessage = message+" Please login again";
+                                } else if (networkResponse.statusCode == 400) {
+                                    errorMessage = message+ " Check your inputs";
+                                } else if (networkResponse.statusCode == 500) {
+                                    errorMessage = message+" Something is getting wrong";
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Log.i("Error", errorMessage);
+                        error.printStackTrace();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("username", userName.getText().toString());
+                        params.put("password", password.getText().toString());
+                        params.put("email", email.getText().toString());
+                        params.put("fullname", fullName.getText().toString());
+                        params.put("nationality", nationality);
+                        params.put("country", country);
+                        params.put("mobile", mobile.getText().toString());
+                        params.put("job", job.getText().toString());
+                        params.put("age", age.getText().toString());
+                        params.put("address", address.getText().toString());
+                        params.put("gender", String.valueOf(genderType));
+                        return params;
+                    }
+
+                    @Override
+                    protected Map<String, DataPart> getByteData() {
+                        Map<String, DataPart> params = new HashMap<>();
+                        // file name could found file base or direct access from real path
+                        // for now just get bitmap data from ImageView
+                        params.put("image", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromDrawable(RegisterActivity.this, profileImagePath), "image/jpeg"));
+                        return params;
+                    }
+                };
+
+                AppController.getInstance().addToRequestQueue(multipartRequest);
+                // last of request
+
+
+
 
 
             }else {
@@ -399,6 +553,36 @@ public class RegisterActivity extends LocalizationActivity {
         }
     }
 
+    private void parseFeed(String strJson) {
+
+        JSONObject jsonRootObject = null;
+        try {
+            jsonRootObject = new JSONObject(strJson);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (jsonRootObject.optString("id") != null || !jsonRootObject.optString("id").trim().isEmpty()) {
+            int id = Integer.parseInt(jsonRootObject.optString("id").toString());
+            String profileImage = jsonRootObject.optString("image").toString();
+
+            //debug
+            Log.d("user_id", "" + id);
+
+            // store user id in authenticated state & pic url
+            new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_AUTHENTICATION_STATE, id);
+            new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_IMAGE_URL, profileImage);
+            // show success dialog and go to home
+            startActivity(new Intent(RegisterActivity.this, HomeActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+        } else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("some thing went wrong try again!")
+                    .show();
+        }
+    }
     // for confirm password
     private class MyTextWatcher implements TextWatcher {
 
@@ -421,6 +605,14 @@ public class RegisterActivity extends LocalizationActivity {
                         textInputLayout.setErrorEnabled(false);
                     }else {
                         textInputLayout.setError("not match");
+                    }
+                    break;
+                case R.id.editText2:
+                    if (password.getText().toString().trim().length()<4){
+                        textInputLayout0.setError("password is short");
+
+                    }else {
+                        textInputLayout0.setErrorEnabled(false);
                     }
                     break;
             }

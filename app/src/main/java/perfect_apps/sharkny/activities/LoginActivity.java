@@ -168,7 +168,7 @@ public class LoginActivity extends LocalizationActivity{
             @Override
             public void onResponse(String response) {
 
-                pDialog.hide();
+                pDialog.dismissWithAnimation();
                 parseFeed(response);
 
             }
@@ -176,7 +176,7 @@ public class LoginActivity extends LocalizationActivity{
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                pDialog.hide();
+                pDialog.dismissWithAnimation();
                 // show error message
                 new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
                         .setTitleText("Error")
