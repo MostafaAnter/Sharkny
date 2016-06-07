@@ -1,12 +1,32 @@
 package perfect_apps.sharkny.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by mostafa on 07/06/16.
  */
-public class BubleItem {
-    private String id, title, description, start_date, end_date, investment_value, investment_percentage,
-            guarantees, send_to_mobile, project_type, project_field, country, image, likes_count, comments_count, general_type,
-            is_verified, created_by;
+public class BubleItem implements Parcelable {
+    private String id;
+    private String title;
+    private String description;
+    private String start_date;
+    private String end_date;
+    private String investment_value;
+    private String investment_percentage;
+    private String guarantees;
+    private String send_to_mobile;
+    private String project_type;
+    private String project_field;
+    private String country;
+    private String image;
+    private String likes_count;
+    private String comments_count;
+    private String general_type;
+    private String is_verified;
+    private String created_by;
+
+    private OwnerUser ownerUser;
 
     public String getId() {
         return id;
@@ -155,7 +175,7 @@ public class BubleItem {
     public BubleItem(String id, String title, String description, String start_date, String end_date, String investment_value, String investment_percentage,
                      String guarantees, String send_to_mobile, String project_type, String project_field, String country, String image, String likes_count,
                      String comments_count, String general_type,
-                     String is_verified, String created_by){
+                     String is_verified, String created_by, OwnerUser ownerUser){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -175,6 +195,71 @@ public class BubleItem {
         this.is_verified = is_verified;
         this.created_by = created_by;
 
+        this.ownerUser = ownerUser;
+
 
     }
+
+    protected BubleItem(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        start_date = in.readString();
+        end_date = in.readString();
+        investment_value = in.readString();
+        investment_percentage = in.readString();
+        guarantees = in.readString();
+        send_to_mobile = in.readString();
+        project_type = in.readString();
+        project_field = in.readString();
+        country = in.readString();
+        image = in.readString();
+        likes_count = in.readString();
+        comments_count = in.readString();
+        general_type = in.readString();
+        is_verified = in.readString();
+        created_by = in.readString();
+        ownerUser = (OwnerUser) in.readValue(OwnerUser.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(start_date);
+        dest.writeString(end_date);
+        dest.writeString(investment_value);
+        dest.writeString(investment_percentage);
+        dest.writeString(guarantees);
+        dest.writeString(send_to_mobile);
+        dest.writeString(project_type);
+        dest.writeString(project_field);
+        dest.writeString(country);
+        dest.writeString(image);
+        dest.writeString(likes_count);
+        dest.writeString(comments_count);
+        dest.writeString(general_type);
+        dest.writeString(is_verified);
+        dest.writeString(created_by);
+        dest.writeValue(ownerUser);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<BubleItem> CREATOR = new Parcelable.Creator<BubleItem>() {
+        @Override
+        public BubleItem createFromParcel(Parcel in) {
+            return new BubleItem(in);
+        }
+
+        @Override
+        public BubleItem[] newArray(int size) {
+            return new BubleItem[size];
+        }
+    };
 }
