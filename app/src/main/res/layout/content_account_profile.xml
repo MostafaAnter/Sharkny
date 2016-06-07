@@ -64,7 +64,11 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -285,7 +289,8 @@
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:text="@string/save"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="updateData"/>
 
 
 

@@ -23,6 +23,7 @@ android {
         it.buildConfigField 'String', 'Login_User', '"en/api/user/login"'
         it.buildConfigField 'String', 'Register_User', '"http://sharkny.net/en/api/user/signup"'
         it.buildConfigField 'String', 'View_Profile', '"http://sharkny.net/en/api/user/view?id="'
+        it.buildConfigField 'String', 'Update_Profile', '"http://sharkny.net/en/api/user/update?id="'
 
     }
 }
