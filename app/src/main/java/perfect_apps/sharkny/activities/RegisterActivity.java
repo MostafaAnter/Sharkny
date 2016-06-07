@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -37,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -338,84 +340,111 @@ public class RegisterActivity extends LocalizationActivity {
 
     }
 
-   // fetch country and nationality
-    private void fetchUtilData(){
-        if (Utils.isOnline(RegisterActivity.this)) {
-            final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-            pDialog.setTitleText("wait...");
-            pDialog.setCancelable(false);
-            pDialog.show();
-            String  tag_string_req = "string_req";
-            String url;
-            if (getLanguage().equalsIgnoreCase("en")){
-                url = "http://sharkny.net/en/api/countries/";
-            }else {
-                url = "http://sharkny.net/en/api/countries/index";
-            }
-            StringRequest strReq = new StringRequest(Request.Method.GET,
-                    url, new Response.Listener<String>() {
-
-                @Override
-                public void onResponse(String response) {
-                    List<String> nationalityList = new ArrayList<>();
-                    for (Countries countriy : JsonParser.parseNationalitiesFeed(response)){
-                        nationalityList.add(countriy.getTitle());
-                    }
-                    populateSpinner1(nationalityList);
-                    pDialog.dismissWithAnimation();
-
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    pDialog.dismissWithAnimation();
-                }
-            });
-            // Adding request to request queue
-            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
-
-
-            //fetch countries
-            String  tag_contries_req = "string_req";
-            String countriesurl;
-            if (getLanguage().equalsIgnoreCase("en")){
-                countriesurl = "http://sharkny.net/en/api/countries/";
-            }else {
-                countriesurl = "http://sharkny.net/en/api/countries/index";
-            }
-            StringRequest strCountriesReq = new StringRequest(Request.Method.GET,
-                    countriesurl, new Response.Listener<String>() {
-
-                @Override
-                public void onResponse(String response) {
-                    List<String> countryList = new ArrayList<>();
-                    for (Countries countriy : JsonParser.parseCountriesFeed(response)){
-                        countryList.add(countriy.getTitle());
-                    }
-                    populateSpinner2(countryList);
-                    pDialog.dismissWithAnimation();
-
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    pDialog.dismissWithAnimation();
-                }
-            });
-            // Adding request to request queue
-            AppController.getInstance().addToRequestQueue(strCountriesReq, tag_contries_req);
-
-        }else {
-            // show error message
-            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Oops...")
-                    .setContentText("Please check your Network connection!")
-                    .show();
+    // fetch country and nationality
+    private void fetchUtilData() {
+        String url;
+        if (getLanguage().equalsIgnoreCase("en")) {
+            url = "http://sharkny.net/en/api/countries/";
+        } else {
+            url = "http://sharkny.net/en/api/countries/index";
         }
+
+
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if (entry != null) {
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // handle data, like converting it to xml, json, bitmap etc.,
+                List<String> nationalityList = new ArrayList<>();
+                for (Countries countriy : JsonParser.parseNationalitiesFeed(data)) {
+                    nationalityList.add(countriy.getTitle());
+                }
+                populateSpinner1(nationalityList);
+
+                // populate second spinner
+                List<String> countryList = new ArrayList<>();
+                for (Countries countriy : JsonParser.parseCountriesFeed(data)) {
+                    countryList.add(countriy.getTitle());
+                }
+                populateSpinner2(countryList);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Cached response doesn't exists. Make network call here
+            if (Utils.isOnline(RegisterActivity.this)) {
+                final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("wait...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+                String tag_string_req = "string_req";
+
+                StringRequest strReq = new StringRequest(Request.Method.GET,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        List<String> nationalityList = new ArrayList<>();
+                        for (Countries countriy : JsonParser.parseNationalitiesFeed(response)) {
+                            nationalityList.add(countriy.getTitle());
+                        }
+                        populateSpinner1(nationalityList);
+                        pDialog.dismissWithAnimation();
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                    }
+                });
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+
+                //fetch countries
+                String tag_contries_req = "string_req";
+                String countriesurl;
+                if (getLanguage().equalsIgnoreCase("en")) {
+                    countriesurl = "http://sharkny.net/en/api/countries/";
+                } else {
+                    countriesurl = "http://sharkny.net/en/api/countries/index";
+                }
+                StringRequest strCountriesReq = new StringRequest(Request.Method.GET,
+                        countriesurl, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        List<String> countryList = new ArrayList<>();
+                        for (Countries countriy : JsonParser.parseCountriesFeed(response)) {
+                            countryList.add(countriy.getTitle());
+                        }
+                        populateSpinner2(countryList);
+                        pDialog.dismissWithAnimation();
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                    }
+                });
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strCountriesReq, tag_contries_req);
+
+            } else {
+                // show error message
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("Please check your Network connection!")
+                        .show();
+            }
+        }
+
 
     }
 
@@ -572,9 +601,21 @@ public class RegisterActivity extends LocalizationActivity {
             new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_AUTHENTICATION_STATE, id);
             new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_IMAGE_URL, profileImage);
             // show success dialog and go to home
-            startActivity(new Intent(RegisterActivity.this, HomeActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+            new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Good job!")
+                    .setContentText("You Registered successfully!")
+                    .setConfirmText("Done!")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+                            startActivity(new Intent(RegisterActivity.this, HomeActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                        }
+                    })
+                    .show();
+
         } else {
             // show error message
             new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)

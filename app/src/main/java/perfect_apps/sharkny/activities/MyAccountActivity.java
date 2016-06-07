@@ -15,7 +15,10 @@ import com.akexorcist.localizationactivity.LocalizationActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.store.SharknyPrefStore;
+import perfect_apps.sharkny.utils.Constants;
 
 public class MyAccountActivity extends LocalizationActivity {
 
@@ -104,42 +107,91 @@ public class MyAccountActivity extends LocalizationActivity {
         linearLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyAccountActivity.this, AccountProfileActivity.class));
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                if (isAuthenticated()) {
+                    startActivity(new Intent(MyAccountActivity.this, AccountProfileActivity.class));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                } else {
+                    // show error message
+                    new SweetAlertDialog(MyAccountActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Oops...")
+                            .setContentText("You must register First!")
+                            .show();
+                }
             }
         });
 
         linearLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyAccountActivity.this, AccountFinanceActivity.class));
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                if (isAuthenticated()) {
+                    startActivity(new Intent(MyAccountActivity.this, AccountFinanceActivity.class));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                } else {
+                    // show error message
+                    new SweetAlertDialog(MyAccountActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Oops...")
+                            .setContentText("You must register First!")
+                            .show();
+                }
             }
         });
 
         linearLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyAccountActivity.this, AccountAdvanageActivity.class));
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                if (isAuthenticated()) {
+                    startActivity(new Intent(MyAccountActivity.this, AccountAdvanageActivity.class));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                } else {
+                    // show error message
+                    new SweetAlertDialog(MyAccountActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Oops...")
+                            .setContentText("You must register First!")
+                            .show();
+                }
             }
         });
 
         linearLayout4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyAccountActivity.this, AccountServicesActivity.class));
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                if (isAuthenticated()) {
+                    startActivity(new Intent(MyAccountActivity.this, AccountServicesActivity.class));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                } else {
+                    // show error message
+                    new SweetAlertDialog(MyAccountActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Oops...")
+                            .setContentText("You must register First!")
+                            .show();
+                }
             }
         });
 
         linearLayout5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyAccountActivity.this, AccountProjectActivity.class));
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                if (isAuthenticated()) {
+                    startActivity(new Intent(MyAccountActivity.this, AccountProjectActivity.class));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                } else {
+                    // show error message
+                    new SweetAlertDialog(MyAccountActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Oops...")
+                            .setContentText("You must register First!")
+                            .show();
+                }
             }
         });
+    }
+
+    private boolean isAuthenticated(){
+        int authenticatedState = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+
+        if ((authenticatedState != 0)) {
+            return true;
+        }
+        return false;
     }
 
 }
