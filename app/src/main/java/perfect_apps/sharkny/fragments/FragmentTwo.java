@@ -84,7 +84,7 @@ public class FragmentTwo extends Fragment {
                 mDataset.add(null);
                 mAdapter.notifyItemInserted(mDataset.size() - 1);
 
-                //Load more data for reyclerview
+                //Load more data for recyclerView
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
