@@ -61,7 +61,7 @@ public class FavoriteActivity extends LocalizationActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mAdapter = new ForecastViewAdapter(this, mDataset);
+        mAdapter = new ForecastViewAdapter(this, mDataset, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
 
         // Retrieve the SwipeRefreshLayout and ListView instances

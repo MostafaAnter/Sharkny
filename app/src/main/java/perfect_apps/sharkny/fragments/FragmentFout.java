@@ -58,7 +58,7 @@ public class FragmentFout extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        mAdapter = new ForecastViewAdapter(getActivity(), mDataset);
+        mAdapter = new ForecastViewAdapter(getActivity(), mDataset, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
 
         // Retrieve the SwipeRefreshLayout and ListView instances

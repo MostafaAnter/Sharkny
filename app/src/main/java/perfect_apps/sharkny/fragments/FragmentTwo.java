@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -29,6 +30,7 @@ import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.activities.HomeActivity;
 import perfect_apps.sharkny.activities.SearchActivity;
 import perfect_apps.sharkny.adapters.ForecastViewAdapter;
+import perfect_apps.sharkny.listener.OnLoadMoreListener;
 import perfect_apps.sharkny.models.ForecastView;
 
 /**
@@ -74,7 +76,37 @@ public class FragmentTwo extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        mAdapter = new ForecastViewAdapter(getActivity(), mDataset);
+        mAdapter = new ForecastViewAdapter(getActivity(), mDataset, mRecyclerView);
+        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                Log.e("haint", "Load More");
+                mDataset.add(null);
+                mAdapter.notifyItemInserted(mDataset.size() - 1);
+
+                //Load more data for reyclerview
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("haint", "Load More 2");
+
+                        //Remove loading item
+                        mDataset.remove(mDataset.size() - 1);
+                        mAdapter.notifyItemRemoved(mDataset.size());
+
+                        //Load data
+                        int index = mDataset.size();
+                        int end = index + 20;
+                        for (int i = index; i < end; i++) {
+                            ForecastView forecastView = new ForecastView("Bank Masr", "The Worest Bank for ever", 0, true);
+                            mDataset.add(forecastView);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                        mAdapter.setLoaded();
+                    }
+                }, 5000);
+            }
+        });
         mRecyclerView.setAdapter(mAdapter);
 
         // Retrieve the SwipeRefreshLayout and ListView instances
