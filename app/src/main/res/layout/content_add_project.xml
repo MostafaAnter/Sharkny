@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/details"
                     android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -137,6 +137,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin" />
+            <Spinner
+                android:id="@+id/spinner5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin" />
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/text_input4"
                 android:layout_width="match_parent"
@@ -158,6 +164,25 @@
             </android.support.design.widget.TextInputLayout>
 
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/ratio_invest"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
@@ -170,7 +195,8 @@
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:text="@string/title_activity_add_project"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="addProject"/>
 
 
 
