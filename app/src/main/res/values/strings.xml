@@ -203,6 +203,7 @@
     <string name="project_type">Project Type</string>
     <string name="guarantees">Guarantees</string>
     <string name="country">Country</string>
-    
+    <string name="title_activity_answer_messag">AnswerMessagActivity</string>
+
 
 </resources>

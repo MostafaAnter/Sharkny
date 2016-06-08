@@ -10,7 +10,7 @@
     <!-- for pick photo -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- for network connection -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -192,6 +192,10 @@
         <activity
             android:name=".activities.DetailActivity"
             android:label="@string/title_activity_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.AnswerMessagActivity"
+            android:label="@string/title_activity_answer_messag"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
