@@ -30,6 +30,7 @@ android {
         it.buildConfigField 'String', 'Get_User_Franchises', '"http://sharkny.net/en/api/franchises/get-by-user/?user_id="'
         it.buildConfigField 'String', 'Get_User_Other_Services', '"http://sharkny.net/en/api/other-services/get-by-user/?user_id="'
         it.buildConfigField 'String', 'Get_User_Inbox', '"http://sharkny.net/en/api/contacts/get-inbox-messages?user_id="'
+        it.buildConfigField 'String', 'Get_User_SentMessages', '"http://sharkny.net/en/api/contacts/get-sent-messages?user_id="'
     }
 }
 
