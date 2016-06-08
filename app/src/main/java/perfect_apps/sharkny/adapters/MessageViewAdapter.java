@@ -2,6 +2,7 @@ package perfect_apps.sharkny.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,7 +30,7 @@ import perfect_apps.sharkny.utils.Utils;
 public class MessageViewAdapter extends RecyclerView.Adapter<MessageViewAdapter.ViewHolder>{
     private static final String TAG = "CustomAdapter";
     private static Context mContext;
-    private List<MessageModel> mDataSet;
+    private static List<MessageModel> mDataSet;
 
     // manage enter animate
     private static final int ANIMATED_ITEMS_COUNT = 2; // number of item that animated is 1
@@ -59,6 +60,9 @@ public class MessageViewAdapter extends RecyclerView.Adapter<MessageViewAdapter.
 
                     Context context = v.getContext();
                     Intent intent = new Intent(context, MessageDetailActivity.class);
+                    Bundle arguments = new Bundle();
+                    arguments.putParcelable("message", mDataSet.get(getPosition()));
+                    intent.putExtras(arguments);
                     context.startActivity(intent);
                     ((FragmentActivity)context).overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
                 }
