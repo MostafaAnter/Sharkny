@@ -12,11 +12,15 @@ import perfect_apps.sharkny.R;
 
 public class AnswerMessagActivity extends AppCompatActivity {
 
+    private static String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_messag);
         setToolbar();
+
+        id = getIntent().getStringExtra("id");
     }
 
     private void setToolbar() {
