@@ -1,15 +1,14 @@
 package perfect_apps.sharkny.fragments;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -18,13 +17,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.RadioButton;
 
 import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
@@ -37,23 +36,18 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import info.hoang8f.android.segmented.SegmentedGroup;
 import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
-import perfect_apps.sharkny.activities.HomeActivity;
 import perfect_apps.sharkny.activities.SearchActivity;
-import perfect_apps.sharkny.adapters.ForecastViewAdapter;
+import perfect_apps.sharkny.adapters.CustomArrayAdapter;
 import perfect_apps.sharkny.app.AppController;
-import perfect_apps.sharkny.listener.OnLoadMoreListener;
 import perfect_apps.sharkny.models.BubleItem;
-import perfect_apps.sharkny.models.ForecastView;
 import perfect_apps.sharkny.parse.JsonParser;
+import perfect_apps.sharkny.utils.HorizontalListView;
 import perfect_apps.sharkny.utils.Utils;
 
 /**
  * Created by mostafa on 23/05/16.
  */
 public class FragmentTwo extends Fragment {
-
-    private static int pageNumber = 5;
-
     @Bind(R.id.button21) RadioButton radioButton1;
     @Bind(R.id.button22) RadioButton radioButton2;
     @Bind(R.id.button23) RadioButton radioButton3;
@@ -62,9 +56,9 @@ public class FragmentTwo extends Fragment {
     @Bind(R.id.segmented2) SegmentedGroup segmentedGroup;
 
     // for recycler view
-    private RecyclerView mRecyclerView;
-    private ForecastViewAdapter mAdapter;
     private List<BubleItem> mDataset;
+    private HorizontalListView mHlvCustomList;
+    private CustomArrayAdapter adapter;
 
     // for swipe to refresh
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -89,11 +83,17 @@ public class FragmentTwo extends Fragment {
         ButterKnife.bind(this, view);
 
         // set added recycler view
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        mAdapter = new ForecastViewAdapter(getActivity(), mDataset);
-        mRecyclerView.setAdapter(mAdapter);
+        mHlvCustomList = (HorizontalListView) view.findViewById(R.id.hlvCustomList);
+        mHlvCustomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+        // adapter
+        adapter = new CustomArrayAdapter(getActivity(), mDataset);
+        mHlvCustomList.setAdapter(adapter);
+
 
         // Retrieve the SwipeRefreshLayout and ListView instances
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
@@ -156,16 +156,7 @@ public class FragmentTwo extends Fragment {
 
     }
 
-    // remove all item from RecyclerView
-    private void clearDataSet() {
-        if (mDataset != null){
-            mDataset.clear();
-            mAdapter.notifyDataSetChanged();
-        }
-    }
-
     private void makeNewsRequest(){
-        clearDataSet();
         if(Utils.isOnline(getActivity())){
             fetchData();
         }else {
@@ -214,8 +205,7 @@ public class FragmentTwo extends Fragment {
             mSwipeRefreshLayout.setRefreshing(true);
         }
 
-        // load first 5 item
-        String url = BuildConfig.Get_Projects + pageNumber;
+        String url = BuildConfig.Get_Projects;
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);
@@ -223,12 +213,11 @@ public class FragmentTwo extends Fragment {
             try {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
+                mDataset.addAll(0, JsonParser.parseBublesItem(data));
+                adapter.notifyDataSetChanged();
                 onRefreshComplete();
-                List<BubleItem> mList = JsonParser.parseBublesItem(data);
-                for (int i = 0; i < mList.size(); i++) {
-                    mDataset.add(mList.get(i));
-                    mAdapter.notifyDataSetChanged();
-                }
+
+
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -239,12 +228,9 @@ public class FragmentTwo extends Fragment {
 
                 @Override
                 public void onResponse(String response) {
+                    mDataset.addAll(0, JsonParser.parseBublesItem(response));
+                    adapter.notifyDataSetChanged();
                     onRefreshComplete();
-                    List<BubleItem> mList = JsonParser.parseBublesItem(response);
-                    for (int i = 0; i < mList.size(); i++) {
-                        mDataset.add(mList.get(i));
-                        mAdapter.notifyDataSetChanged();
-                    }
 
                 }
             }, new Response.ErrorListener() {
@@ -259,4 +245,5 @@ public class FragmentTwo extends Fragment {
             AppController.getInstance().addToRequestQueue(strReq);
         }
     }
+
 }

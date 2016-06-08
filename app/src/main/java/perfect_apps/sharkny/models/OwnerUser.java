@@ -1,9 +1,12 @@
 package perfect_apps.sharkny.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by mostafa on 07/06/16.
  */
-public class OwnerUser {
+public class OwnerUser implements Parcelable {
     private String id;
     private String username;
     private String fullname;
@@ -118,4 +121,51 @@ public class OwnerUser {
         this.nationality = nationality;
         this.country = country;
     }
+
+    protected OwnerUser(Parcel in) {
+        id = in.readString();
+        username = in.readString();
+        fullname = in.readString();
+        job = in.readString();
+        address = in.readString();
+        mobile = in.readString();
+        email = in.readString();
+        image = in.readString();
+        gender = in.readString();
+        nationality = in.readString();
+        country = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(username);
+        dest.writeString(fullname);
+        dest.writeString(job);
+        dest.writeString(address);
+        dest.writeString(mobile);
+        dest.writeString(email);
+        dest.writeString(image);
+        dest.writeString(gender);
+        dest.writeString(nationality);
+        dest.writeString(country);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<OwnerUser> CREATOR = new Parcelable.Creator<OwnerUser>() {
+        @Override
+        public OwnerUser createFromParcel(Parcel in) {
+            return new OwnerUser(in);
+        }
+
+        @Override
+        public OwnerUser[] newArray(int size) {
+            return new OwnerUser[size];
+        }
+    };
 }

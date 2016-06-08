@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -25,9 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.activities.SearchActivity;
-import perfect_apps.sharkny.adapters.ForecastViewAdapter;
 import perfect_apps.sharkny.models.BubleItem;
-import perfect_apps.sharkny.models.ForecastView;
 
 /**
  * Created by mostafa on 23/05/16.
@@ -38,8 +34,6 @@ public class FragmentThree extends Fragment {
     @Bind(R.id.button22) RadioButton radioButton2;
 
     // for recycler view
-    private RecyclerView mRecyclerView;
-    private ForecastViewAdapter mAdapter;
     private List<BubleItem> mDataset;
 
     // for swipe to refresh
@@ -65,11 +59,6 @@ public class FragmentThree extends Fragment {
         ButterKnife.bind(this, view);
 
         // set added recycler view
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        mAdapter = new ForecastViewAdapter(getActivity(), mDataset);
-        mRecyclerView.setAdapter(mAdapter);
 
         // Retrieve the SwipeRefreshLayout and ListView instances
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
@@ -161,24 +150,8 @@ public class FragmentThree extends Fragment {
 
     }
 
-    // remove all item from RecyclerView
-    private void clearDataSet() {
-        if (mDataset != null){
-            mDataset.clear();
-            mAdapter.notifyDataSetChanged();
-        }
-    }
 
     private void makeNewsRequest(){
-        clearDataSet();
-        // add some fake data
-        ForecastView forecastView = new ForecastView("Bank Masr", "The Worest Bank for ever", 0, true);
-
-
-        for (int i = 0; i < 3; i++) {
-            //mDataset.add(i, forecastView);
-            mAdapter.notifyItemInserted(i);
-        }
 
 
         onRefreshComplete();

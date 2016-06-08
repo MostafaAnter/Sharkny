@@ -45,12 +45,13 @@ import perfect_apps.sharkny.fragments.FragmentTwo;
 import perfect_apps.sharkny.store.SharknyPrefStore;
 import perfect_apps.sharkny.utils.Constants;
 import perfect_apps.sharkny.utils.CustomTypefaceSpan;
+import perfect_apps.sharkny.utils.CustomViewPager;
 
 public class HomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public BottomNavigationView bottomNavigationView;
-    ViewPager pager;
+    CustomViewPager pager;
 
 
     @Bind(R.id.toolbar) Toolbar toolbar;
@@ -141,7 +142,8 @@ public class HomeActivity extends LocalizationActivity
 
         // this section for bottom navigation
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        pager = (ViewPager) findViewById(R.id.viewPager);
+        pager = (CustomViewPager) findViewById(R.id.viewPager);
+        pager.setPagingEnabled(false);
         /*if you use tablet mode uncomment this*/
         /*RelativeLayout.LayoutParams pagerParams = (RelativeLayout.LayoutParams)pager.getLayoutParams();
         pagerParams.setMargins(BottomNavigationUtils.getActionbarSize(this),pagerParams.topMargin,

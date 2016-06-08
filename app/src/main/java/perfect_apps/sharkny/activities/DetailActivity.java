@@ -10,18 +10,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.models.BubleItem;
 
 public class DetailActivity extends LocalizationActivity {
+    public static final String ARG_ITEM_ID = "item_id";
+    private static BubleItem bubleItem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         setToolbar();
+
+        bubleItem = (BubleItem) getIntent().getExtras().get(ARG_ITEM_ID);
+        Toast.makeText(DetailActivity.this, bubleItem.getDescription(), Toast.LENGTH_SHORT).show();
+
 
     }
 
