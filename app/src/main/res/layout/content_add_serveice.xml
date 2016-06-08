@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/details"
                     android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -96,7 +96,8 @@
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:text="@string/title_activity_add_serveice"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="addService"/>
 
 
 

@@ -34,6 +34,7 @@ android {
         it.buildConfigField 'String', 'Get_Finance_List', '"http://sharkny.net/en/api/finance?expand=createdby"'
         it.buildConfigField 'String', 'Get_Other_service_List', '"http://sharkny.net/en/api/other-services?expand=createdby"'
         it.buildConfigField 'String', 'CreateProject', '"http://sharkny.net/en/api/projects/create"'
+        it.buildConfigField 'String', 'CreateService', '"http://sharkny.net/en/api/other-services/create"'
     }
 }
 
