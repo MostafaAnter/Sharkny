@@ -83,20 +83,27 @@
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
-            <Spinner
+            <Button
                 android:id="@+id/spinner1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+                android:text="@string/start_date"
+                android:textAllCaps="false"
+                android:textColor="@android:color/darker_gray"
+                android:onClick="pickStartDate"/>
 
-            <Spinner
+            <Button
                 android:id="@+id/spinner2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin" />
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="@string/end_date"
+                android:textAllCaps="false"
+                android:textColor="@android:color/darker_gray"
+                android:onClick="pickEndDate"/>
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/text_input3"
                 android:layout_width="match_parent"

@@ -61,4 +61,6 @@ dependencies {
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     //sweet dialog
     compile 'cn.pedant.sweetalert:library:1.3'
+    // pick view
+    compile 'com.brucetoo.pickview:library:1.1.1'
 }
