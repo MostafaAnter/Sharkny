@@ -204,6 +204,7 @@
     <string name="guarantees">Guarantees</string>
     <string name="country">Country</string>
     <string name="title_activity_answer_messag">AnswerMessagActivity</string>
+    <string name="title_activity_finance_detail">FinanceDetailActivity</string>
 
 
 </resources>

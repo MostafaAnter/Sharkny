@@ -9,6 +9,7 @@ import java.util.List;
 
 import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.models.Countries;
+import perfect_apps.sharkny.models.FinanceModel;
 import perfect_apps.sharkny.models.FranchisesModel;
 import perfect_apps.sharkny.models.MessageModel;
 import perfect_apps.sharkny.models.OwnerUser;
@@ -290,6 +291,58 @@ public class JsonParser {
 
                 MessageModel messageModel = new MessageModel(userName, subject, null, true);
                 newsList.add(messageModel);
+            }
+            return newsList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<FinanceModel> parseFinanceList(String feed){
+
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);//done
+            JSONArray jsonNewsArray = jsonRootObject.optJSONArray("data");
+            List<FinanceModel> newsList = new ArrayList<>();
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+
+                String id = jsonObject.optString("id");
+                String title = jsonObject.optString("title");
+                String description = jsonObject.optString("description");
+                String investment_value = jsonObject.optString("investment_value");
+                String investment_percentage = jsonObject.optString("investment_percentage");
+                String is_verified = jsonObject.optString("is_verified");
+                String inance_type = jsonObject.optString("inance_type");
+                String investment_Field = jsonObject.optString("investment_Field");
+                String country = jsonObject.optString("country");
+                String image = jsonObject.optString("image");
+                String general_type = jsonObject.optString("general_type");
+                String likes_count = jsonObject.optString("likes_count");
+                String comments_count = jsonObject.optString("comments_count");
+                String created_by = jsonObject.optString("created_by");
+
+                JSONObject ownerObject = jsonObject.optJSONObject("createdby");
+                String idOwner = ownerObject.optString("id") ;
+                String username = ownerObject.optString("username");
+                String fullname = ownerObject.optString("fullname");
+                String job = ownerObject.optString("job");
+                String address = ownerObject.optString("address");
+                String mobile = ownerObject.optString("mobile");
+                String email = ownerObject.optString("email");
+                String imageOwner = ownerObject.optString("image");
+                String gender = ownerObject.optString("gender");
+                String nationality = ownerObject.optString("nationality");
+                String countryOwner = ownerObject.optString("countryOwner");
+
+                OwnerUser ownerUser = new OwnerUser(idOwner, username, fullname, job, address, mobile, email, imageOwner, gender, nationality, countryOwner);
+
+                FinanceModel financeModel = new FinanceModel(id,title,description,investment_value,investment_percentage,is_verified,inance_type,investment_Field,
+                         country,image,general_type,likes_count,comments_count,created_by,  ownerUser);
+                newsList.add(financeModel);
             }
             return newsList;
         } catch (JSONException e) {

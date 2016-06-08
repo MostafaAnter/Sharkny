@@ -196,6 +196,10 @@
         <activity
             android:name=".activities.AnswerMessagActivity"
             android:label="@string/title_activity_answer_messag"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.FinanceDetailActivity"
+            android:label="@string/title_activity_finance_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
