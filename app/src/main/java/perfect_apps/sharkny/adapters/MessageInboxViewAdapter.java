@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.activities.AnswerMessagActivity;
 import perfect_apps.sharkny.activities.MessageDetailActivity;
 import perfect_apps.sharkny.models.MessageModel;
 import perfect_apps.sharkny.utils.Utils;
@@ -45,7 +47,11 @@ public class MessageInboxViewAdapter extends RecyclerView.Adapter<MessageInboxVi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.name) TextView userName;
         @Bind(R.id.message) TextView messageBody;
-        @Bind(R.id.answer) TextView answer;
+        @Bind(R.id.answer) Button button;
+
+        public Button getButton() {
+            return button;
+        }
 
         public ViewHolder(View v) {
             super(v);
@@ -66,10 +72,6 @@ public class MessageInboxViewAdapter extends RecyclerView.Adapter<MessageInboxVi
 
                 }
             });
-        }
-
-        public TextView getAnswer() {
-            return answer;
         }
 
         public TextView getUserName() {
@@ -116,7 +118,15 @@ public class MessageInboxViewAdapter extends RecyclerView.Adapter<MessageInboxVi
             viewHolder.getMessageBody().setTextColor(0xff444444);
         }
 
-        viewHolder.getAnswer().setText("رد");
+        viewHolder.getButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, AnswerMessagActivity.class);
+                intent.putExtra("id", mDataSet.get(position).getSender_id());
+                mContext.startActivity(intent);
+                ((FragmentActivity)mContext).overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+            }
+        });
 
 
     }
