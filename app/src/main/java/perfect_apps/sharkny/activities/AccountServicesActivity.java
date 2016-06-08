@@ -9,21 +9,40 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Cache;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.adapters.CustomArrayAdapter;
+import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.models.BubleItem;
+import perfect_apps.sharkny.parse.JsonParser;
+import perfect_apps.sharkny.store.SharknyPrefStore;
+import perfect_apps.sharkny.utils.Constants;
+import perfect_apps.sharkny.utils.HorizontalListView;
+import perfect_apps.sharkny.utils.Utils;
 
 public class AccountServicesActivity extends LocalizationActivity {
 
     // for recycler view
+    // for recycler view
     private List<BubleItem> mDataset;
+    private HorizontalListView mHlvCustomList;
+    private CustomArrayAdapter adapter;
 
     // for swipe to refresh
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -112,7 +131,22 @@ public class AccountServicesActivity extends LocalizationActivity {
     // populate recycler and Swipe
     private void setRecyclerViewAndSwipe(){
         // set added recycler view
+        mHlvCustomList = (HorizontalListView) findViewById(R.id.hlvCustomList);
+        mHlvCustomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent intent = new Intent(AccountProjectActivity.this, DetailActivity.class);
+//                Bundle arguments = new Bundle();
+//                arguments.putParcelable(DetailActivity.ARG_ITEM_ID, (Parcelable) mHlvCustomList.getItemAtPosition(position));
+//                intent.putExtras(arguments);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
 
+            }
+        });
+        // adapter
+        adapter = new CustomArrayAdapter(AccountServicesActivity.this, mDataset);
+        mHlvCustomList.setAdapter(adapter);
 
         // Retrieve the SwipeRefreshLayout and ListView instances
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
@@ -158,7 +192,65 @@ public class AccountServicesActivity extends LocalizationActivity {
 
 
     private void makeNewsRequest(){
-        onRefreshComplete();
+
+        if(Utils.isOnline(AccountServicesActivity.this)){
+            fetchData();
+        }else {
+            // show error message
+            new SweetAlertDialog(AccountServicesActivity.this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please check your Network connection!")
+                    .show();
+            fetchData();
+        }
     }
 
+    private void fetchData(){
+        if (!mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(true);
+        }
+
+        int id = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+        String url = BuildConfig.Get_User_Other_Services + id;
+
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if(entry != null){
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // handle data, like converting it to xml, json, bitmap etc.,
+                mDataset.clear();
+                mDataset.addAll(0, JsonParser.parseUserProjects(data));
+                adapter.notifyDataSetChanged();
+                onRefreshComplete();
+
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else{
+            // Cached response doesn't exists. Make network call here
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    mDataset.clear();
+                    mDataset.addAll(0, JsonParser.parseUserProjects(response));
+                    adapter.notifyDataSetChanged();
+                    onRefreshComplete();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    onRefreshComplete();
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq);
+        }
+    }
 }

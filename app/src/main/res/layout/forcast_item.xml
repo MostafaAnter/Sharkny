@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/test_image_b" />
+                android:src="@drawable/placeholder" />
 
             <ImageView
                 android:id="@+id/certifiedImage"

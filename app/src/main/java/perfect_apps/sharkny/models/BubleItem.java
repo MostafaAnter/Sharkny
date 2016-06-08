@@ -28,6 +28,18 @@ public class BubleItem implements Parcelable {
 
     private OwnerUser ownerUser;
 
+    public OwnerUser getOwnerUser() {
+        return ownerUser;
+    }
+
+    public void setOwnerUser(OwnerUser ownerUser) {
+        this.ownerUser = ownerUser;
+    }
+
+    public static Creator<BubleItem> getCREATOR() {
+        return CREATOR;
+    }
+
     public String getId() {
         return id;
     }

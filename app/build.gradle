@@ -25,6 +25,10 @@ android {
         it.buildConfigField 'String', 'View_Profile', '"http://sharkny.net/en/api/user/view?id="'
         it.buildConfigField 'String', 'Update_Profile', '"http://sharkny.net/en/api/user/update?id="'
         it.buildConfigField 'String', 'Get_Projects', '"http://sharkny.net/en/api/projects?expand=createdby"'
+        it.buildConfigField 'String', 'Get_User_Projects', '"http://sharkny.net/en/api/projects/get-by-user/?user_id="'
+        it.buildConfigField 'String', 'Get_User_Finance', '"http://sharkny.net/en/api/finance/get-by-user/?user_id="'
+        it.buildConfigField 'String', 'Get_User_Franchises', '"http://sharkny.net/en/api/franchises/get-by-user/?user_id="'
+        it.buildConfigField 'String', 'Get_User_Other_Services', '"http://sharkny.net/en/api/other-services/get-by-user/?user_id="'
     }
 }
 

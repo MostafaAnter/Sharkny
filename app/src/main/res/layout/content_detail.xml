@@ -50,7 +50,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="fitXY"
-                            android:src="@drawable/test_image_b" />
+                            android:src="@drawable/placeholder" />
 
                         <ImageView
                             android:id="@+id/certifiedImage"
@@ -76,7 +76,7 @@
                         android:padding="4dp">
 
                         <TextView
-                            android:id="@+id/description"
+                            android:id="@+id/title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -164,6 +164,7 @@
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/start_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="25/7/2016"
@@ -191,6 +192,7 @@
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/end_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="25/7/2016"
@@ -218,6 +220,7 @@
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/investment_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1000"
@@ -245,6 +248,7 @@
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/project_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="sector fdsjal"
@@ -272,6 +276,7 @@
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/project_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="25/7/2016"
@@ -299,6 +304,7 @@
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/investment_percentag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1000"
@@ -326,6 +332,7 @@
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/guarantees"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="hi ther is no gurantee"
@@ -353,6 +360,7 @@
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/country"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Egypt"
@@ -373,10 +381,12 @@
                 android:gravity="center_horizontal">
 
                 <TextView
+                    android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/start_date"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
 
@@ -423,7 +433,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="fitXY"
-                            android:src="@drawable/testuseremag" />
+                            android:src="@drawable/placeholder" />
 
                     </RelativeLayout>
 
@@ -441,7 +451,7 @@
                         android:padding="4dp">
 
                         <TextView
-                            android:id="@+id/description_owner"
+                            android:id="@+id/owner_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -468,7 +478,8 @@
                 android:background="@color/colorAccent"
                 android:text="@string/let_message"
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:onClick="sendMessage"/>
         </LinearLayout>
     </ScrollView>
 

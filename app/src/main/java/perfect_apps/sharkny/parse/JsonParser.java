@@ -9,6 +9,7 @@ import java.util.List;
 
 import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.models.Countries;
+import perfect_apps.sharkny.models.FranchisesModel;
 import perfect_apps.sharkny.models.OwnerUser;
 
 /**
@@ -114,6 +115,129 @@ public class JsonParser {
                         investment_value,investment_percentag,guarantees,
                         send_to_mobile, project_type,project_field, country,
                         image,likes_count,comments_count, general_type, is_verified, created_by,ownerUser);
+                newsList.add(bubleItem);
+            }
+            return newsList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<BubleItem> parseUserProjects(String feed){
+
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);//done
+            JSONArray jsonNewsArray = jsonRootObject.optJSONArray("data");
+            List<BubleItem> newsList = new ArrayList<>();
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+
+                String id = jsonObject.optString("id");
+                String title = jsonObject.optString("title");
+                String description = jsonObject.optString("description");
+                String start_date = jsonObject.optString("start_date");
+                String end_date = jsonObject.optString("end_date");
+                String investment_value = jsonObject.optString("investment_value");
+                String investment_percentag = jsonObject.optString("investment_percentag");
+                String guarantees = jsonObject.optString("guarantees");
+                String send_to_mobile = jsonObject.optString("send_to_mobile");
+                String project_type = jsonObject.optString("project_type");
+                String project_field = jsonObject.optString("project_field");
+                String country = jsonObject.optString("country");
+                String image = jsonObject.optString("image") ;
+                String likes_count = jsonObject.optString("likes_count");
+                String comments_count = jsonObject.optString("comments_count");
+                String general_type = jsonObject.optString("general_type");
+                String is_verified = jsonObject.optString("is_verified");
+                String created_by = jsonObject.optString("created_by");
+                BubleItem bubleItem = new BubleItem(id, title, description,start_date, end_date,
+                        investment_value,investment_percentag,guarantees,
+                        send_to_mobile, project_type,project_field, country,
+                        image,likes_count,comments_count, general_type, is_verified, created_by,null);
+                newsList.add(bubleItem);
+            }
+            return newsList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<FranchisesModel> parseUserFranchises(String feed){
+
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);//done
+            JSONArray jsonNewsArray = jsonRootObject.optJSONArray("data");
+            List<FranchisesModel> newsList = new ArrayList<>();
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+
+                String id = jsonObject.optString("id");
+                String title = jsonObject.optString("title");
+                String description = jsonObject.optString("description") ;
+                String terms = jsonObject.optString("terms");
+                String franchise_type = jsonObject.optString("franchise_type");
+                String franchise_field = jsonObject.optString("franchise_field");
+                String country = jsonObject.optString("country");
+                String image = jsonObject.optString("image");
+                String general_type = jsonObject.optString("general_type");
+                String likes_count = jsonObject.optString("likes_count");
+                String comments_count = jsonObject.optString("comments_count");
+                String is_verified = jsonObject.optString("is_verified");
+                String created_by = jsonObject.optString("created_by");
+
+                FranchisesModel franchisesModel = new FranchisesModel(id,title,description,terms,franchise_type,franchise_field,country,image
+                , general_type,likes_count,comments_count,is_verified,created_by);
+
+                newsList.add(franchisesModel);
+            }
+            return newsList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<BubleItem> parseUserOtherServices(String feed){
+
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);//done
+            JSONArray jsonNewsArray = jsonRootObject.optJSONArray("data");
+            List<BubleItem> newsList = new ArrayList<>();
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+
+                String id = jsonObject.optString("id");
+                String title = jsonObject.optString("title");
+                String description = jsonObject.optString("description");
+//                String start_date = jsonObject.optString("start_date");
+//                String end_date = jsonObject.optString("end_date");
+//                String investment_value = jsonObject.optString("investment_value");
+//                String investment_percentag = jsonObject.optString("investment_percentag");
+//                String guarantees = jsonObject.optString("guarantees");
+//                String send_to_mobile = jsonObject.optString("send_to_mobile");
+//                String project_type = jsonObject.optString("project_type");
+//                String project_field = jsonObject.optString("project_field");
+//                String country = jsonObject.optString("country");
+                String image = jsonObject.optString("image") ;
+                String likes_count = jsonObject.optString("likes_count");
+                String comments_count = jsonObject.optString("comments_count");
+                String general_type = jsonObject.optString("general_type");
+                String is_verified = jsonObject.optString("is_verified");
+                String created_by = jsonObject.optString("created_by");
+
+
+                BubleItem bubleItem = new BubleItem(id, title, description,null, null,
+                        null,null,null,
+                        null, null,null, null,
+                        image,likes_count,comments_count, general_type, is_verified, created_by,null);
                 newsList.add(bubleItem);
             }
             return newsList;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -36,6 +37,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import info.hoang8f.android.segmented.SegmentedGroup;
 import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.activities.DetailActivity;
 import perfect_apps.sharkny.activities.SearchActivity;
 import perfect_apps.sharkny.adapters.CustomArrayAdapter;
 import perfect_apps.sharkny.app.AppController;
@@ -87,6 +89,12 @@ public class FragmentTwo extends Fragment {
         mHlvCustomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                Bundle arguments = new Bundle();
+                arguments.putParcelable(DetailActivity.ARG_ITEM_ID, (Parcelable) mHlvCustomList.getItemAtPosition(position));
+                intent.putExtras(arguments);
+                getActivity().startActivity(intent);
+                (getActivity()).overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
 
             }
         });
@@ -165,7 +173,9 @@ public class FragmentTwo extends Fragment {
                     .setTitleText("Oops...")
                     .setContentText("Please check your Network connection!")
                     .show();
+            fetchData();
         }
+
 
     }
 
