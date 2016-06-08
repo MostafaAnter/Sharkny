@@ -45,6 +45,58 @@ public class JsonParser {
 
     }
 
+    public static List<Countries> parseFranchisTypes(String feed){
+
+        try {
+            JSONArray jsonNewsArray = new JSONArray(feed);
+            List<Countries> newsList = new ArrayList<>();
+            newsList.add(new Countries("0", "franchise types"));
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+
+                // retrieve all metadata
+                String id = jsonObject.optString("id");
+                String title = jsonObject.optString("title");
+
+                // put all item inside one object
+                Countries country = new Countries(id, title);
+                newsList.add(country);
+            }
+            return newsList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<Countries> parseField(String feed){
+
+        try {
+            JSONArray jsonNewsArray = new JSONArray(feed);
+            List<Countries> newsList = new ArrayList<>();
+            newsList.add(new Countries("0", "Fields"));
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+
+                // retrieve all metadata
+                String id = jsonObject.optString("id");
+                String title = jsonObject.optString("title");
+
+                // put all item inside one object
+                Countries country = new Countries(id, title);
+                newsList.add(country);
+            }
+            return newsList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
     public static List<Countries> parseCountriesFeed(String feed){
 
         try {

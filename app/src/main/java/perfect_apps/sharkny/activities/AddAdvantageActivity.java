@@ -20,18 +20,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Cache;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.app.AppController;
+import perfect_apps.sharkny.models.Countries;
+import perfect_apps.sharkny.parse.JsonParser;
+import perfect_apps.sharkny.utils.Utils;
 
 public class AddAdvantageActivity extends LocalizationActivity {
 
@@ -45,6 +56,9 @@ public class AddAdvantageActivity extends LocalizationActivity {
     @Bind(R.id.spinner1) Spinner spinner1;
     @Bind(R.id.spinner2) Spinner spinner2;
     @Bind(R.id.spinner3) Spinner spinner3;
+    private static String franchisType;
+    private static String franchisField;
+    private static String country;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,9 +66,11 @@ public class AddAdvantageActivity extends LocalizationActivity {
         setContentView(R.layout.activity_add_advantage);
         ButterKnife.bind(this);
         setOnLinearSelected();
-        populateSpinner1();
-        populateSpinner2();
-        populateSpinner3();
+
+        fetchFranchisType();
+        fetchFranchisField();
+        fetchcountry();
+
         setToolbar();
     }
 
@@ -143,14 +159,14 @@ public class AddAdvantageActivity extends LocalizationActivity {
                 .into(circleImageView);
     }
 
-    private void populateSpinner1(){
+    private void populateSpinner1(List<String> mlist){
 
         // you will just change R.array.search & spinner1 reference :)
 
-        final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.add_advantage1));
+        //final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.national));
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner_item, plantsList){
+                this,R.layout.spinner_item, mlist){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -190,8 +206,9 @@ public class AddAdvantageActivity extends LocalizationActivity {
                 // First item is disable and it is used for hint
                 if(position > 0){
                     // Notify the selected item text
+                    franchisType = "" + position;
                     Toast.makeText
-                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            (getApplicationContext(),  selectedItemText + " Done!", Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -204,15 +221,14 @@ public class AddAdvantageActivity extends LocalizationActivity {
 
 
     }
-
-    private void populateSpinner2(){
+    private void populateSpinner2(List<String> mlist){
 
         // you will just change R.array.search & spinner1 reference :)
 
-        final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.add_advantage2));
+        //final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.national));
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner_item, plantsList){
+                this,R.layout.spinner_item, mlist){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -252,8 +268,9 @@ public class AddAdvantageActivity extends LocalizationActivity {
                 // First item is disable and it is used for hint
                 if(position > 0){
                     // Notify the selected item text
+                    franchisField = "" + position;
                     Toast.makeText
-                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            (getApplicationContext(),  selectedItemText + " Done!", Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -267,14 +284,14 @@ public class AddAdvantageActivity extends LocalizationActivity {
 
     }
 
-    private void populateSpinner3(){
+    private void populateSpinner3(List<String> mlist){
 
         // you will just change R.array.search & spinner1 reference :)
 
-        final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.add_advantage3));
+        //final List<String> plantsList = Arrays.asList(getResources().getStringArray(R.array.national));
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner_item, plantsList){
+                this,R.layout.spinner_item, mlist){
             @Override
             public boolean isEnabled(int position){
                 if(position == 0)
@@ -314,8 +331,9 @@ public class AddAdvantageActivity extends LocalizationActivity {
                 // First item is disable and it is used for hint
                 if(position > 0){
                     // Notify the selected item text
+                    country = "" + position;
                     Toast.makeText
-                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            (getApplicationContext(),  selectedItemText + " Done!", Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -325,6 +343,188 @@ public class AddAdvantageActivity extends LocalizationActivity {
 
             }
         });
+
+
+    }
+
+    private void fetchFranchisType(){
+
+        String url;
+        if (getLanguage().equalsIgnoreCase("en")) {
+            url = "http://sharkny.net/en/api/franchise-types";
+        } else {
+            url = "http://sharkny.net/ar/api/franchise-types";
+        }
+
+
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if (entry != null) {
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // handle data, like converting it to xml, json, bitmap etc.,
+                List<String> franchisType = new ArrayList<>();
+                for (Countries countriy : JsonParser.parseFranchisTypes(data)) {
+                    franchisType.add(countriy.getTitle());
+                }
+                populateSpinner1(franchisType);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Cached response doesn't exists. Make network call here
+            if (Utils.isOnline(AddAdvantageActivity.this)) {
+                final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("wait...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+                String tag_string_req = "string_req";
+
+                StringRequest strReq = new StringRequest(Request.Method.GET,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        List<String> nationalityList = new ArrayList<>();
+                        for (Countries countriy : JsonParser.parseFranchisTypes(response)) {
+                            nationalityList.add(countriy.getTitle());
+                        }
+                        populateSpinner1(nationalityList);
+                        pDialog.dismissWithAnimation();
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                    }
+                });
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+            } else {
+                // show error message
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("Please check your Network connection!")
+                        .show();
+            }
+        }
+
+
+    }
+
+    private void fetchFranchisField(){
+
+        String url;
+        if (getLanguage().equalsIgnoreCase("en")) {
+            url = "http://sharkny.net/en/api/fields";
+        } else {
+            url = "http://sharkny.net/ar/api/fields";
+        }
+
+
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if (entry != null) {
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // handle data, like converting it to xml, json, bitmap etc.,
+                List<String> franchisType = new ArrayList<>();
+                for (Countries countriy : JsonParser.parseField(data)) {
+                    franchisType.add(countriy.getTitle());
+                }
+                populateSpinner2(franchisType);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Cached response doesn't exists. Make network call here
+            if (Utils.isOnline(AddAdvantageActivity.this)) {
+                String tag_string_req = "string_req";
+
+                StringRequest strReq = new StringRequest(Request.Method.GET,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        List<String> nationalityList = new ArrayList<>();
+                        for (Countries countriy : JsonParser.parseField(response)) {
+                            nationalityList.add(countriy.getTitle());
+                        }
+                        populateSpinner2(nationalityList);
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+            } else {
+            }
+        }
+
+
+    }
+
+    private void fetchcountry() {
+        String url;
+        if (getLanguage().equalsIgnoreCase("en")) {
+            url = "http://sharkny.net/en/api/countries/";
+        } else {
+            url = "http://sharkny.net/en/api/countries/index";
+        }
+
+
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if (entry != null) {
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // handle data, like converting it to xml, json, bitmap etc.,
+                List<String> nationalityList = new ArrayList<>();
+                for (Countries countriy : JsonParser.parseCountriesFeed(data)) {
+                    nationalityList.add(countriy.getTitle());
+                }
+                populateSpinner3(nationalityList);
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Cached response doesn't exists. Make network call here
+            if (Utils.isOnline(AddAdvantageActivity.this)) {
+                String tag_string_req = "string_req";
+
+                StringRequest strReq = new StringRequest(Request.Method.GET,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        List<String> nationalityList = new ArrayList<>();
+                        for (Countries countriy : JsonParser.parseCountriesFeed(response)) {
+                            nationalityList.add(countriy.getTitle());
+                        }
+                        populateSpinner3(nationalityList);
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+            } else {
+            }
+        }
 
 
     }

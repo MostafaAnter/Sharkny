@@ -96,7 +96,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
-    <string name="address">Address</string>
+    <string name="address">Title</string>
     <string name="age">Age</string>
     <string name="female">Female</string>
     <string name="job">Job</string>
@@ -168,13 +168,17 @@
     <!-- for add finance -->
     <string-array name="add_finance1">
         <item>Finance Type</item>
-        <item>item1</item>
-        <item>item2</item>
-        <item>item3</item>
-        <item>item4</item>
+        <item>person</item>
+        <item>community</item>
     </string-array>
     <string name="let_message">Sent Message</string>
     <string name="idea_owner">Idea Owner</string>
+    <string name="project_field">Project Field</string>
+    <string name="project_type">Project Type</string>
+    <string name="start_date">Start Date:</string>
+    <string name="country">Country</string>
+    <string name="end_date">End Date:</string>
+    <string name="guarantees">Guarantees</string>
 
 
 </resources>

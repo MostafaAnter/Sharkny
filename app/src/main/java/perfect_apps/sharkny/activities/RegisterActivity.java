@@ -341,6 +341,7 @@ public class RegisterActivity extends LocalizationActivity {
     }
 
     // fetch country and nationality
+
     private void fetchUtilData() {
         String url;
         if (getLanguage().equalsIgnoreCase("en")) {
