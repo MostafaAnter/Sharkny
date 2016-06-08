@@ -276,4 +276,28 @@ public class JsonParser {
 
     }
 
+    public static List<MessageModel> parseUserSentMail(String feed){
+
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);//done
+            JSONArray jsonNewsArray = jsonRootObject.optJSONArray("data");
+            List<MessageModel> newsList = new ArrayList<>();
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+
+                String userName = jsonObject.optString("recipients");
+                String subject = jsonObject.optString("subject");
+
+                MessageModel messageModel = new MessageModel(userName, subject, null, true);
+                newsList.add(messageModel);
+            }
+            return newsList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
 }
