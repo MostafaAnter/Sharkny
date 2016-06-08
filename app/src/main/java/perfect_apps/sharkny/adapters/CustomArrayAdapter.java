@@ -69,7 +69,7 @@ public class CustomArrayAdapter extends ArrayAdapter<BubleItem> {
         // populate mainImage
         Glide.with(mContext)
                 .load(bubleItem.getImage())
-                .thumbnail(0.5f)
+                .placeholder(R.drawable.placeholder)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imageView);

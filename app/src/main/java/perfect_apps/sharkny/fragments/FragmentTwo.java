@@ -213,6 +213,7 @@ public class FragmentTwo extends Fragment {
             try {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
+                mDataset.clear();
                 mDataset.addAll(0, JsonParser.parseBublesItem(data));
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
@@ -228,6 +229,7 @@ public class FragmentTwo extends Fragment {
 
                 @Override
                 public void onResponse(String response) {
+                    mDataset.clear();
                     mDataset.addAll(0, JsonParser.parseBublesItem(response));
                     adapter.notifyDataSetChanged();
                     onRefreshComplete();
