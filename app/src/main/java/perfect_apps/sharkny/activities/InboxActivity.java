@@ -13,13 +13,24 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Cache;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.adapters.MessageInboxViewAdapter;
+import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.models.MessageModel;
+import perfect_apps.sharkny.parse.JsonParser;
+import perfect_apps.sharkny.store.SharknyPrefStore;
+import perfect_apps.sharkny.utils.Constants;
 
 public class InboxActivity extends LocalizationActivity {
 
@@ -157,18 +168,57 @@ public class InboxActivity extends LocalizationActivity {
     }
 
     private void makeNewsRequest(){
-        clearDataSet();
-        // add some fake data
-        MessageModel forecastView = new MessageModel("Mostafa Anter", " plz, test and FeedBack me ;)");
+        fetchData();
 
+    }
 
-        for (int i = 0; i < 20; i++) {
-            mDataset.add(i, forecastView);
-            mAdapter.notifyItemInserted(i);
+    private void fetchData(){
+        if (!mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(true);
         }
 
+        int id = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+        String url = BuildConfig.Get_User_Inbox + id;
 
-        onRefreshComplete();
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if(entry != null){
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // handle data, like converting it to xml, json, bitmap etc.,
+                mDataset.clear();
+                mDataset.addAll(0, JsonParser.parseUserInbox(data));
+                mAdapter.notifyDataSetChanged();
+                onRefreshComplete();
+
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else{
+            // Cached response doesn't exists. Make network call here
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    mDataset.clear();
+                    mDataset.addAll(0, JsonParser.parseUserInbox(response));
+                    mAdapter.notifyDataSetChanged();
+                    onRefreshComplete();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    onRefreshComplete();
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq);
+        }
     }
 
 }

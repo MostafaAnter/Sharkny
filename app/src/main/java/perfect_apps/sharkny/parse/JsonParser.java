@@ -10,6 +10,7 @@ import java.util.List;
 import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.models.Countries;
 import perfect_apps.sharkny.models.FranchisesModel;
+import perfect_apps.sharkny.models.MessageModel;
 import perfect_apps.sharkny.models.OwnerUser;
 
 /**
@@ -239,6 +240,32 @@ public class JsonParser {
                         null, null,null, null,
                         image,likes_count,comments_count, general_type, is_verified, created_by,null);
                 newsList.add(bubleItem);
+            }
+            return newsList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<MessageModel> parseUserInbox(String feed){
+
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);//done
+            JSONArray jsonNewsArray = jsonRootObject.optJSONArray("data");
+            List<MessageModel> newsList = new ArrayList<>();
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+
+                String userName = jsonObject.optString("sender_name");
+                String subject = jsonObject.optString("message_subject");
+                String sender_id = jsonObject.optString("sender_id");
+                boolean read = jsonObject.optBoolean("is_read");
+
+                MessageModel messageModel = new MessageModel(userName, subject, sender_id, read);
+                newsList.add(messageModel);
             }
             return newsList;
         } catch (JSONException e) {

@@ -161,7 +161,7 @@ public class SentMailActivity extends LocalizationActivity {
     private void makeNewsRequest(){
         clearDataSet();
         // add some fake data
-        MessageModel forecastView = new MessageModel("Mostafa Anter", " plz, test and FeedBack me ;)");
+        MessageModel forecastView = new MessageModel("Mostafa Anter", " plz, test and FeedBack me ;)","5",true);
 
 
         for (int i = 0; i < 20; i++) {
