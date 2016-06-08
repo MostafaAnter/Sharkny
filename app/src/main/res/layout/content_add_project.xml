@@ -157,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/investment_value"
                     android:imeOptions="actionUnspecified"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/ratio_invest"
                 android:imeOptions="actionUnspecified"
-                android:inputType="text"
+                android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true" />
 
