@@ -9,6 +9,7 @@ import java.util.List;
 
 import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.models.Countries;
+import perfect_apps.sharkny.models.FavoritItem;
 import perfect_apps.sharkny.models.FinanceModel;
 import perfect_apps.sharkny.models.FranchisesModel;
 import perfect_apps.sharkny.models.MessageModel;
@@ -469,6 +470,33 @@ public class JsonParser {
                         null, null,null, null,
                         image,likes_count,comments_count, general_type, is_verified, created_by,ownerUser);
                 newsList.add(bubleItem);
+            }
+            return newsList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+    public static List<FavoritItem> parseFavoriteList(String feed){
+
+        try {
+            JSONArray jsonNewsArray = new JSONArray(feed);
+            List<FavoritItem> newsList = new ArrayList<>();
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+                JSONObject ownerObject = jsonObject.optJSONObject("item");
+
+
+                String title = ownerObject.optString("title");
+                String description = ownerObject.optString("description");
+                String imageOwner = ownerObject.optString("image");
+
+
+                FavoritItem favoritItem = new FavoritItem(title,description,imageOwner);
+                newsList.add(favoritItem);
             }
             return newsList;
         } catch (JSONException e) {
