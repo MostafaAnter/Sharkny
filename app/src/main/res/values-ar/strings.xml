@@ -46,7 +46,6 @@
 
     <string-array name="search1">
         <item>القسم</item>
-        <item>الكل</item>
         <item>المشاريع</item>
         <item>التمويل</item>
         <item>الإمتيازات</item>
@@ -177,5 +176,6 @@
     <string name="country">الدولة</string>
     <string name="end_date">تاريخ النهاية</string>
     <string name="guarantees">الضمانات</string>
+    <string name="search_result">نتائج البحث</string>
 
 </resources>

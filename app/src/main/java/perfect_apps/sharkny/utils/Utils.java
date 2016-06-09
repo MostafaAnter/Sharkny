@@ -91,6 +91,67 @@ public class Utils {
 
     }
 
+    public static String searchProjectUrl(String title, String country, String type, String field){
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http")
+                .authority("sharkny.net")
+                .appendPath("en")
+                .appendPath("api")
+                .appendPath("projects")
+                .appendPath("search")
+                .appendQueryParameter("title", title)
+                .appendQueryParameter("country", country)
+                .appendQueryParameter("type", type)
+                .appendQueryParameter("field", field);
+
+        return builder.build().toString();
+    }
+
+    public static String searchFinanceUrl(String title, String country, String type, String field){
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http")
+                .authority("sharkny.net")
+                .appendPath("en")
+                .appendPath("api")
+                .appendPath("finance")
+                .appendPath("search")
+                .appendQueryParameter("title", title)
+                .appendQueryParameter("country", country)
+                .appendQueryParameter("type", type)
+                .appendQueryParameter("field", field);
+
+        return builder.build().toString();
+    }
+
+    public static String searchFranchisUrl(String title, String country, String type, String field){
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http")
+                .authority("sharkny.net")
+                .appendPath("en")
+                .appendPath("api")
+                .appendPath("franchises")
+                .appendPath("search")
+                .appendQueryParameter("title", title)
+                .appendQueryParameter("country", country)
+                .appendQueryParameter("type", type)
+                .appendQueryParameter("field", field);
+
+        return builder.build().toString();
+    }
+
+    public static String searchServiceUrl(String title){
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http")
+                .authority("sharkny.net")
+                .appendPath("en")
+                .appendPath("api")
+                .appendPath("other-services")
+                .appendPath("search")
+                .appendQueryParameter("title", title);
+
+        return builder.build().toString();
+    }
+
 
 
 }

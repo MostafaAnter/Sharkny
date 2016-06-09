@@ -46,7 +46,6 @@
 
     <string-array name="search1">
         <item>Section</item>
-        <item>All</item>
         <item>Projects</item>
         <item>Finance</item>
         <item>Franchise</item>
@@ -179,6 +178,7 @@
     <string name="country">Country</string>
     <string name="end_date">End Date:</string>
     <string name="guarantees">Guarantees</string>
+    <string name="search_result">Search Results</string>
 
 
 </resources>

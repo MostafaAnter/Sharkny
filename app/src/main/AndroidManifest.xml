@@ -200,7 +200,34 @@
         <activity
             android:name=".activities.FinanceDetailActivity"
             android:label="@string/title_activity_finance_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.SearchRessultPFinanActivity"
+            android:label="@string/title_activity_search_ressult_pfinan"
+            android:parentActivityName=".activities.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.SearchActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SearchResultFranchisActivity"
+            android:label="@string/title_activity_search_result_franchis"
+            android:parentActivityName=".activities.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.SearchActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SearchResultOtherServiceActivity"
+            android:label="@string/title_activity_search_result_other_service"
+            android:parentActivityName=".activities.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.SearchActivity" />
+        </activity>
     </application>
 
 </manifest>

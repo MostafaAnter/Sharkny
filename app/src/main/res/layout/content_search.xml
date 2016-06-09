@@ -79,7 +79,8 @@
             android:text="@string/title_activity_search"
             android:textAllCaps="false"
             android:background="@color/colorAccent"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:onClick="goToSearchResult"/>
 
         </LinearLayout>
     </ScrollView>

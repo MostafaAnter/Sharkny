@@ -90,7 +90,6 @@
 
     <string-array name="search1">
         <item>Section</item>
-        <item>All</item>
         <item>Projects</item>
         <item>Finance</item>
         <item>Franchise</item>
@@ -203,6 +202,11 @@
     <string name="country">Country</string>
     <string name="title_activity_answer_messag" translatable="false">AnswerMessagActivity</string>
     <string name="title_activity_finance_detail" translatable="false">FinanceDetailActivity</string>
+    <string name="title_activity_search_ressult_pfinan">SearchRessultPFinanActivity</string>
+    <string name="title_activity_search_result_franchis">SearchResultFranchisActivity</string>
+    <string name="title_activity_search_result_other_service">SearchResultOtherServiceActivity
+    </string>
+    <string name="search_result">Search Results</string>
 
 
 </resources>
