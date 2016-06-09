@@ -5,12 +5,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,6 +27,14 @@ import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.models.BubleItem;
 
 public class DetailActivity extends LocalizationActivity {
+
+    // belong like button animations
+    private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
+    private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
+    private final Map<ImageView, AnimatorSet> likeAnimations = new HashMap<>();
+
+
+
     @Bind(R.id.mainImage) ImageView mainImageView;
     @Bind(R.id.mainImageOwner) ImageView mainOwnerImageView;
     @Bind(R.id.certifiedImage) ImageView certifiedImage;
@@ -35,6 +52,9 @@ public class DetailActivity extends LocalizationActivity {
     @Bind(R.id.country) TextView country;
     @Bind(R.id.description) TextView description;
     @Bind(R.id.owner_name) TextView owner_name;
+
+    @Bind(R.id.like_btn) ImageView likeBtn;
+    @Bind(R.id.favoriteImage) ImageView favoritImage;
 
 
 
@@ -121,6 +141,7 @@ public class DetailActivity extends LocalizationActivity {
     }
 
     public void like(View view) {
+        updateHeartButton(likeBtn, true);
     }
 
     public void comment(View view) {
@@ -130,7 +151,87 @@ public class DetailActivity extends LocalizationActivity {
     }
 
     public void favorite(View view) {
+        updateStarImage(favoritImage, true);
     }
+
+    private void updateHeartButton(final ImageView holder, boolean animated) {
+        if (animated) {
+            if (!likeAnimations.containsKey(holder)) {
+                AnimatorSet animatorSet = new AnimatorSet();
+                likeAnimations.put(holder, animatorSet);
+
+                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(holder, "rotation", 0f, 360f);
+                rotationAnim.setDuration(300);
+                rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(holder, "scaleX", 0.2f, 1f);
+                bounceAnimX.setDuration(300);
+                bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(holder, "scaleY", 0.2f, 1f);
+                bounceAnimY.setDuration(300);
+                bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
+                bounceAnimY.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        holder.setImageResource(R.drawable.like_solide);
+                    }
+                });
+
+                animatorSet.play(rotationAnim);
+                animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
+
+                animatorSet.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                    }
+                });
+
+                animatorSet.start();
+            }
+        }
+    }
+
+    private void updateStarImage(final ImageView holder, boolean animated) {
+        if (animated) {
+            if (!likeAnimations.containsKey(holder)) {
+                AnimatorSet animatorSet = new AnimatorSet();
+                likeAnimations.put(holder, animatorSet);
+
+                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(holder, "rotation", 0f, 360f);
+                rotationAnim.setDuration(300);
+                rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(holder, "scaleX", 0.2f, 1f);
+                bounceAnimX.setDuration(300);
+                bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(holder, "scaleY", 0.2f, 1f);
+                bounceAnimY.setDuration(300);
+                bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
+                bounceAnimY.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        holder.setImageResource(R.drawable.favorite_solid);
+                    }
+                });
+
+                animatorSet.play(rotationAnim);
+                animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
+
+                animatorSet.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                    }
+                });
+
+                animatorSet.start();
+            }
+        }
+    }
+
 
 
 }

@@ -118,6 +118,7 @@
                         android:maxLength="5"
                         android:text="0"/>
                     <ImageView
+                        android:id="@+id/like_btn"
                         android:layout_width="45dp"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -145,6 +146,7 @@
                         android:onClick="comment"/>
                 </LinearLayout>
                 <ImageView
+                    android:id="@+id/favoriteImage"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
