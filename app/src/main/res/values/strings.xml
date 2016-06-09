@@ -207,6 +207,8 @@
     <string name="title_activity_search_result_other_service">SearchResultOtherServiceActivity
     </string>
     <string name="search_result">Search Results</string>
+    <string name="title_activity_comments">CommentsActivity</string>
+    <string name="comments">Comments</string>
 
 
 </resources>

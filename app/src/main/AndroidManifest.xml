@@ -228,6 +228,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="perfect_apps.sharkny.activities.SearchActivity" />
         </activity>
+        <activity
+            android:name=".activities.CommentsActivity"
+            android:label="@string/title_activity_comments"
+            android:parentActivityName=".activities.DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="perfect_apps.sharkny.activities.DetailActivity" />
+        </activity>
     </application>
 
 </manifest>

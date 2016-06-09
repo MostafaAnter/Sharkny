@@ -22,6 +22,8 @@ public class DetailActivity extends LocalizationActivity {
     @Bind(R.id.mainImageOwner) ImageView mainOwnerImageView;
     @Bind(R.id.certifiedImage) ImageView certifiedImage;
     @Bind(R.id.title) TextView titleOfMainImage;
+    @Bind(R.id.like_count) TextView likeCount;
+    @Bind(R.id.comment_count) TextView commentCount;
 
     @Bind(R.id.start_date) TextView startDate;
     @Bind(R.id.end_date) TextView endDate;
@@ -98,6 +100,8 @@ public class DetailActivity extends LocalizationActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(mainOwnerImageView);
 
+        likeCount.setText(bubleItem.getLikes_count());
+        commentCount.setText(bubleItem.getComments_count());
         titleOfMainImage.setText(bubleItem.getTitle());
         startDate.setText(bubleItem.getStart_date());
         endDate.setText(bubleItem.getEnd_date());
@@ -115,4 +119,18 @@ public class DetailActivity extends LocalizationActivity {
     public void sendMessage(View view) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", bubleItem.getOwnerUser().getMobile(), null)));
     }
+
+    public void like(View view) {
+    }
+
+    public void comment(View view) {
+        Intent intent = new Intent(this, CommentsActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+    }
+
+    public void favorite(View view) {
+    }
+
+
 }

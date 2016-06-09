@@ -177,5 +177,6 @@
     <string name="end_date">تاريخ النهاية</string>
     <string name="guarantees">الضمانات</string>
     <string name="search_result">نتائج البحث</string>
+    <string name="comments">التعليقات</string>
 
 </resources>

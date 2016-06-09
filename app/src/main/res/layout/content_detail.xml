@@ -17,7 +17,6 @@
         android:layout_height="match_parent"
         android:scrollbarStyle="insideOverlay"
         android:scrollbars="none">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,18 +105,13 @@
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:src="@drawable/like_solide"/>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical|center_horizontal">
                     <TextView
+                        android:id="@+id/like_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:inputType="number"
@@ -127,23 +121,36 @@
                         android:layout_width="45dp"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
-                        android:src="@drawable/favorite_not_solid"/>
+                        android:src="@drawable/like_not_solid"
+                        android:onClick="like"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal">
+                    <TextView
+                        android:id="@+id/comment_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:text="0"/>
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:src="@drawable/coment_ic"
+                        android:onClick="comment"/>
                 </LinearLayout>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:src="@drawable/coment_ic"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:inputType="number"
-                    android:maxLength="6"
-                    android:text="10000"/>
-
+                    android:padding="10dp"
+                    android:src="@drawable/favorite_not_solid"
+                    android:onClick="favorite"/>
             </LinearLayout>
 
             <View
@@ -481,6 +488,9 @@
                 android:textColor="@color/white"
                 android:onClick="sendMessage"/>
         </LinearLayout>
+
+
+
     </ScrollView>
 
 </RelativeLayout>
