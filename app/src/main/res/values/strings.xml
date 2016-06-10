@@ -202,14 +202,16 @@
     <string name="country">Country</string>
     <string name="title_activity_answer_messag" translatable="false">AnswerMessagActivity</string>
     <string name="title_activity_finance_detail" translatable="false">FinanceDetailActivity</string>
-    <string name="title_activity_search_ressult_pfinan">SearchRessultPFinanActivity</string>
-    <string name="title_activity_search_result_franchis">SearchResultFranchisActivity</string>
-    <string name="title_activity_search_result_other_service">SearchResultOtherServiceActivity
+    <string name="title_activity_search_ressult_pfinan" translatable="false">SearchRessultPFinanActivity</string>
+    <string name="title_activity_search_result_franchis" translatable="false">SearchResultFranchisActivity</string>
+    <string name="title_activity_search_result_other_service" translatable="false">SearchResultOtherServiceActivity
     </string>
     <string name="search_result">Search Results</string>
-    <string name="title_activity_comments">CommentsActivity</string>
+    <string name="title_activity_comments" translatable="false">CommentsActivity</string>
     <string name="comments">Comments</string>
     <string name="comment">Enter your comment</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
 
 
 </resources>

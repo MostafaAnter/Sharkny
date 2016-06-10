@@ -179,5 +179,7 @@
     <string name="search_result">نتائج البحث</string>
     <string name="comments">التعليقات</string>
     <string name="comment">  أكتب تعليق</string>
+    <string name="message">أكتب رسالتك</string>
+    <string name="send">إرسال</string>
 
 </resources>

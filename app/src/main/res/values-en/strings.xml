@@ -181,6 +181,8 @@
     <string name="search_result">Search Results</string>
     <string name="comments">Comments</string>
     <string name="comment">Enter your comment</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
 
 
 </resources>
