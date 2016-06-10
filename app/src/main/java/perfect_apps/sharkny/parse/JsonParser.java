@@ -625,6 +625,26 @@ public class JsonParser {
 
     }
 
+    public static List<String> parseUserComment(String feed){
+
+        try {
+            JSONArray jsonNewsArray = new JSONArray(feed);
+            List<String> newsList = new ArrayList<>();
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+
+                String comment = jsonObject.optString("comment");
+                newsList.add(comment);
+            }
+            return newsList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
 
 
 }

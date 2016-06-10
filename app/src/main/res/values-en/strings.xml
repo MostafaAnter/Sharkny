@@ -180,6 +180,7 @@
     <string name="guarantees">Guarantees</string>
     <string name="search_result">Search Results</string>
     <string name="comments">Comments</string>
+    <string name="comment">Enter your comment</string>
 
 
 </resources>

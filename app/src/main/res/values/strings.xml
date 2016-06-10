@@ -209,6 +209,7 @@
     <string name="search_result">Search Results</string>
     <string name="title_activity_comments">CommentsActivity</string>
     <string name="comments">Comments</string>
+    <string name="comment">Enter your comment</string>
 
 
 </resources>

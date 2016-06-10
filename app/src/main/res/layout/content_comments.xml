@@ -13,4 +13,54 @@
     tools:context="perfect_apps.sharkny.activities.CommentsActivity"
     tools:showIn="@layout/activity_comments">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/swiperefresh"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/chatInputMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/comment_row" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <LinearLayout
+        android:id="@+id/chatInputMessage"
+        android:layout_width="match_parent"
+        android:layout_height="45dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/round_custom_service"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/send_comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/comment"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textLongMessage"
+                android:background="#00000000"
+                android:maxLines="3" />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="48dip"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/ic_menu_send"
+            android:onClick="sendComment" />
+    </LinearLayout>
+
 </RelativeLayout>
