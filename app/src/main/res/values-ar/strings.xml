@@ -181,5 +181,6 @@
     <string name="comment">  أكتب تعليق</string>
     <string name="message">أكتب رسالتك</string>
     <string name="send">إرسال</string>
+    <string name="add_comment">أضافة تعليق</string>
 
 </resources>

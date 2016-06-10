@@ -46,7 +46,7 @@ public class FragmentOne extends Fragment {
     }
 
     private void changeTypeFace(){
-        Typeface sharknyFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/thin.ttf");
+        Typeface sharknyFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/daisy.ttf");
         button1.setTypeface(sharknyFont);
         button2.setTypeface(sharknyFont);
         button3.setTypeface(sharknyFont);

@@ -19,7 +19,7 @@
     <string name="home_button5">My Account</string>
     <string name="home_button6">Other Services\n2</string>
     <string name="title_activity_my_account" translatable="false">MyAccountActivity</string>
-    <string name="profile">My Profile</string>
+    <string name="profile">My Account</string>
     <string name="advantages">Franchise</string>
     <string name="title_activity_account_profile" translatable="false">AccountProfileActivity</string>
     <string name="title_activity_account_finance" translatable="false">AccountFinanceActivity</string>
@@ -37,7 +37,7 @@
     <string name="drawer_authenticated_favorite">Favorites</string>
     <string name="language_english">English</string>
     <string name="language_arabic">Arabic</string>
-    <string name="stand_projects">Stand Projects</string>
+    <string name="stand_projects">Current Projects</string>
     <string name="new_ideas">New Ideas</string>
     <string name="Deals">Deals</string>
     <string name="company">Companies</string>
@@ -212,6 +212,7 @@
     <string name="comment">Enter your comment</string>
     <string name="message">Message</string>
     <string name="send">Send</string>
+    <string name="add_comment">Add comment</string>
 
 
 </resources>

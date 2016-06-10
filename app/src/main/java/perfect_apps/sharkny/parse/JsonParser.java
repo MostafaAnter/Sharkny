@@ -395,7 +395,7 @@ public class JsonParser {
                 String investment_value = jsonObject.optString("investment_value");
                 String investment_percentage = jsonObject.optString("investment_percentage");
                 String is_verified = jsonObject.optString("is_verified");
-                String inance_type = jsonObject.optString("inance_type");
+                String inance_type = jsonObject.optString("finance_type");
                 String investment_Field = jsonObject.optString("investment_Field");
                 String country = jsonObject.optString("country");
                 String image = jsonObject.optString("image");

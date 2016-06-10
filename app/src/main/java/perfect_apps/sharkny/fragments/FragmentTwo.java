@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
 import com.android.volley.Cache;
@@ -59,6 +60,7 @@ public class FragmentTwo extends Fragment {
 
     // for recycler view
     private List<BubleItem> mDataset;
+    private List<BubleItem> mDataOrigine;
     private HorizontalListView mHlvCustomList;
     private CustomArrayAdapter adapter;
 
@@ -76,6 +78,7 @@ public class FragmentTwo extends Fragment {
 
         // populate mDataSet
         mDataset = new ArrayList<>();
+        mDataOrigine = new ArrayList<>();
     }
 
     @Nullable
@@ -132,6 +135,47 @@ public class FragmentTwo extends Fragment {
                 Log.i("swip", "onRefresh called from SwipeRefreshLayout");
 
                 initiateRefresh();
+            }
+        });
+
+
+        radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    filterProjectsWithType("Current Projects");
+
+                }
+            }
+        });
+
+        radioButton2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    filterProjectsWithType("New Ideas");
+
+                }
+            }
+        });
+
+        radioButton3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    filterProjectsWithType("Deals");
+
+                }
+            }
+        });
+
+        radioButton4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    filterProjectsWithType("Franchise");
+
+                }
             }
         });
 
@@ -224,7 +268,9 @@ public class FragmentTwo extends Fragment {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 mDataset.clear();
+                mDataOrigine.clear();
                 mDataset.addAll(0, JsonParser.parseBublesItem(data));
+                mDataOrigine.addAll(0, mDataset);
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
 
@@ -240,7 +286,9 @@ public class FragmentTwo extends Fragment {
                 @Override
                 public void onResponse(String response) {
                     mDataset.clear();
+                    mDataOrigine.clear();
                     mDataset.addAll(0, JsonParser.parseBublesItem(response));
+                    mDataOrigine.addAll(0, mDataset);
                     adapter.notifyDataSetChanged();
                     onRefreshComplete();
 
@@ -255,6 +303,17 @@ public class FragmentTwo extends Fragment {
 
             // Adding request to request queue
             AppController.getInstance().addToRequestQueue(strReq);
+        }
+    }
+
+    private void filterProjectsWithType(String type){
+        mDataset.clear();
+        adapter.notifyDataSetChanged();
+        for (BubleItem bubleItem : mDataOrigine){
+            if (bubleItem.getProject_type().equalsIgnoreCase(type)){
+                mDataset.add(bubleItem);
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 

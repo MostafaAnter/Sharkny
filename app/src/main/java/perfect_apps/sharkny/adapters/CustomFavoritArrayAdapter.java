@@ -63,7 +63,7 @@ public class CustomFavoritArrayAdapter extends ArrayAdapter<FavoritItem> {
         holder.titelView.setText(bubleItem.getTitle());
 
         // populate description
-        holder.descriptionView.setText(bubleItem.getDescription());
+        holder.descriptionView.setText(bubleItem.getDescription().replaceAll("<|>|/|p", ""));
 
         // populate mainImage
         Glide.with(mContext)

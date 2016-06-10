@@ -231,6 +231,7 @@
         <activity
             android:name=".activities.CommentsActivity"
             android:label="@string/title_activity_comments"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".activities.DetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

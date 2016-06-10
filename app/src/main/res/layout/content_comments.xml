@@ -13,12 +13,51 @@
     tools:context="perfect_apps.sharkny.activities.CommentsActivity"
     tools:showIn="@layout/activity_comments">
 
+    <LinearLayout
+        android:id="@+id/chatInputMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/round_custom_service"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/send_comment"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textLongMessage"
+                android:background="@color/white"
+                android:maxLines="3" />
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            android:text="@string/add_comment"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:background="@color/colorAccent"
+            android:layout_gravity="center_horizontal"
+            android:onClick="sendComment" />
+    </LinearLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/swiperefresh"
         android:layout_marginBottom="10dp"
-        android:layout_above="@+id/chatInputMessage"
+        android:layout_below="@+id/chatInputMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -29,38 +68,5 @@
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/comment_row" />
     </android.support.v4.widget.SwipeRefreshLayout>
-
-
-    <LinearLayout
-        android:id="@+id/chatInputMessage"
-        android:layout_width="match_parent"
-        android:layout_height="45dip"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/round_custom_service"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/send_comment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/comment"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textLongMessage"
-                android:background="#00000000"
-                android:maxLines="3" />
-        </LinearLayout>
-        <ImageView
-            android:layout_width="48dip"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:src="@drawable/ic_menu_send"
-            android:onClick="sendComment" />
-    </LinearLayout>
 
 </RelativeLayout>

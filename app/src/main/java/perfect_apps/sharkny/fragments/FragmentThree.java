@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
 import com.android.volley.Cache;
@@ -55,6 +56,7 @@ public class FragmentThree extends Fragment {
 
     // for recycler view
     private List<FinanceModel> mDataset;
+    private List<FinanceModel> mDataOrigine;
     private HorizontalListView mHlvCustomList;
     private CustomFinanceArrayAdapter adapter;
 
@@ -72,6 +74,7 @@ public class FragmentThree extends Fragment {
 
         // populate mDataSet
         mDataset = new ArrayList<>();
+        mDataOrigine = new ArrayList<>();
     }
 
     @Nullable
@@ -160,6 +163,26 @@ public class FragmentThree extends Fragment {
             }
         });
 
+        radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    filterProjectsWithType("1");
+
+                }
+            }
+        });
+
+        radioButton2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    filterProjectsWithType("2");
+
+                }
+            }
+        });
+
     }
 
     @Override
@@ -219,7 +242,9 @@ public class FragmentThree extends Fragment {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 mDataset.clear();
+                mDataOrigine.clear();
                 mDataset.addAll(0, JsonParser.parseFinanceList(data));
+                mDataOrigine.addAll(0, mDataset);
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
 
@@ -235,7 +260,9 @@ public class FragmentThree extends Fragment {
                 @Override
                 public void onResponse(String response) {
                     mDataset.clear();
+                    mDataOrigine.clear();
                     mDataset.addAll(0, JsonParser.parseFinanceList(response));
+                    mDataOrigine.addAll(0, mDataset);
                     adapter.notifyDataSetChanged();
                     onRefreshComplete();
 
@@ -250,6 +277,17 @@ public class FragmentThree extends Fragment {
 
             // Adding request to request queue
             AppController.getInstance().addToRequestQueue(strReq);
+        }
+    }
+
+    private void filterProjectsWithType(String type){
+        mDataset.clear();
+        adapter.notifyDataSetChanged();
+        for (FinanceModel bubleItem : mDataOrigine){
+            if (bubleItem.getInance_type().equalsIgnoreCase(type)){
+                mDataset.add(bubleItem);
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 }

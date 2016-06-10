@@ -64,7 +64,7 @@ public class CustomArrayAdapter extends ArrayAdapter<BubleItem> {
         holder.titelView.setText(bubleItem.getTitle());
 
         // populate description
-        holder.descriptionView.setText(bubleItem.getDescription());
+        holder.descriptionView.setText(bubleItem.getDescription().replaceAll("<|>|/|p", ""));
 
         // populate mainImage
         Glide.with(mContext)

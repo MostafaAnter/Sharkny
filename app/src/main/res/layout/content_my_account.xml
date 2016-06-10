@@ -43,6 +43,7 @@
                     android:text="@string/profile"
                     android:textAllCaps="false"
                     android:textSize="10sp"
+                    android:textStyle="bold"
                     android:textColor="#FFFFFF"/>
 
             </LinearLayout>
@@ -68,6 +69,7 @@
                     <TextView
                         android:id="@+id/text2"
                         android:textSize="10sp"
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/finance"
@@ -93,6 +95,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/advantages"
+                        android:textStyle="bold"
                         android:textAllCaps="false"
                         android:textSize="10sp"
                         android:textColor="#FFFFFF"/>
@@ -119,6 +122,7 @@
                         android:src="@drawable/profile_other_services"/>
                     <TextView
                         android:id="@+id/text4"
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/other_services"
@@ -142,6 +146,7 @@
                         android:src="@drawable/profiel_projects_icon"/>
                     <TextView
                         android:id="@+id/text5"
+                        android:textStyle="bold"
                         android:textSize="10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
