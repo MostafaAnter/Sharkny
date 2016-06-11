@@ -240,8 +240,8 @@ public class SearchRessultPFinanActivity extends LocalizationActivity {
                     if (response.equalsIgnoreCase("[]")){
                         // show error message
                         new SweetAlertDialog(SearchRessultPFinanActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("نأسف")
-                                .setContentText("لا توجد نتائج")
+                                .setTitleText("sorry")
+                                .setContentText("there is no results")
                                 .show();
 
                     }

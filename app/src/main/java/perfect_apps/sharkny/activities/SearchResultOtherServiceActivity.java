@@ -42,6 +42,7 @@ public class SearchResultOtherServiceActivity extends LocalizationActivity {
 
 
     private static String title;
+    private static int flage;
     // for recycler view
     private List<BubleItem> mDataset;
     private HorizontalListView mHlvCustomList;
@@ -57,6 +58,7 @@ public class SearchResultOtherServiceActivity extends LocalizationActivity {
         setToolbar();
 
         title = getIntent().getStringExtra("title");
+        flage = getIntent().getIntExtra("flag", 0);
 
         // populate mDataSet
         mDataset = new ArrayList<>();
@@ -201,6 +203,8 @@ public class SearchResultOtherServiceActivity extends LocalizationActivity {
 
         int id = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
         String url = Utils.searchServiceUrl(title);
+        if (flage == 5)
+            url = "http://sharkny.net/en/api/search?title=" + title;
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);
@@ -218,28 +222,53 @@ public class SearchResultOtherServiceActivity extends LocalizationActivity {
                 e.printStackTrace();
             }
         } else{
-            // Cached response doesn't exists. Make network call here
-            StringRequest strReq = new StringRequest(Request.Method.GET,
-                    url, new Response.Listener<String>() {
+            if (flage != 5) {
+                // Cached response doesn't exists. Make network call here
+                StringRequest strReq = new StringRequest(Request.Method.GET,
+                        url, new Response.Listener<String>() {
 
-                @Override
-                public void onResponse(String response) {
-                    mDataset.clear();
-                    mDataset.addAll(0, JsonParser.searchOtherParse(response));
-                    adapter.notifyDataSetChanged();
-                    onRefreshComplete();
+                    @Override
+                    public void onResponse(String response) {
+                        mDataset.clear();
+                        mDataset.addAll(0, JsonParser.searchOtherParse(response));
+                        adapter.notifyDataSetChanged();
+                        onRefreshComplete();
 
-                }
-            }, new Response.ErrorListener() {
+                    }
+                }, new Response.ErrorListener() {
 
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    onRefreshComplete();
-                }
-            });
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        onRefreshComplete();
+                    }
+                });
 
-            // Adding request to request queue
-            AppController.getInstance().addToRequestQueue(strReq);
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq);
+            } else {
+                // Cached response doesn't exists. Make network call here
+                StringRequest strReq = new StringRequest(Request.Method.POST,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        mDataset.clear();
+                        mDataset.addAll(0, JsonParser.searchOtherParse(response));
+                        adapter.notifyDataSetChanged();
+                        onRefreshComplete();
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        onRefreshComplete();
+                    }
+                });
+
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq);
+            }
         }
     }
 

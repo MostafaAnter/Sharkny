@@ -164,7 +164,7 @@ public class SearchActivity extends LocalizationActivity {
                 // First item is disable and it is used for hint
                 if(position > 0){
                     // Notify the selected item text
-                    if (returnIndex(spinner1, selectedItemText) == 1){
+                    if (returnIndex(spinner1, selectedItemText) == 2){
                         spinner2.setVisibility(View.VISIBLE);
                         spinner3.setVisibility(View.VISIBLE);
                         spinner4.setVisibility(View.GONE);
@@ -176,7 +176,7 @@ public class SearchActivity extends LocalizationActivity {
                         flag_go_to = 1;
 
 
-                    }else if (returnIndex(spinner1, selectedItemText) == 2){
+                    }else if (returnIndex(spinner1, selectedItemText) == 3){
                         spinner2.setVisibility(View.GONE);
                         spinner3.setVisibility(View.VISIBLE);
                         spinner4.setVisibility(View.VISIBLE);
@@ -187,7 +187,7 @@ public class SearchActivity extends LocalizationActivity {
 
                         flag_go_to = 2;
 
-                    }else if (returnIndex(spinner1, selectedItemText) == 3){
+                    }else if (returnIndex(spinner1, selectedItemText) == 4){
                         spinner2.setVisibility(View.GONE);
                         spinner3.setVisibility(View.VISIBLE);
                         spinner4.setVisibility(View.GONE);
@@ -197,13 +197,19 @@ public class SearchActivity extends LocalizationActivity {
 
                         flag_go_to = 3;
 
-                    }else if (returnIndex(spinner1, selectedItemText) == 4){
+                    }else if (returnIndex(spinner1, selectedItemText) == 5){
                         spinner2.setVisibility(View.GONE);
                         spinner3.setVisibility(View.GONE);
                         spinner4.setVisibility(View.GONE);
                         spinner5.setVisibility(View.GONE);
 
                         flag_go_to = 4;
+                    }else if (returnIndex(spinner1, selectedItemText) == 1) {
+                        spinner2.setVisibility(View.GONE);
+                        spinner3.setVisibility(View.GONE);
+                        spinner4.setVisibility(View.GONE);
+                        spinner5.setVisibility(View.GONE);
+                        flag_go_to = 5;
                     }
                 }
             }
@@ -326,6 +332,13 @@ public class SearchActivity extends LocalizationActivity {
                 if(position > 0){
                     // Notify the selected item text
                     country = position + "";
+                    if (position != 1){
+                        if (position < 42){
+                            country = ++position + "";
+                        }else {
+                            country = position + 2 +"";
+                        }
+                    }
                 }
             }
 
@@ -659,79 +672,66 @@ public class SearchActivity extends LocalizationActivity {
     }
 
     public void goToSearchResult(View view) {
-        if (flag_go_to == 1){
-            if (! title.getText().toString().trim().isEmpty()) {
-                Intent intent = new Intent(SearchActivity.this, SearchRessultPFinanActivity.class);
-                intent.putExtra("title", title.getText().toString().trim());
-                if (country == null)
-                    country = "";
-                intent.putExtra("country", String.valueOf(country));
-                if (type == null)
-                    type = "";
-                intent.putExtra("type", type);
-                intent.putExtra("field", "");
-                intent.putExtra("flag", flag_go_to);
-                startActivity(intent);
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-            }else {
-                // show error message
-                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("Oops...")
-                        .setContentText("Please complete data!")
-                        .show();
-            }
-        }else if (flag_go_to == 2){
-            if (! title.getText().toString().trim().isEmpty()) {
-                Intent intent = new Intent(SearchActivity.this, SearchRessultPFinanActivity.class);
-                intent.putExtra("title", title.getText().toString().trim());
-                intent.putExtra("country", String.valueOf(country));
-                intent.putExtra("type", financeType);
-                intent.putExtra("field", "");
-                intent.putExtra("flag", flag_go_to);
-                startActivity(intent);
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-            } else {
-                // show error message
-                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("Oops...")
-                        .setContentText("Please complete data!")
-                        .show();
-            }
+        if (flag_go_to == 1) {
 
-        }else if (flag_go_to == 3){
-            if (! title.getText().toString().trim().isEmpty()) {
-                Intent intent = new Intent(SearchActivity.this, SearchResultFranchisActivity.class);
-                intent.putExtra("title", title.getText().toString().trim());
-                intent.putExtra("country", String.valueOf(country));
-                intent.putExtra("type", franchisType);
-                intent.putExtra("field", "");
-                startActivity(intent);
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-            } else {
-                // show error message
-                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("Oops...")
-                        .setContentText("Please complete data!")
-                        .show();
-            }
+            Intent intent = new Intent(SearchActivity.this, SearchRessultPFinanActivity.class);
+            intent.putExtra("title", title.getText().toString().trim());
+            if (country == null)
+                country = "";
+            intent.putExtra("country", String.valueOf(country));
+            if (type == null)
+                type = "";
+            intent.putExtra("type", type);
+            intent.putExtra("field", "");
+            intent.putExtra("flag", flag_go_to);
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
-        }else if (flag_go_to == 4){
-            if (! title.getText().toString().trim().isEmpty()) {
-                Intent intent = new Intent(SearchActivity.this, SearchResultOtherServiceActivity.class);
-                intent.putExtra("title", title.getText().toString().trim());
-                intent.putExtra("country", String.valueOf(country));
-                intent.putExtra("type", type);
-                intent.putExtra("field", "");
-                startActivity(intent);
-                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-            } else {
-                // show error message
-                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("Oops...")
-                        .setContentText("Please complete data!")
-                        .show();
-            }
-        }else {
+        } else if (flag_go_to == 2) {
+
+            Intent intent = new Intent(SearchActivity.this, SearchRessultPFinanActivity.class);
+            intent.putExtra("title", title.getText().toString().trim());
+            intent.putExtra("country", String.valueOf(country));
+            intent.putExtra("type", financeType);
+            intent.putExtra("field", "");
+            intent.putExtra("flag", flag_go_to);
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+
+        } else if (flag_go_to == 3) {
+
+            Intent intent = new Intent(SearchActivity.this, SearchResultFranchisActivity.class);
+            intent.putExtra("title", title.getText().toString().trim());
+            intent.putExtra("country", String.valueOf(country));
+            intent.putExtra("type", franchisType);
+            intent.putExtra("field", "");
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+
+        } else if (flag_go_to == 4) {
+
+            Intent intent = new Intent(SearchActivity.this, SearchResultOtherServiceActivity.class);
+            intent.putExtra("title", title.getText().toString().trim());
+            intent.putExtra("country", String.valueOf(country));
+            intent.putExtra("type", type);
+            intent.putExtra("field", "");
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+        } else if (flag_go_to == 5) {
+
+            Intent intent = new Intent(SearchActivity.this, SearchResultOtherServiceActivity.class);
+            intent.putExtra("title", title.getText().toString().trim());
+            intent.putExtra("country", String.valueOf(country));
+            intent.putExtra("type", type);
+            intent.putExtra("flag", flag_go_to);
+            intent.putExtra("field", "");
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+        } else {
             // show error message
             new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                     .setTitleText("Oops...")

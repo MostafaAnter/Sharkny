@@ -26,7 +26,7 @@
     <string name="new_ideas">New Ideas</string>
     <string name="stand_projects">Current Projects</string>
     <string name="company">Companies</string>
-    <string name="personally">Personally</string>
+    <string name="personally">Personal</string>
     <string name="action_sign_in">Sign in </string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_field_required">This field is required</string>
@@ -46,6 +46,7 @@
 
     <string-array name="search1">
         <item>Section</item>
+        <item>All</item>
         <item>Projects</item>
         <item>Finance</item>
         <item>Franchise</item>
@@ -70,7 +71,7 @@
 
     <string-array name="search4">
         <item>Finance Type</item>
-        <item>Person</item>
+        <item>Personal</item>
         <item>Companies</item>
     </string-array>
 

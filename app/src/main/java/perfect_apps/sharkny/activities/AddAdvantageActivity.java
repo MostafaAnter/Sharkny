@@ -347,7 +347,14 @@ public class AddAdvantageActivity extends LocalizationActivity {
                 // First item is disable and it is used for hint
                 if(position > 0){
                     // Notify the selected item text
-                    country = selectedItemText;
+                    country = position + "";
+                    if (position != 1){
+                        if (position < 42){
+                            country = ++position + "";
+                        }else {
+                            country = position + 2 +"";
+                        }
+                    }
                 }
             }
 
@@ -649,7 +656,7 @@ public class AddAdvantageActivity extends LocalizationActivity {
                         params.put("description", describtion.getText().toString());
                         params.put("franchise_type", String.valueOf(returnIndex(spinner1, franchisType)));
                         params.put("franchise_field", String.valueOf(returnIndex(spinner2, franchisField)));
-                        params.put("country", String.valueOf(returnIndex(spinner3, country)));
+                        params.put("country", country);
                         params.put("created_by", String.valueOf(id));
                         return params;
                     }

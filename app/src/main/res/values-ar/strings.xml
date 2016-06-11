@@ -46,6 +46,7 @@
 
     <string-array name="search1">
         <item>القسم</item>
+        <item>الكل</item>
         <item>المشاريع</item>
         <item>التمويل</item>
         <item>الإمتيازات</item>
