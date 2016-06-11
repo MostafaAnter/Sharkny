@@ -77,6 +77,7 @@ public class RegisterActivity extends LocalizationActivity {
     @Bind(R.id.text_input2) TextInputLayout textInputLayout0;
     @Bind(R.id.editText3) EditText confirmPassword;
     @Bind(R.id.text_input3) TextInputLayout textInputLayout;
+    @Bind(R.id.text_input5) TextInputLayout textInputLayout5;
     @Bind(R.id.editText4) EditText fullName;
     @Bind(R.id.editText5) EditText email;
     @Bind(R.id.editText6) EditText mobile;
@@ -87,7 +88,7 @@ public class RegisterActivity extends LocalizationActivity {
     @Bind(R.id.button21) RadioButton radioButtonMale;
     @Bind(R.id.button22) RadioButton radioButtonFemale;
 
-    private static int genderType;
+    private static int genderType = 1;
     private static Uri profileImagePath;
 
     private static String nationality = "";
@@ -107,6 +108,7 @@ public class RegisterActivity extends LocalizationActivity {
 
         confirmPassword.addTextChangedListener(new MyTextWatcher(confirmPassword));
         password.addTextChangedListener(new MyTextWatcher(password));
+        email.addTextChangedListener(new MyTextWatcher(email));
 
         radioButtonMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -662,6 +664,15 @@ public class RegisterActivity extends LocalizationActivity {
 
                     }else {
                         textInputLayout0.setErrorEnabled(false);
+                    }
+                    break;
+                case R.id.editText5:
+                    if (!android.util.Patterns.EMAIL_ADDRESS
+                            .matcher(email.getText().toString().trim()).matches()){
+                        textInputLayout5.setError("not valid");
+
+                }else {
+                        textInputLayout5.setErrorEnabled(false);
                     }
                     break;
             }

@@ -10,7 +10,7 @@
     <string name="home">Home</string>
     <string name="finance">Finance</string>
     <string name="projects">Projects</string>
-    <string name="other_services">Other Services</string>
+    <string name="other_services">OtherServices</string>
 
     <string name="home_button1">Deals\n1</string>
     <string name="home_button2">Current Projects\n4</string>
@@ -86,7 +86,7 @@
     <string name="select_service_pic">Select Service Picture</string>
     <string name="select_franchise_pic">Select Franchise Picture</string>
     <string name="select_finance_pic">Select Finance Picture</string>
-    <string name="ratio_invest">Investment Ratio</string>
+    <string name="ratio_invest">Investment Percentage</string>
 
     <string-array name="search1">
         <item>Section</item>
@@ -214,6 +214,7 @@
     <string name="message">Message</string>
     <string name="send">Send</string>
     <string name="add_comment">Add comment</string>
+    <string name="address_register">Address</string>
 
 
 </resources>

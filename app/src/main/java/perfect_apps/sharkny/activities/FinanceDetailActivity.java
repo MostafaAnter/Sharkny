@@ -62,13 +62,10 @@ public class FinanceDetailActivity extends LocalizationActivity {
     @Bind(R.id.like_count) TextView likeCount;
     @Bind(R.id.comment_count) TextView commentCount;
 
-    @Bind(R.id.start_date) TextView startDate;
-    @Bind(R.id.end_date) TextView endDate;
     @Bind(R.id.investment_value) TextView investment_value;
     @Bind(R.id.project_field) TextView project_field;
     @Bind(R.id.project_type) TextView project_type;
     @Bind(R.id.investment_percentag) TextView investment_percentag;
-    @Bind(R.id.guarantees) TextView guarantees;
     @Bind(R.id.country) TextView country;
     @Bind(R.id.description) TextView description;
     @Bind(R.id.owner_name) TextView owner_name;
@@ -153,14 +150,31 @@ public class FinanceDetailActivity extends LocalizationActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(mainOwnerImageView);
 
+        commentCount.setText(bubleItem.getComments_count());
+        likeCount.setText(bubleItem.getLikes_count());
         titleOfMainImage.setText(bubleItem.getTitle());
-        startDate.setText("");
-        endDate.setText("");
-        investment_value.setText(bubleItem.getInvestment_value());
+
+
+        if (bubleItem.getInvestment_value().trim().isEmpty()){
+            investment_value.setText("__");
+        }else {
+            investment_value.setText(bubleItem.getInvestment_value());
+        }
         project_field.setText(bubleItem.getInvestment_Field());
-        project_type.setText(bubleItem.getInance_type());
-        investment_percentag.setText(bubleItem.getInvestment_percentage());
-        guarantees.setText("");
+
+
+        if (bubleItem.getInance_type().equalsIgnoreCase("1")){
+            project_type.setText(getResources().getString(R.string.personally));
+        }else {
+            project_type.setText(getResources().getString(R.string.company));
+        }
+
+
+        if (bubleItem.getInvestment_percentage().trim().isEmpty()){
+            investment_percentag.setText("__ %");
+        }else {
+            investment_percentag.setText(bubleItem.getInvestment_percentage() + "%");
+        }
         country.setText(bubleItem.getCountry());
         description.setText(bubleItem.getDescription());
         owner_name.setText(bubleItem.getOwnerUser().getFullname());

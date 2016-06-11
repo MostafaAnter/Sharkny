@@ -153,13 +153,37 @@ public class DetailActivity extends LocalizationActivity {
         likeCount.setText(bubleItem.getLikes_count());
         commentCount.setText(bubleItem.getComments_count());
         titleOfMainImage.setText(bubleItem.getTitle());
-        startDate.setText(bubleItem.getStart_date());
-        endDate.setText(bubleItem.getEnd_date());
-        investment_value.setText(bubleItem.getInvestment_value());
+        if (bubleItem.getStart_date().trim().isEmpty()){
+            startDate.setText("__");
+        }else {
+            startDate.setText(bubleItem.getStart_date());
+        }
+
+        if (bubleItem.getEnd_date().trim().isEmpty()){
+            endDate.setText("--");
+        }else {
+            endDate.setText(bubleItem.getEnd_date());
+        }
+
+        if (bubleItem.getInvestment_value().trim().isEmpty()){
+            investment_value.setText("__");
+
+        }else{
+            investment_value.setText(bubleItem.getInvestment_value());
+        }
         project_field.setText(bubleItem.getProject_field());
         project_type.setText(bubleItem.getProject_type());
-        investment_percentag.setText(bubleItem.getInvestment_percentage());
-        guarantees.setText(bubleItem.getGuarantees());
+        if (bubleItem.getInvestment_percentage().trim().isEmpty()){
+            investment_percentag.setText("__ %");
+        }else {
+            investment_percentag.setText(bubleItem.getInvestment_percentage() + " %");
+        }
+
+        if (bubleItem.getGuarantees().trim().isEmpty()){
+            guarantees.setText("__");
+        }else {
+            guarantees.setText(bubleItem.getGuarantees());
+        }
         country.setText(bubleItem.getCountry());
         description.setText(bubleItem.getDescription().replaceAll("<|>|p|/", ""));
         owner_name.setText(bubleItem.getOwnerUser().getFullname());

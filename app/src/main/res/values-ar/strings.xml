@@ -183,5 +183,6 @@
     <string name="message">أكتب رسالتك</string>
     <string name="send">إرسال</string>
     <string name="add_comment">أضافة تعليق</string>
+    <string name="address_register">العنوان</string>
 
 </resources>

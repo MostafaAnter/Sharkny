@@ -208,6 +208,9 @@ public class HomeActivity extends LocalizationActivity
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.about) {
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://sharkny.net/en/page/1/about-us"));
+            startActivity(intent);
 
         } else if (id == R.id.contact) {
             sendFeedBack();
@@ -373,7 +376,7 @@ public class HomeActivity extends LocalizationActivity
         sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
         sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "support@sharkny.net" });
         sendIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "hello. this is a message sent from my Android app :-)");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "");
         startActivity(sendIntent);
     }
 }
