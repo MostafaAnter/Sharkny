@@ -1,5 +1,8 @@
 package perfect_apps.sharkny.activities;
 
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,26 +10,56 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.app.AppController;
+import perfect_apps.sharkny.dialog.ImageViewerDialog;
 import perfect_apps.sharkny.models.BubleItem;
+import perfect_apps.sharkny.models.FavoriteModel;
 import perfect_apps.sharkny.models.FinanceModel;
+import perfect_apps.sharkny.store.FavoriteStore;
+import perfect_apps.sharkny.store.LikeStore;
+import perfect_apps.sharkny.store.SharknyPrefStore;
+import perfect_apps.sharkny.utils.Constants;
 
-public class FinanceDetailActivity extends AppCompatActivity {
-    @Bind(R.id.mainImage)
-    ImageView mainImageView;
+public class FinanceDetailActivity extends LocalizationActivity {
+    // belong like button animations
+    private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
+    private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
+    private final Map<ImageView, AnimatorSet> likeAnimations = new HashMap<>();
+
+
+
+    @Bind(R.id.mainImage) ImageView mainImageView;
     @Bind(R.id.mainImageOwner) ImageView mainOwnerImageView;
     @Bind(R.id.certifiedImage) ImageView certifiedImage;
-    @Bind(R.id.title)
-    TextView titleOfMainImage;
+    @Bind(R.id.title) TextView titleOfMainImage;
+    @Bind(R.id.like_count) TextView likeCount;
+    @Bind(R.id.comment_count) TextView commentCount;
 
     @Bind(R.id.start_date) TextView startDate;
     @Bind(R.id.end_date) TextView endDate;
@@ -39,6 +72,9 @@ public class FinanceDetailActivity extends AppCompatActivity {
     @Bind(R.id.description) TextView description;
     @Bind(R.id.owner_name) TextView owner_name;
 
+    @Bind(R.id.like_btn) ImageView likeBtn;
+    @Bind(R.id.favoriteImage) ImageView favoritImage;
+
 
 
 
@@ -46,7 +82,7 @@ public class FinanceDetailActivity extends AppCompatActivity {
     private static FinanceModel bubleItem;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finance_detail);
         ButterKnife.bind(this);
@@ -54,6 +90,8 @@ public class FinanceDetailActivity extends AppCompatActivity {
 
         bubleItem = (FinanceModel) getIntent().getExtras().get(ARG_ITEM_ID);
         fillData();
+
+        changeLikeFavoriteState();
 
     }
 
@@ -119,6 +157,284 @@ public class FinanceDetailActivity extends AppCompatActivity {
 
     public void sendMessage(View view) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", bubleItem.getOwnerUser().getMobile(), null)));
+    }
+
+    public void like(View view) {
+        updateHeartButton(likeBtn, true);
+        addItemToLike();
+        int likeCountNumber = Integer.parseInt(bubleItem.getLikes_count()) + 1;
+        likeCount.setText(String.valueOf(likeCountNumber));
+        // call api
+        likeIt();
+    }
+
+    public void comment(View view) {
+        if (isAuthenticated()) {
+            String type;
+            String id;
+            if ( bubleItem.getGeneral_type() == null){
+                type = "";
+            }else {
+                type = bubleItem.getGeneral_type();
+            }
+            if (bubleItem.getId() == null){
+                id = "";
+            }
+            else {
+                id = bubleItem.getId();
+            }
+
+            Intent intent = new Intent(this, CommentsActivity.class);
+            intent.putExtra("type", type);
+            intent.putExtra("id", id);
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+        } else {
+            // show error message
+            new SweetAlertDialog(FinanceDetailActivity.this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("You must register First!")
+                    .show();
+        }
+
+    }
+
+    public void favorite(View view) {
+        updateStarImage(favoritImage, true);
+        addItemToFavo();
+        // call api
+
+        favoriteIt();
+    }
+
+    private void updateHeartButton(final ImageView holder, boolean animated) {
+        if (animated) {
+            if (!likeAnimations.containsKey(holder)) {
+                AnimatorSet animatorSet = new AnimatorSet();
+                likeAnimations.put(holder, animatorSet);
+
+                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(holder, "rotation", 0f, 360f);
+                rotationAnim.setDuration(300);
+                rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(holder, "scaleX", 0.2f, 1f);
+                bounceAnimX.setDuration(300);
+                bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(holder, "scaleY", 0.2f, 1f);
+                bounceAnimY.setDuration(300);
+                bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
+                bounceAnimY.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        holder.setImageResource(R.drawable.like_solide);
+                    }
+                });
+
+                animatorSet.play(rotationAnim);
+                animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
+
+                animatorSet.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                    }
+                });
+
+                animatorSet.start();
+            }
+        }
+    }
+
+    private void updateStarImage(final ImageView holder, boolean animated) {
+        if (animated) {
+            if (!likeAnimations.containsKey(holder)) {
+                AnimatorSet animatorSet = new AnimatorSet();
+                likeAnimations.put(holder, animatorSet);
+
+                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(holder, "rotation", 0f, 360f);
+                rotationAnim.setDuration(300);
+                rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(holder, "scaleX", 0.2f, 1f);
+                bounceAnimX.setDuration(300);
+                bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(holder, "scaleY", 0.2f, 1f);
+                bounceAnimY.setDuration(300);
+                bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
+                bounceAnimY.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        holder.setImageResource(R.drawable.favorite_solid);
+                    }
+                });
+
+                animatorSet.play(rotationAnim);
+                animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
+
+                animatorSet.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                    }
+                });
+
+                animatorSet.start();
+            }
+        }
+    }
+
+    private boolean isAuthenticated(){
+        int authenticatedState = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+
+        if ((authenticatedState != 0)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void addItemToFavo() {
+        //add item to favorite
+        FavoriteModel item = new FavoriteModel();
+        item.setTitleKey(bubleItem.getId());
+        item.setIdValue(bubleItem.getId());
+        new FavoriteStore(this).update(item);
+    }
+
+    private void addItemToLike() {
+        //add item to favorite
+        FavoriteModel item = new FavoriteModel();
+        item.setTitleKey(bubleItem.getId());
+        item.setIdValue(bubleItem.getId());
+        new LikeStore(this).update(item);
+    }
+
+    private void changeLikeFavoriteState(){
+
+        // for favorite
+        if (new FavoriteStore(this).findItem(bubleItem.getId(),
+                bubleItem.getId())){
+            // this item is in my database
+            favoritImage.setImageResource(R.drawable.favorite_solid);
+            AnimatorSet animatorSet = new AnimatorSet();
+            likeAnimations.put(favoritImage, animatorSet);
+        }else {
+            favoritImage.setImageResource(R.drawable.favorite_not_solid);
+        }
+
+        // for like
+        if (new LikeStore(this).findItem(bubleItem.getId(),
+                bubleItem.getId())){
+            // this item is in my database
+            likeBtn.setImageResource(R.drawable.like_solide);
+            AnimatorSet animatorSet = new AnimatorSet();
+            likeAnimations.put(likeBtn, animatorSet);
+        }else {
+            likeBtn.setImageResource(R.drawable.like_not_solid);
+        }
+    }
+
+    private void likeIt(){
+        final int iduser = new SharknyPrefStore(FinanceDetailActivity.this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = "http://sharkny.net/en/api/likes/likeit";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", response);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("item_id", bubleItem.getId());
+                params.put("type", bubleItem.getGeneral_type());
+                params.put("created_by", String.valueOf(iduser));
+
+                return params;
+
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void favoriteIt(){
+        final int iduser = new SharknyPrefStore(FinanceDetailActivity.this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = "http://sharkny.net/en/api/favourites/favit";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", response);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("item_id", bubleItem.getId());
+                params.put("type", bubleItem.getGeneral_type());
+                params.put("created_by", String.valueOf(iduser));
+
+                return params;
+
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    public void viewImage(View view) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        DialogFragment newFragment = ImageViewerDialog.newInstance(bubleItem.getImage());
+        newFragment.show(ft, "tag");
+    }
+
+    public void viewImage1(View view) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        DialogFragment newFragment = ImageViewerDialog.newInstance(bubleItem.getOwnerUser().getImage());
+        newFragment.show(ft, "tag");
     }
 
 }

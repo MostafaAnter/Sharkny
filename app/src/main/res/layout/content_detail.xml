@@ -28,7 +28,8 @@
                 android:orientation="vertical"
                 android:paddingBottom="30dp"
                 android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+                android:paddingRight="30dp"
+                android:onClick="viewImage">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -419,7 +420,8 @@
                 android:layout_height="200dp"
                 android:orientation="vertical"
                 android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+                android:paddingRight="30dp"
+                android:onClick="viewImage1">
 
                 <LinearLayout
                     android:layout_width="match_parent"

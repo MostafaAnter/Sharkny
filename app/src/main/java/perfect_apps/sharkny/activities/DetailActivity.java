@@ -1,7 +1,10 @@
 package perfect_apps.sharkny.activities;
 
+
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +35,7 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
+import perfect_apps.sharkny.dialog.ImageViewerDialog;
 import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.models.FavoriteModel;
 import perfect_apps.sharkny.store.FavoriteStore;
@@ -144,7 +148,7 @@ public class DetailActivity extends LocalizationActivity {
         project_type.setText(bubleItem.getProject_type());
         investment_percentag.setText(bubleItem.getInvestment_percentage());
         guarantees.setText(bubleItem.getGuarantees());
-        country.setText(bubleItem.getGuarantees());
+        country.setText(bubleItem.getCountry());
         description.setText(bubleItem.getDescription().replaceAll("<|>|p|/", ""));
         owner_name.setText(bubleItem.getOwnerUser().getFullname());
     }
@@ -407,4 +411,29 @@ public class DetailActivity extends LocalizationActivity {
     }
 
 
+    public void viewImage(View view) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        DialogFragment newFragment = ImageViewerDialog.newInstance(bubleItem.getImage());
+        newFragment.show(ft, "tag");
+    }
+
+    public void viewImage1(View view) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        DialogFragment newFragment = ImageViewerDialog.newInstance(bubleItem.getOwnerUser().getImage());
+        newFragment.show(ft, "tag");
+    }
 }
