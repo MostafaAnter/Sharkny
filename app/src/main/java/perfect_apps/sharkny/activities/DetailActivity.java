@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -73,6 +74,9 @@ public class DetailActivity extends LocalizationActivity {
     @Bind(R.id.like_btn) ImageView likeBtn;
     @Bind(R.id.favoriteImage) ImageView favoritImage;
 
+    @Bind(R.id.send_message)
+    Button sendMessageBtn;
+
 
 
 
@@ -90,6 +94,14 @@ public class DetailActivity extends LocalizationActivity {
         fillData();
 
         changeLikeFavoriteState();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (! isAuthenticated())
+            sendMessageBtn.setVisibility(View.GONE);
 
     }
 
