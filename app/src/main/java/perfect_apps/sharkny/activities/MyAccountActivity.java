@@ -112,10 +112,8 @@ public class MyAccountActivity extends LocalizationActivity {
                     overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 } else {
                     // show error message
-                    new SweetAlertDialog(MyAccountActivity.this, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText("You must register First!")
-                            .show();
+                    startActivity(new Intent(MyAccountActivity.this, LoginActivity.class));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 }
             }
         });
@@ -128,10 +126,8 @@ public class MyAccountActivity extends LocalizationActivity {
                     overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 } else {
                     // show error message
-                    new SweetAlertDialog(MyAccountActivity.this, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText("You must register First!")
-                            .show();
+                    startActivity(new Intent(MyAccountActivity.this, LoginActivity.class));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 }
             }
         });
@@ -144,10 +140,8 @@ public class MyAccountActivity extends LocalizationActivity {
                     overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 } else {
                     // show error message
-                    new SweetAlertDialog(MyAccountActivity.this, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText("You must register First!")
-                            .show();
+                    startActivity(new Intent(MyAccountActivity.this, LoginActivity.class));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 }
             }
         });
@@ -159,11 +153,8 @@ public class MyAccountActivity extends LocalizationActivity {
                     startActivity(new Intent(MyAccountActivity.this, AccountServicesActivity.class));
                     overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 } else {
-                    // show error message
-                    new SweetAlertDialog(MyAccountActivity.this, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText("You must register First!")
-                            .show();
+                    startActivity(new Intent(MyAccountActivity.this, LoginActivity.class));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 }
             }
         });
@@ -175,11 +166,8 @@ public class MyAccountActivity extends LocalizationActivity {
                     startActivity(new Intent(MyAccountActivity.this, AccountProjectActivity.class));
                     overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 } else {
-                    // show error message
-                    new SweetAlertDialog(MyAccountActivity.this, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText("You must register First!")
-                            .show();
+                    startActivity(new Intent(MyAccountActivity.this, LoginActivity.class));
+                    overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
                 }
             }
         });

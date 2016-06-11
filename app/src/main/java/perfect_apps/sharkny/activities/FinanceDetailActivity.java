@@ -217,10 +217,8 @@ public class FinanceDetailActivity extends LocalizationActivity {
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         } else {
             // show error message
-            new SweetAlertDialog(FinanceDetailActivity.this, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Oops...")
-                    .setContentText("You must register First!")
-                    .show();
+            startActivity(new Intent(FinanceDetailActivity.this, LoginActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         }
 
     }

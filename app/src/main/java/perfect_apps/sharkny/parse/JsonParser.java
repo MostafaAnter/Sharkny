@@ -490,12 +490,13 @@ public class JsonParser {
                 JSONObject ownerObject = jsonObject.optJSONObject("item");
 
 
+                String type = jsonObject.optString("type");
                 String title = ownerObject.optString("title");
                 String description = ownerObject.optString("description");
                 String imageOwner = ownerObject.optString("image");
 
 
-                FavoritItem favoritItem = new FavoritItem(title,description,imageOwner);
+                FavoritItem favoritItem = new FavoritItem(type, title,description,imageOwner);
                 newsList.add(favoritItem);
             }
             return newsList;

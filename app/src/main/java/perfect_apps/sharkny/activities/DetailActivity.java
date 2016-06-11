@@ -153,39 +153,62 @@ public class DetailActivity extends LocalizationActivity {
         likeCount.setText(bubleItem.getLikes_count());
         commentCount.setText(bubleItem.getComments_count());
         titleOfMainImage.setText(bubleItem.getTitle());
-        if (bubleItem.getStart_date().trim().isEmpty()){
-            startDate.setText("__");
-        }else {
-            startDate.setText(bubleItem.getStart_date());
+        if (bubleItem.getStart_date() != null) {
+            if (bubleItem.getStart_date().trim().isEmpty()){
+                startDate.setText("__");
+            }else {
+                startDate.setText(bubleItem.getStart_date());
+            }
         }
 
-        if (bubleItem.getEnd_date().trim().isEmpty()){
-            endDate.setText("--");
-        }else {
-            endDate.setText(bubleItem.getEnd_date());
+        if (bubleItem.getEnd_date() != null) {
+            if (bubleItem.getEnd_date().trim().isEmpty()){
+                endDate.setText("--");
+            }else {
+                endDate.setText(bubleItem.getEnd_date());
+            }
         }
 
-        if (bubleItem.getInvestment_value().trim().isEmpty()){
-            investment_value.setText("__");
+        if (bubleItem.getInvestment_value() != null) {
+            if (bubleItem.getInvestment_value().trim().isEmpty()){
+                investment_value.setText("__");
 
-        }else{
-            investment_value.setText(bubleItem.getInvestment_value());
-        }
-        project_field.setText(bubleItem.getProject_field());
-        project_type.setText(bubleItem.getProject_type());
-        if (bubleItem.getInvestment_percentage().trim().isEmpty()){
-            investment_percentag.setText("__ %");
-        }else {
-            investment_percentag.setText(bubleItem.getInvestment_percentage() + " %");
+            }else{
+                investment_value.setText(bubleItem.getInvestment_value());
+            }
         }
 
-        if (bubleItem.getGuarantees().trim().isEmpty()){
-            guarantees.setText("__");
-        }else {
-            guarantees.setText(bubleItem.getGuarantees());
+        if (bubleItem.getProject_field() != null) {
+            project_field.setText(bubleItem.getProject_field());
         }
-        country.setText(bubleItem.getCountry());
+
+        if (bubleItem.getProject_type() != null) {
+            project_type.setText(bubleItem.getProject_type());
+        }
+
+        if (bubleItem.getInvestment_percentage() != null) {
+            if (bubleItem.getInvestment_percentage().trim().isEmpty()){
+                investment_percentag.setText("__ %");
+            }else {
+                investment_percentag.setText(bubleItem.getInvestment_percentage() + " %");
+            }
+        }
+
+        if (bubleItem.getGuarantees() != null) {
+            if (bubleItem.getGuarantees().trim().isEmpty()){
+                guarantees.setText("__");
+            }else {
+                guarantees.setText(bubleItem.getGuarantees());
+            }
+        }
+
+        if (bubleItem.getCountry() != null) {
+            country.setText(bubleItem.getCountry());
+        }
+
+
         description.setText(bubleItem.getDescription().replaceAll("<|>|p|/", ""));
+
         owner_name.setText(bubleItem.getOwnerUser().getFullname());
     }
 
@@ -226,10 +249,8 @@ public class DetailActivity extends LocalizationActivity {
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         } else {
             // show error message
-            new SweetAlertDialog(DetailActivity.this, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Oops...")
-                    .setContentText("You must register First!")
-                    .show();
+            startActivity(new Intent(DetailActivity.this, LoginActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
         }
 
     }
