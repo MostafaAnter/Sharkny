@@ -194,6 +194,10 @@
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activities.DetailViewActivity"
+            android:label="@string/title_activity_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activities.AnswerMessagActivity"
             android:label="@string/title_activity_answer_messag"
             android:theme="@style/AppTheme.NoActionBar" />

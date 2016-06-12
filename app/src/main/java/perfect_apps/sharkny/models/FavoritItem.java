@@ -13,11 +13,23 @@ public class FavoritItem {
     }
 
     private String type;
+
+    public String getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(String item_id) {
+        this.item_id = item_id;
+    }
+
+    private String item_id;
     private String title ;
     private String description;
     private String image;
 
-    public FavoritItem(String type, String title, String description, String image) {
+
+    public FavoritItem(String item_id, String type, String title, String description, String image) {
+        this.item_id = item_id;
         this.type = type;
         this.title = title;
         this.description = description;

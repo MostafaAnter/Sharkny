@@ -70,12 +70,13 @@ public class AccountFinanceActivity extends LocalizationActivity {
         mHlvCustomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(AccountProjectActivity.this, DetailActivity.class);
-//                Bundle arguments = new Bundle();
-//                arguments.putParcelable(DetailActivity.ARG_ITEM_ID, (Parcelable) mHlvCustomList.getItemAtPosition(position));
-//                intent.putExtras(arguments);
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+                Intent intent = new Intent(AccountFinanceActivity.this, DetailViewActivity.class);
+                Bundle arguments = new Bundle();
+                arguments.putString("id",  ((BubleItem) mHlvCustomList.getItemAtPosition(position)).getId());
+                arguments.putString("type",  ((BubleItem) mHlvCustomList.getItemAtPosition(position)).getGeneral_type());
+                intent.putExtras(arguments);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
 
             }
         });

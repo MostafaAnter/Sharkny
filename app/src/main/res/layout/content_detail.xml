@@ -159,6 +159,7 @@
                 android:layout_height="1dp"
                 android:background="@android:color/black" />
             <LinearLayout
+                android:id="@+id/linear1"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:orientation="horizontal"
@@ -183,10 +184,12 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/black" />
             <LinearLayout
+                android:id="@+id/linear2"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:orientation="horizontal"
@@ -211,6 +214,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/black" />
@@ -328,15 +332,16 @@
                 android:background="@android:color/black" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <TextView
+                    android:id="@+id/grantee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/guarantees"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
                 <TextView
@@ -344,7 +349,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="hi ther is no gurantee"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     style="?android:attr/textAppearanceMedium"
                     android:layout_margin="5dp"/>
 
@@ -384,7 +389,7 @@
                 android:background="@android:color/black" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal">
 
@@ -491,7 +496,6 @@
                 android:textColor="@color/white"
                 android:onClick="sendMessage"/>
         </LinearLayout>
-
 
 
     </ScrollView>

@@ -18,7 +18,8 @@
             android:orientation="vertical"
             android:paddingBottom="30dp"
             android:paddingLeft="30dp"
-            android:paddingRight="30dp">
+            android:paddingRight="30dp"
+            android:onClick="viewImage">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -105,9 +106,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:maxLength="5"
-                    android:text="0"/>
+                    android:maxLength="5" />
                 <ImageView
+                    android:id="@+id/like_btn"
                     android:layout_width="45dp"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
@@ -125,8 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:maxLength="5"
-                    android:text="0"/>
+                    android:maxLength="5" />
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="wrap_content"
@@ -135,6 +135,7 @@
                     android:onClick="comment"/>
             </LinearLayout>
             <ImageView
+                android:id="@+id/favoriteImage"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -148,6 +149,7 @@
             android:layout_height="1dp"
             android:background="@android:color/black" />
         <LinearLayout
+            android:id="@+id/linear1"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeightSmall"
             android:orientation="horizontal"
@@ -172,10 +174,12 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/view1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/black" />
         <LinearLayout
+            android:id="@+id/linear2"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeightSmall"
             android:orientation="horizontal"
@@ -200,6 +204,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/black" />
@@ -317,15 +322,16 @@
             android:background="@android:color/black" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
+                android:id="@+id/grantee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/guarantees"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 style="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"/>
             <TextView
@@ -333,7 +339,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="hi ther is no gurantee"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 style="?android:attr/textAppearanceMedium"
                 android:layout_margin="5dp"/>
 
@@ -373,7 +379,7 @@
             android:background="@android:color/black" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_horizontal">
 
@@ -409,7 +415,8 @@
             android:layout_height="200dp"
             android:orientation="vertical"
             android:paddingLeft="30dp"
-            android:paddingRight="30dp">
+            android:paddingRight="30dp"
+            android:onClick="viewImage1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -469,6 +476,7 @@
         </FrameLayout>
 
         <Button
+            android:id="@+id/send_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_vertical_margin"
@@ -478,5 +486,6 @@
             android:textColor="@color/white"
             android:onClick="sendMessage"/>
     </LinearLayout>
+
 
 </ScrollView>
