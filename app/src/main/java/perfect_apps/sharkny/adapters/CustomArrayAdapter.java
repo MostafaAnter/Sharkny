@@ -75,8 +75,12 @@ public class CustomArrayAdapter extends ArrayAdapter<BubleItem> {
                 .into(holder.imageView);
 
         // populate certificated image
-        if(Integer.parseInt(bubleItem.getIs_verified()) == 0)
+        if(Integer.parseInt(bubleItem.getIs_verified()) == 0){
             holder.certifiedImage.setVisibility(View.GONE);
+
+        }else {
+            holder.certifiedImage.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }
