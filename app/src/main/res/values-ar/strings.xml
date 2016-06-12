@@ -184,5 +184,6 @@
     <string name="send">إرسال</string>
     <string name="add_comment">أضافة تعليق</string>
     <string name="address_register">العنوان</string>
+    <string name="reply">الرد</string>
 
 </resources>

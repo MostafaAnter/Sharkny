@@ -15,6 +15,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
@@ -237,59 +238,75 @@ public class CommentsActivity extends LocalizationActivity {
 
     public void sendComment(View view) {
 
-        final int iduser = new SharknyPrefStore(CommentsActivity.this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+        if (isAuthenticated()) {
+            if (!comment.getText().toString().trim().isEmpty()) {
+                final int iduser = new SharknyPrefStore(CommentsActivity.this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
 
-        // Set up a progress dialog
-        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("Loading...");
-        pDialog.setCancelable(false);
-        pDialog.show();
+                // Set up a progress dialog
+                final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Loading...");
+                pDialog.setCancelable(false);
+                pDialog.show();
 
-        // Tag used to cancel the request
-        String tag_string_req = "string_req";
-        String url = "http://sharkny.net/en/api/comments/create";
+                // Tag used to cancel the request
+                String tag_string_req = "string_req";
+                String url = "http://sharkny.net/en/api/comments/create";
 
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                url, new Response.Listener<String>() {
+                StringRequest strReq = new StringRequest(Request.Method.POST,
+                        url, new Response.Listener<String>() {
 
-            @Override
-            public void onResponse(String response) {
+                    @Override
+                    public void onResponse(String response) {
 
-                pDialog.dismissWithAnimation();
-                initiateRefresh();
-                Log.d("response", response);
+                        pDialog.dismissWithAnimation();
+                        initiateRefresh();
+                        Log.d("response", response);
 
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismissWithAnimation();
+                        // show error message
+                        new SweetAlertDialog(CommentsActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Error")
+                                .setContentText("some thing went wrong try again")
+                                .show();
+                    }
+                }) {
+
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("item_id", id);
+                        params.put("type", type);
+                        params.put("created_by", String.valueOf(iduser));
+                        params.put("comment", comment.getText().toString());
+
+                        return params;
+
+                    }
+                };
+
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
             }
-        }, new Response.ErrorListener() {
+        } else {
+            startActivity(new Intent(CommentsActivity.this, LoginActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+        }
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                pDialog.dismissWithAnimation();
-                // show error message
-                new SweetAlertDialog(CommentsActivity.this, SweetAlertDialog.ERROR_TYPE)
-                        .setTitleText("Error")
-                        .setContentText("some thing went wrong try again")
-                        .show();
-            }
-        }) {
+    }
 
+    private boolean isAuthenticated(){
+        int authenticatedState = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
 
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("item_id", id);
-                params.put("type", type);
-                params.put("created_by", String.valueOf(iduser));
-                params.put("comment", comment.getText().toString());
-
-                return params;
-
-            }
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
+        if ((authenticatedState != 0)) {
+            return true;
+        }
+        return false;
     }
 }

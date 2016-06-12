@@ -248,6 +248,9 @@ public class FragmentThree extends Fragment {
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
 
+                radioButton1.setChecked(true);
+                filterProjectsWithType("1");
+
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -265,6 +268,9 @@ public class FragmentThree extends Fragment {
                     mDataOrigine.addAll(0, mDataset);
                     adapter.notifyDataSetChanged();
                     onRefreshComplete();
+
+                    radioButton1.setChecked(true);
+                    filterProjectsWithType("1");
 
                 }
             }, new Response.ErrorListener() {

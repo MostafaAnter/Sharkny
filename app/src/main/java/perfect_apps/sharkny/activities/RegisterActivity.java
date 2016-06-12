@@ -110,6 +110,8 @@ public class RegisterActivity extends LocalizationActivity {
         password.addTextChangedListener(new MyTextWatcher(password));
         email.addTextChangedListener(new MyTextWatcher(email));
 
+        radioButtonMale.setChecked(true);
+
         radioButtonMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -264,6 +266,13 @@ public class RegisterActivity extends LocalizationActivity {
                 if(position > 0){
                     // Notify the selected item text
                     nationality = "" + position;
+                    if (position != 1){
+                        if (position < 42){
+                            nationality = ++position + "";
+                        }else {
+                            nationality = position + 2 +"";
+                        }
+                    }
                     Toast.makeText
                             (getApplicationContext(),  selectedItemText + " Done!", Toast.LENGTH_SHORT)
                             .show();
@@ -597,42 +606,44 @@ public class RegisterActivity extends LocalizationActivity {
         JSONObject jsonRootObject = null;
         try {
             jsonRootObject = new JSONObject(strJson);
+            if (! jsonRootObject.optBoolean("error") == true) {
+                int id = Integer.parseInt(jsonRootObject.optString("id").toString());
+                String profileImage = jsonRootObject.optString("image").toString();
+
+                //debug
+                Log.d("user_id", "" + id);
+
+                // store user id in authenticated state & pic url
+                new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_AUTHENTICATION_STATE, id);
+                new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_IMAGE_URL, profileImage);
+                // show success dialog and go to home
+                new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Good job!")
+                        .setContentText("You Registered successfully!")
+                        .setConfirmText("Done!")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                startActivity(new Intent(RegisterActivity.this, HomeActivity.class)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+                            }
+                        })
+                        .show();
+
+            } else {
+                // show error message
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("email or userName is taken try again!")
+                        .show();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
+
         }
-        if (jsonRootObject.optString("id") != null || !jsonRootObject.optString("id").trim().isEmpty()) {
-            int id = Integer.parseInt(jsonRootObject.optString("id").toString());
-            String profileImage = jsonRootObject.optString("image").toString();
 
-            //debug
-            Log.d("user_id", "" + id);
-
-            // store user id in authenticated state & pic url
-            new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_AUTHENTICATION_STATE, id);
-            new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_IMAGE_URL, profileImage);
-            // show success dialog and go to home
-            new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                    .setTitleText("Good job!")
-                    .setContentText("You Registered successfully!")
-                    .setConfirmText("Done!")
-                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sDialog) {
-                            sDialog.dismissWithAnimation();
-                            startActivity(new Intent(RegisterActivity.this, HomeActivity.class)
-                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
-                        }
-                    })
-                    .show();
-
-        } else {
-            // show error message
-            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Oops...")
-                    .setContentText("some thing went wrong try again!")
-                    .show();
-        }
     }
     // for confirm password
     private class MyTextWatcher implements TextWatcher {

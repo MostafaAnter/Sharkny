@@ -32,7 +32,7 @@
     <string name="drawer_menu_contact_us">Contact us</string>
     <string name="drawer_authenticated_my_profile">Profile</string>
     <string name="drawer_authenticated_inbox">Inbox</string>
-    <string name="drawer_authenticated_sent_mail">Sent Mail</string>
+    <string name="drawer_authenticated_sent_mail">Sent Messages</string>
     <string name="drawer_authenticated_sign_out">Sign Out</string>
     <string name="drawer_authenticated_favorite">Favorites</string>
     <string name="language_english">English</string>
@@ -215,6 +215,7 @@
     <string name="send">Send</string>
     <string name="add_comment">Add comment</string>
     <string name="address_register">Address</string>
+    <string name="reply">Reply</string>
 
 
 </resources>

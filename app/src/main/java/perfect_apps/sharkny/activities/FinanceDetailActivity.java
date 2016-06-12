@@ -195,31 +195,26 @@ public class FinanceDetailActivity extends LocalizationActivity {
     }
 
     public void comment(View view) {
-        if (isAuthenticated()) {
-            String type;
-            String id;
-            if ( bubleItem.getGeneral_type() == null){
-                type = "";
-            }else {
-                type = bubleItem.getGeneral_type();
-            }
-            if (bubleItem.getId() == null){
-                id = "";
-            }
-            else {
-                id = bubleItem.getId();
-            }
 
-            Intent intent = new Intent(this, CommentsActivity.class);
-            intent.putExtra("type", type);
-            intent.putExtra("id", id);
-            startActivity(intent);
-            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+        String type;
+        String id;
+        if (bubleItem.getGeneral_type() == null) {
+            type = "";
         } else {
-            // show error message
-            startActivity(new Intent(FinanceDetailActivity.this, LoginActivity.class));
-            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+            type = bubleItem.getGeneral_type();
         }
+        if (bubleItem.getId() == null) {
+            id = "";
+        } else {
+            id = bubleItem.getId();
+        }
+
+        Intent intent = new Intent(this, CommentsActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("id", id);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
 
     }
 
