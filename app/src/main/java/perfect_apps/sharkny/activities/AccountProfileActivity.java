@@ -321,7 +321,7 @@ public class AccountProfileActivity extends LocalizationActivity {
                 // First item is disable and it is used for hint
                 if (position > 0) {
                     // Notify the selected item text
-                    nationality = "" + position;
+                    nationality = selectedItemText;
                     Toast.makeText
                             (getApplicationContext(), selectedItemText + " Done!", Toast.LENGTH_SHORT)
                             .show();
@@ -381,7 +381,7 @@ public class AccountProfileActivity extends LocalizationActivity {
                 // First item is disable and it is used for hint
                 if (position > 0) {
                     // Notify the selected item text
-                    country = "" + position;
+                    country = selectedItemText;
                     Toast.makeText
                             (getApplicationContext(), selectedItemText + "Done!", Toast.LENGTH_SHORT)
                             .show();
