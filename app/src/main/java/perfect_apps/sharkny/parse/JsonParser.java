@@ -1,5 +1,7 @@
 package perfect_apps.sharkny.parse;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,6 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.models.Countries;
 import perfect_apps.sharkny.models.FavoritItem;
@@ -20,12 +23,12 @@ import perfect_apps.sharkny.models.OwnerUser;
  */
 public class JsonParser {
 
-    public static List<Countries> parseNationalitiesFeed(String feed){
+    public static List<Countries> parseNationalitiesFeed(String feed, Context context){
 
         try {
             JSONArray jsonNewsArray = new JSONArray(feed);
             List<Countries> newsList = new ArrayList<>();
-            newsList.add(new Countries("0", "Nationality"));
+            newsList.add(new Countries("0", context.getResources().getString(R.string.nationality)));
             for (int i = 0; i < jsonNewsArray.length(); i++) {
                 JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
 
@@ -46,12 +49,12 @@ public class JsonParser {
 
     }
 
-    public static List<Countries> parseFranchisTypes(String feed){
+    public static List<Countries> parseFranchisTypes(String feed, Context context){
 
         try {
             JSONArray jsonNewsArray = new JSONArray(feed);
             List<Countries> newsList = new ArrayList<>();
-            newsList.add(new Countries("0", "franchise types"));
+            newsList.add(new Countries("0", context.getResources().getString(R.string.franchise_types)));
             for (int i = 0; i < jsonNewsArray.length(); i++) {
                 JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
 
@@ -72,12 +75,12 @@ public class JsonParser {
 
     }
 
-    public static List<Countries> parseField(String feed){
+    public static List<Countries> parseField(String feed, Context context){
 
         try {
             JSONArray jsonNewsArray = new JSONArray(feed);
             List<Countries> newsList = new ArrayList<>();
-            newsList.add(new Countries("0", "Fields"));
+            newsList.add(new Countries("0", context.getResources().getString(R.string.field)));
             for (int i = 0; i < jsonNewsArray.length(); i++) {
                 JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
 
@@ -98,12 +101,12 @@ public class JsonParser {
 
     }
 
-    public static List<Countries> parseProjectTypes(String feed){
+    public static List<Countries> parseProjectTypes(String feed, Context context){
 
         try {
             JSONArray jsonNewsArray = new JSONArray(feed);
             List<Countries> newsList = new ArrayList<>();
-            newsList.add(new Countries("0", "Project Type"));
+            newsList.add(new Countries("0", context.getResources().getString(R.string.Project_Type)));
             for (int i = 0; i < jsonNewsArray.length(); i++) {
                 JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
 
@@ -124,12 +127,12 @@ public class JsonParser {
 
     }
 
-    public static List<Countries> parseCountriesFeed(String feed){
+    public static List<Countries> parseCountriesFeed(String feed , Context context){
 
         try {
             JSONArray jsonNewsArray = new JSONArray(feed);
             List<Countries> newsList = new ArrayList<>();
-            newsList.add(new Countries("0", "Country"));
+            newsList.add(new Countries("0", context.getResources().getString(R.string.country)));
             for (int i = 0; i < jsonNewsArray.length(); i++) {
                 JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
 

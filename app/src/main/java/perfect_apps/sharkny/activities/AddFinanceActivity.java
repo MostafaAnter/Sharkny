@@ -6,9 +6,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.android.volley.Cache;
@@ -389,7 +385,7 @@ public class AddFinanceActivity extends LocalizationActivity {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 List<String> franchisType = new ArrayList<>();
-                for (Countries countriy : JsonParser.parseField(data)) {
+                for (Countries countriy : JsonParser.parseField(data, AddFinanceActivity.this)) {
                     franchisType.add(countriy.getTitle());
                 }
                 populateSpinner2(franchisType);
@@ -401,7 +397,7 @@ public class AddFinanceActivity extends LocalizationActivity {
             if (Utils.isOnline(AddFinanceActivity.this)) {
                 final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("wait...");
+                pDialog.setTitleText(getResources().getString(R.string.wait));
                 pDialog.setCancelable(false);
                 pDialog.show();
                 String tag_string_req = "string_req";
@@ -412,7 +408,7 @@ public class AddFinanceActivity extends LocalizationActivity {
                     @Override
                     public void onResponse(String response) {
                         List<String> nationalityList = new ArrayList<>();
-                        for (Countries countriy : JsonParser.parseField(response)) {
+                        for (Countries countriy : JsonParser.parseField(response,  AddFinanceActivity.this)) {
                             nationalityList.add(countriy.getTitle());
                         }
                         populateSpinner2(nationalityList);
@@ -452,7 +448,7 @@ public class AddFinanceActivity extends LocalizationActivity {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 List<String> nationalityList = new ArrayList<>();
-                for (Countries countriy : JsonParser.parseCountriesFeed(data)) {
+                for (Countries countriy : JsonParser.parseCountriesFeed(data,  AddFinanceActivity.this)) {
                     nationalityList.add(countriy.getTitle());
                 }
                 populateSpinner3(nationalityList);
@@ -471,7 +467,7 @@ public class AddFinanceActivity extends LocalizationActivity {
                     @Override
                     public void onResponse(String response) {
                         List<String> nationalityList = new ArrayList<>();
-                        for (Countries countriy : JsonParser.parseCountriesFeed(response)) {
+                        for (Countries countriy : JsonParser.parseCountriesFeed(response,  AddFinanceActivity.this)) {
                             nationalityList.add(countriy.getTitle());
                         }
                         populateSpinner3(nationalityList);
@@ -521,7 +517,7 @@ public class AddFinanceActivity extends LocalizationActivity {
                 // make request
                 final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("Loading...");
+                pDialog.setTitleText(getResources().getString(R.string.wait));
                 pDialog.setCancelable(false);
                 pDialog.show();
 

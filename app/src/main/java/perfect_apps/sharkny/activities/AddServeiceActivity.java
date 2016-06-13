@@ -180,7 +180,7 @@ public class AddServeiceActivity extends LocalizationActivity {
                 // make request
                 final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("Loading...");
+                pDialog.setTitleText(getResources().getString(R.string.wait));
                 pDialog.setCancelable(false);
                 pDialog.show();
 

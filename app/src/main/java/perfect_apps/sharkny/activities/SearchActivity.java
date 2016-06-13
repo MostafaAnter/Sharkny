@@ -490,7 +490,7 @@ public class SearchActivity extends LocalizationActivity {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 List<String> nationalityList = new ArrayList<>();
-                for (Countries countriy : JsonParser.parseCountriesFeed(data)) {
+                for (Countries countriy : JsonParser.parseCountriesFeed(data, SearchActivity.this)) {
                     nationalityList.add(countriy.getTitle());
                 }
                 populateSpinner3(nationalityList);
@@ -509,7 +509,7 @@ public class SearchActivity extends LocalizationActivity {
                     @Override
                     public void onResponse(String response) {
                         List<String> nationalityList = new ArrayList<>();
-                        for (Countries countriy : JsonParser.parseCountriesFeed(response)) {
+                        for (Countries countriy : JsonParser.parseCountriesFeed(response, SearchActivity.this)) {
                             nationalityList.add(countriy.getTitle());
                         }
                         populateSpinner3(nationalityList);
@@ -547,7 +547,7 @@ public class SearchActivity extends LocalizationActivity {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 List<String> franchisType = new ArrayList<>();
-                for (Countries countriy : JsonParser.parseProjectTypes(data)) {
+                for (Countries countriy : JsonParser.parseProjectTypes(data, SearchActivity.this)) {
                     franchisType.add(countriy.getTitle());
                 }
                 populateSpinner2(franchisType);
@@ -560,7 +560,7 @@ public class SearchActivity extends LocalizationActivity {
                 String tag_string_req = "string_req";
                 final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("wait...");
+                pDialog.setTitleText(getResources().getString(R.string.wait));
                 pDialog.setCancelable(false);
                 pDialog.show();
 
@@ -570,7 +570,7 @@ public class SearchActivity extends LocalizationActivity {
                     @Override
                     public void onResponse(String response) {
                         List<String> nationalityList = new ArrayList<>();
-                        for (Countries countriy : JsonParser.parseProjectTypes(response)) {
+                        for (Countries countriy : JsonParser.parseProjectTypes(response, SearchActivity.this)) {
                             nationalityList.add(countriy.getTitle());
                         }
                         populateSpinner2(nationalityList);
@@ -611,7 +611,7 @@ public class SearchActivity extends LocalizationActivity {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 List<String> franchisType = new ArrayList<>();
-                for (Countries countriy : JsonParser.parseFranchisTypes(data)) {
+                for (Countries countriy : JsonParser.parseFranchisTypes(data, SearchActivity.this)) {
                     franchisType.add(countriy.getTitle());
                 }
                 populateSpinner5(franchisType);
@@ -623,7 +623,7 @@ public class SearchActivity extends LocalizationActivity {
             if (Utils.isOnline(SearchActivity.this)) {
                 final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("wait...");
+                pDialog.setTitleText(getResources().getString(R.string.wait));
                 pDialog.setCancelable(false);
                 pDialog.show();
                 String tag_string_req = "string_req";
@@ -634,7 +634,7 @@ public class SearchActivity extends LocalizationActivity {
                     @Override
                     public void onResponse(String response) {
                         List<String> nationalityList = new ArrayList<>();
-                        for (Countries countriy : JsonParser.parseFranchisTypes(response)) {
+                        for (Countries countriy : JsonParser.parseFranchisTypes(response, SearchActivity.this)) {
                             nationalityList.add(countriy.getTitle());
                         }
                         populateSpinner5(nationalityList);

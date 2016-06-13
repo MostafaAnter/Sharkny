@@ -376,14 +376,14 @@ public class RegisterActivity extends LocalizationActivity {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 List<String> nationalityList = new ArrayList<>();
-                for (Countries countriy : JsonParser.parseNationalitiesFeed(data)) {
+                for (Countries countriy : JsonParser.parseNationalitiesFeed(data, RegisterActivity.this)) {
                     nationalityList.add(countriy.getTitle());
                 }
                 populateSpinner1(nationalityList);
 
                 // populate second spinner
                 List<String> countryList = new ArrayList<>();
-                for (Countries countriy : JsonParser.parseCountriesFeed(data)) {
+                for (Countries countriy : JsonParser.parseCountriesFeed(data,  RegisterActivity.this)) {
                     countryList.add(countriy.getTitle());
                 }
                 populateSpinner2(countryList);
@@ -395,7 +395,7 @@ public class RegisterActivity extends LocalizationActivity {
             if (Utils.isOnline(RegisterActivity.this)) {
                 final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("wait...");
+                pDialog.setTitleText(getResources().getString(R.string.wait));
                 pDialog.setCancelable(false);
                 pDialog.show();
                 String tag_string_req = "string_req";
@@ -406,7 +406,7 @@ public class RegisterActivity extends LocalizationActivity {
                     @Override
                     public void onResponse(String response) {
                         List<String> nationalityList = new ArrayList<>();
-                        for (Countries countriy : JsonParser.parseNationalitiesFeed(response)) {
+                        for (Countries countriy : JsonParser.parseNationalitiesFeed(response,  RegisterActivity.this)) {
                             nationalityList.add(countriy.getTitle());
                         }
                         populateSpinner1(nationalityList);
@@ -438,7 +438,7 @@ public class RegisterActivity extends LocalizationActivity {
                     @Override
                     public void onResponse(String response) {
                         List<String> countryList = new ArrayList<>();
-                        for (Countries countriy : JsonParser.parseCountriesFeed(response)) {
+                        for (Countries countriy : JsonParser.parseCountriesFeed(response,  RegisterActivity.this)) {
                             countryList.add(countriy.getTitle());
                         }
                         populateSpinner2(countryList);
@@ -493,7 +493,7 @@ public class RegisterActivity extends LocalizationActivity {
                 // make request
                 final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("Loading...");
+                pDialog.setTitleText(getResources().getString(R.string.wait));
                 pDialog.setCancelable(false);
                 pDialog.show();
 

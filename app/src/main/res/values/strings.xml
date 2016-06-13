@@ -216,6 +216,11 @@
     <string name="add_comment">Add comment</string>
     <string name="address_register">Address</string>
     <string name="reply">Reply</string>
+    <string name="nationality">Nationality</string>
+    <string name="franchise_types">Franchise types</string>
+    <string name="field">Field</string>
+    <string name="Project_Type">Project Type</string>
+    <string name="wait">wait...</string>
 
 
 </resources>

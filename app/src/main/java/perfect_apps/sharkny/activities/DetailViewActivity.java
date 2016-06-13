@@ -31,14 +31,11 @@ import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -48,17 +45,14 @@ import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.dialog.ImageViewerDialog;
-import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.models.FavoriteModel;
 import perfect_apps.sharkny.models.FranchisesModel;
 import perfect_apps.sharkny.models.OwnerUser;
 import perfect_apps.sharkny.models.ViewItemProject;
-import perfect_apps.sharkny.parse.JsonParser;
 import perfect_apps.sharkny.store.FavoriteStore;
 import perfect_apps.sharkny.store.LikeStore;
 import perfect_apps.sharkny.store.SharknyPrefStore;
 import perfect_apps.sharkny.utils.Constants;
-import perfect_apps.sharkny.utils.Utils;
 
 public class DetailViewActivity extends LocalizationActivity {
 
@@ -676,7 +670,7 @@ public class DetailViewActivity extends LocalizationActivity {
             // Cached response doesn't exists. Make network call here
             final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-            pDialog.setTitleText("wait...");
+            pDialog.setTitleText(getResources().getString(R.string.wait));
             pDialog.setCancelable(false);
             pDialog.show();
             StringRequest strReq = new StringRequest(Request.Method.GET,

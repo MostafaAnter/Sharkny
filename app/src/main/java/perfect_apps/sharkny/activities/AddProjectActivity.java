@@ -437,7 +437,7 @@ public class AddProjectActivity extends LocalizationActivity {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 List<String> franchisType = new ArrayList<>();
-                for (Countries countriy : JsonParser.parseField(data)) {
+                for (Countries countriy : JsonParser.parseField(data,  AddProjectActivity.this)) {
                     franchisType.add(countriy.getTitle());
                 }
                 populateSpinner4(franchisType);
@@ -449,7 +449,7 @@ public class AddProjectActivity extends LocalizationActivity {
             if (Utils.isOnline(AddProjectActivity.this)) {
                 final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("wait...");
+                pDialog.setTitleText(getResources().getString(R.string.wait));
                 pDialog.setCancelable(false);
                 pDialog.show();
                 String tag_string_req = "string_req";
@@ -460,7 +460,7 @@ public class AddProjectActivity extends LocalizationActivity {
                     @Override
                     public void onResponse(String response) {
                         List<String> nationalityList = new ArrayList<>();
-                        for (Countries countriy : JsonParser.parseField(response)) {
+                        for (Countries countriy : JsonParser.parseField(response, AddProjectActivity.this)) {
                             nationalityList.add(countriy.getTitle());
                         }
                         populateSpinner4(nationalityList);
@@ -499,7 +499,7 @@ public class AddProjectActivity extends LocalizationActivity {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 List<String> nationalityList = new ArrayList<>();
-                for (Countries countriy : JsonParser.parseCountriesFeed(data)) {
+                for (Countries countriy : JsonParser.parseCountriesFeed(data, AddProjectActivity.this)) {
                     nationalityList.add(countriy.getTitle());
                 }
                 populateSpinner5(nationalityList);
@@ -518,7 +518,7 @@ public class AddProjectActivity extends LocalizationActivity {
                     @Override
                     public void onResponse(String response) {
                         List<String> nationalityList = new ArrayList<>();
-                        for (Countries countriy : JsonParser.parseCountriesFeed(response)) {
+                        for (Countries countriy : JsonParser.parseCountriesFeed(response, AddProjectActivity.this)) {
                             nationalityList.add(countriy.getTitle());
                         }
                         populateSpinner5(nationalityList);
@@ -556,7 +556,7 @@ public class AddProjectActivity extends LocalizationActivity {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 List<String> franchisType = new ArrayList<>();
-                for (Countries countriy : JsonParser.parseProjectTypes(data)) {
+                for (Countries countriy : JsonParser.parseProjectTypes(data, AddProjectActivity.this)) {
                     franchisType.add(countriy.getTitle());
                 }
                 populateSpinner3(franchisType);
@@ -574,7 +574,7 @@ public class AddProjectActivity extends LocalizationActivity {
                     @Override
                     public void onResponse(String response) {
                         List<String> nationalityList = new ArrayList<>();
-                        for (Countries countriy : JsonParser.parseProjectTypes(response)) {
+                        for (Countries countriy : JsonParser.parseProjectTypes(response, AddProjectActivity.this)) {
                             nationalityList.add(countriy.getTitle());
                         }
                         populateSpinner3(nationalityList);
@@ -628,7 +628,7 @@ public class AddProjectActivity extends LocalizationActivity {
                 // make request
                 final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("Loading...");
+                pDialog.setTitleText(getResources().getString(R.string.wait));
                 pDialog.setCancelable(false);
                 pDialog.show();
 

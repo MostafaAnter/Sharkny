@@ -33,7 +33,7 @@
     <string name="error_incorrect_password">خطأ</string>
     <string name="error_invalid_email">غير صحيح</string>
     <string name="error_invalid_password">الباسورد قصير</string>
-    <string name="prompt_password">الباسورد</string>
+    <string name="prompt_password">كلمة المرور</string>
     <string name="prompt_email">أسم المستخدم</string>
     <string name="title_activity_add_advantage">إضافة امتياز</string>
     <string name="title_activity_add_finance">إضافة تمويل</string>
@@ -91,7 +91,7 @@
     </string-array>
     <string name="select_profile_pic">أختر صورة الملف الشخصى</string>
     <string name="user_name">أسم المستخدم</string>
-    <string name="confirm_password">تأكيد الباسورد</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
     <string name="full_name">الأسم بالكامل</string>
     <string name="email">الإيميل</string>
     <string name="address">العنوان</string>
@@ -185,5 +185,10 @@
     <string name="add_comment">أضافة تعليق</string>
     <string name="address_register">العنوان</string>
     <string name="reply">الرد</string>
+    <string name="Project_Type">نوع المشروع</string>
+    <string name="field">المجال</string>
+    <string name="franchise_types">نوع الامتياز</string>
+    <string name="nationality">الجنسية</string>
+    <string name="wait">أنتظار...</string>
 
 </resources>
