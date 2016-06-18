@@ -92,7 +92,6 @@
             android:textAllCaps="false"
             android:text="@string/home_button5"
             android:drawableBottom="@drawable/my_profile_ic"
-            android:drawableTint="@color/colorAccent"
             android:paddingBottom="20dp"/>
 
     </LinearLayout>

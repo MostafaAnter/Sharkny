@@ -121,6 +121,7 @@
                     <ImageView
                         android:id="@+id/like_btn"
                         android:layout_width="45dp"
+                        android:textColor="@color/white"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
                         android:src="@drawable/like_not_solid"
@@ -136,6 +137,7 @@
                         android:id="@+id/comment_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:inputType="number"
                         android:maxLength="5" />
                     <ImageView
