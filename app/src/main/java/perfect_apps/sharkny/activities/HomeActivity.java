@@ -353,7 +353,7 @@ public class HomeActivity extends LocalizationActivity
     @Override
     public void onAfterLocaleChanged() {
         super.onAfterLocaleChanged();
-        startActivity(new Intent(this, SplashActivity.class));
+        startActivity(new Intent(this, HomeActivity.class));
     }
 
     private boolean isAuthenticated(){

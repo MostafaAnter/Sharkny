@@ -67,9 +67,9 @@ public class AddAdvantageActivity extends LocalizationActivity {
     @Bind(R.id.spinner1) Spinner spinner1;
     @Bind(R.id.spinner2) Spinner spinner2;
     @Bind(R.id.spinner3) Spinner spinner3;
-    private static String franchisType;
-    private static String franchisField;
-    private static String country;
+    private static String franchisType = "";
+    private static String franchisField = "";
+    private static String country = "";
     private static Uri profileImagePath;
 
     // editText
