@@ -9,3 +9,6 @@ We enable organizations to continuously – and affordably – monitor the healt
 
 We make it fast, easy and affordable (just $20/month/user) for business users to build and share real-time dashboards – making it possible for them to move from course-correcting once a quarter to continuously optimizing their business.
 
+#### What kind of company is Klipfolio?
+
+Klipfolio is a start-up with analytics-minded, friendly, active, and socially conscious people, driven by a passion for what we’re doing and the results our customer’s achieve. We talk with and help our customers every day, and we thrive on making them successful. We've just started a new chapter in our story and we're growing rapidly. Interested in working for us?
