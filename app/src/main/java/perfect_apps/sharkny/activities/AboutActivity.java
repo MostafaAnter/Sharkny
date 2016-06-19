@@ -30,6 +30,7 @@ public class AboutActivity extends LocalizationActivity {
         setToolbar();
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         WebView wv1 = (WebView) findViewById(R.id.webview);
+        progressBar.setVisibility(View.GONE);
 
         if (Utils.isOnline(this)) {
             progressBar.setVisibility(View.VISIBLE);

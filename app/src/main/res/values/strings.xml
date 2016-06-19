@@ -221,7 +221,7 @@
     <string name="field">Field</string>
     <string name="Project_Type">Project Type</string>
     <string name="wait">wait...</string>
-    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_about" translatable="false">AboutActivity</string>
 
 
 </resources>
