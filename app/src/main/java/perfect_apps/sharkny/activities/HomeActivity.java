@@ -208,9 +208,12 @@ public class HomeActivity extends LocalizationActivity
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.about) {
-            Intent intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://sharkny.net/en/page/1/about-us"));
-            startActivity(intent);
+//            Intent intent = new Intent(Intent.ACTION_VIEW,
+//                    Uri.parse(""));
+//
+
+            startActivity(new Intent(HomeActivity.this, AboutActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
 
         } else if (id == R.id.contact) {
             sendFeedBack();
