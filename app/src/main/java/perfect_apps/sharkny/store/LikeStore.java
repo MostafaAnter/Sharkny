@@ -52,11 +52,11 @@ public class LikeStore {
         return true;
     }
 
-    public boolean remove(FavoriteModel note) {
+    public boolean remove(String key) {
 
-        if (favoritePrefs.contains(note.getTitleKey())) {
+        if (favoritePrefs.contains(key)) {
             SharedPreferences.Editor editor = favoritePrefs.edit();
-            editor.remove(note.getTitleKey());
+            editor.remove(key);
             editor.commit();
         }
 
