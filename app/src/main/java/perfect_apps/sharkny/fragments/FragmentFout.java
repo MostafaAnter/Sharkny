@@ -48,8 +48,6 @@ public class FragmentFout extends Fragment {
     private HorizontalListView mHlvCustomList;
     private CustomArrayAdapter adapter;
 
-    // for swipe to refresh
-    private SwipeRefreshLayout mSwipeRefreshLayout;
     public FragmentFout(){
 
     }
@@ -86,18 +84,6 @@ public class FragmentFout extends Fragment {
         // adapter
         adapter = new CustomArrayAdapter(getActivity(), mDataset);
         mHlvCustomList.setAdapter(adapter);
-        // Retrieve the SwipeRefreshLayout and ListView instances
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
-        // Set the color scheme of the SwipeRefreshLayout by providing 4 color resource ids
-        //noinspection ResourceAsColor
-        mSwipeRefreshLayout.setColorScheme(
-                R.color.swipe_color_1, R.color.swipe_color_2,
-                R.color.swipe_color_3, R.color.swipe_color_4);
-        mSwipeRefreshLayout.setProgressViewOffset(false, 0,
-                (int) TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        24,
-                        getResources().getDisplayMetrics()));
 
         return view;
     }
@@ -129,24 +115,12 @@ public class FragmentFout extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.i("swip", "onRefresh called from SwipeRefreshLayout");
-
-                initiateRefresh();
-            }
-        });
 
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (!mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(true);
-        }
-
         // Start our refresh background task
         initiateRefresh();
     }
@@ -160,11 +134,6 @@ public class FragmentFout extends Fragment {
     }
 
     private void onRefreshComplete() {
-
-        // Stop the refreshing indicator
-        mSwipeRefreshLayout.setRefreshing(false);
-
-
     }
 
 
@@ -184,10 +153,6 @@ public class FragmentFout extends Fragment {
     }
 
     private void fetchData(){
-        if (!mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(true);
-        }
-
         String url = BuildConfig.Get_Other_service_List;
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
