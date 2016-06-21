@@ -267,14 +267,13 @@ public class DetailActivity extends LocalizationActivity {
             updateStarImage(favoritImage, true);
             addItemToFavo();
             // call api
-
             favoriteIt();
         } else {
             updateStarImage(favoritImage, true);
             removeItmFromFavorite();
             // call api
 
-            unLikeIt();
+            unFavoriteIt();
         }
     }
 

@@ -292,7 +292,8 @@ public class DetailViewActivity extends LocalizationActivity {
     }
 
     public void like(View view) {
-        if (Integer.parseInt(type) == 1 || Integer.parseInt(type) == 2 || Integer.parseInt(type) == 4) {
+        if (!new LikeStore(this).findItem(bubleItem.getId(),
+                bubleItem.getId())) {
             updateHeartButton(likeBtn, true);
             addItemToLike();
             int likeCountNumber = Integer.parseInt(bubleItem.getLikes_count()) + 1;
@@ -301,13 +302,14 @@ public class DetailViewActivity extends LocalizationActivity {
             likeIt();
         } else {
             updateHeartButton(likeBtn, true);
-            addItemToLike();
-            int likeCountNumber = Integer.parseInt(franchisesItem.getLikes_count()) + 1;
+            removeItemFromLike();
+            int likeCountNumber = Integer.parseInt(bubleItem.getLikes_count()) - 1;
             likeCount.setText(String.valueOf(likeCountNumber));
             // call api
-            likeIt();
+            unLikeIt();
         }
     }
+
 
     public void comment(View view) {
 
@@ -355,11 +357,21 @@ public class DetailViewActivity extends LocalizationActivity {
     }
 
     public void favorite(View view) {
-        updateStarImage(favoritImage, true);
-        addItemToFavo();
-        // call api
+        if (!new FavoriteStore(this).findItem(bubleItem.getId(),
+                bubleItem.getId())) {
 
-        favoriteIt();
+            updateStarImage(favoritImage, true);
+            addItemToFavo();
+            // call api
+
+            favoriteIt();
+        } else {
+            updateStarImage(favoritImage, true);
+            removeItmFromFavorite();
+            // call api
+
+            unFavoriteIt();
+        }
     }
 
     private void updateHeartButton(final ImageView holder, boolean animated) {
@@ -397,6 +409,40 @@ public class DetailViewActivity extends LocalizationActivity {
                 });
 
                 animatorSet.start();
+            }else {
+                AnimatorSet animatorSet = new AnimatorSet();
+                likeAnimations.remove(holder);
+
+                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(holder, "rotation", 0f, 360f);
+                rotationAnim.setDuration(300);
+                rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(holder, "scaleX", 0.2f, 1f);
+                bounceAnimX.setDuration(300);
+                bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(holder, "scaleY", 0.2f, 1f);
+                bounceAnimY.setDuration(300);
+                bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
+                bounceAnimY.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        holder.setImageResource(R.drawable.like_not_solid);
+                    }
+                });
+
+                animatorSet.play(rotationAnim);
+                animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
+
+                animatorSet.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                    }
+                });
+
+                animatorSet.start();
+
             }
         }
     }
@@ -422,6 +468,39 @@ public class DetailViewActivity extends LocalizationActivity {
                     @Override
                     public void onAnimationStart(Animator animation) {
                         holder.setImageResource(R.drawable.favorite_solid);
+                    }
+                });
+
+                animatorSet.play(rotationAnim);
+                animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
+
+                animatorSet.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                    }
+                });
+
+                animatorSet.start();
+            }else {
+                AnimatorSet animatorSet = new AnimatorSet();
+                likeAnimations.remove(holder);
+
+                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(holder, "rotation", 0f, 360f);
+                rotationAnim.setDuration(300);
+                rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(holder, "scaleX", 0.2f, 1f);
+                bounceAnimX.setDuration(300);
+                bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(holder, "scaleY", 0.2f, 1f);
+                bounceAnimY.setDuration(300);
+                bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
+                bounceAnimY.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        holder.setImageResource(R.drawable.favorite_not_solid);
                     }
                 });
 
@@ -465,6 +544,22 @@ public class DetailViewActivity extends LocalizationActivity {
         }
     }
 
+    private void removeItmFromFavorite(){
+        if (Integer.parseInt(type) == 1 || Integer.parseInt(type) == 2 || Integer.parseInt(type) == 4) {
+            //add item to favorite
+            FavoriteModel item = new FavoriteModel();
+            item.setTitleKey(bubleItem.getId());
+            item.setIdValue(bubleItem.getId());
+            new FavoriteStore(this).remove(item);
+        } else {
+            FavoriteModel item = new FavoriteModel();
+            item.setTitleKey(franchisesItem.getId());
+            item.setIdValue(franchisesItem.getId());
+            new FavoriteStore(this).remove(item);
+        }
+
+    }
+
     private void addItemToLike() {
         if (Integer.parseInt(type) == 1 || Integer.parseInt(type) == 2 || Integer.parseInt(type) == 4) {
             //add item to favorite
@@ -479,6 +574,21 @@ public class DetailViewActivity extends LocalizationActivity {
             item.setIdValue(franchisesItem.getId());
             new LikeStore(this).update(item);
         }
+    }
+
+    private void removeItemFromLike(){
+        if (Integer.parseInt(type) == 1 || Integer.parseInt(type) == 2 || Integer.parseInt(type) == 4) {
+            FavoriteModel item = new FavoriteModel();
+            item.setTitleKey(bubleItem.getId());
+            item.setIdValue(bubleItem.getId());
+            new LikeStore(this).remove(item.getTitleKey());
+        } else {
+            FavoriteModel item = new FavoriteModel();
+            item.setTitleKey(franchisesItem.getId());
+            item.setIdValue(franchisesItem.getId());
+            new LikeStore(this).remove(item.getTitleKey());
+        }
+
     }
 
     private void changeLikeFavoriteState(){
@@ -568,11 +678,87 @@ public class DetailViewActivity extends LocalizationActivity {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+    private void unLikeIt(){
+        final int iduser = new SharknyPrefStore(DetailViewActivity.this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = "http://sharkny.net/en/api/likes/undolike";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", response);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("item_id", bubleItem.getId());
+                params.put("type", bubleItem.getGeneral_type());
+                params.put("created_by", String.valueOf(iduser));
+
+                return params;
+
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
     private void favoriteIt(){
         final int iduser = new SharknyPrefStore(DetailViewActivity.this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
         // Tag used to cancel the request
         String tag_string_req = "string_req";
         String url = "http://sharkny.net/en/api/favourites/favit";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", response);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }) {
+
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("item_id", bubleItem.getId());
+                params.put("type", bubleItem.getGeneral_type());
+                params.put("created_by", String.valueOf(iduser));
+
+                return params;
+
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void unFavoriteIt(){
+        final int iduser = new SharknyPrefStore(DetailViewActivity.this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+        // Tag used to cancel the request
+        String tag_string_req = "string_req";
+        String url = "http://sharkny.net/en/api/favourites/undofav";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 url, new Response.Listener<String>() {
