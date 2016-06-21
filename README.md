@@ -12,3 +12,7 @@ We make it fast, easy and affordable (just $20/month/user) for business users to
 #### What kind of company is Klipfolio?
 
 Klipfolio is a start-up with analytics-minded, friendly, active, and socially conscious people, driven by a passion for what we’re doing and the results our customer’s achieve. We talk with and help our customers every day, and we thrive on making them successful. We've just started a new chapter in our story and we're growing rapidly. Interested in working for us?
+
+#### Screen shots of Android Mobile App
+
+![alt tag](https://github.com/MostafaAnter/Sharkny/blob/master/device-2016-06-19-173722.png)![alt tag](https://github.com/MostafaAnter/Sharkny/blob/master/device-2016-06-19-173643.png)![alt tag](https://github.com/MostafaAnter/Sharkny/blob/master/device-2016-06-19-173553.png)![alt tag](https://github.com/MostafaAnter/Sharkny/blob/master/device-2016-06-19-172743.png)
