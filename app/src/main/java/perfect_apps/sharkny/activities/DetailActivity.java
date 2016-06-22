@@ -83,6 +83,8 @@ public class DetailActivity extends LocalizationActivity {
     public static final String ARG_ITEM_ID = "item_id";
     private static BubleItem bubleItem;
 
+    private static int likeCountNumber;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +94,8 @@ public class DetailActivity extends LocalizationActivity {
 
         bubleItem = (BubleItem) getIntent().getExtras().get(ARG_ITEM_ID);
         fillData();
+
+        likeCountNumber = Integer.parseInt(bubleItem.getLikes_count());
 
         changeLikeFavoriteState();
 
@@ -222,14 +226,14 @@ public class DetailActivity extends LocalizationActivity {
                 bubleItem.getId())) {
             updateHeartButton(likeBtn, true);
             addItemToLike();
-            int likeCountNumber = Integer.parseInt(bubleItem.getLikes_count()) + 1;
+            likeCountNumber = likeCountNumber + 1;
             likeCount.setText(String.valueOf(likeCountNumber));
             // call api
             likeIt();
         } else {
             updateHeartButton(likeBtn, true);
             removeItemFromLike();
-            int likeCountNumber = Integer.parseInt(bubleItem.getLikes_count()) - 1;
+            likeCountNumber = likeCountNumber - 1;
             likeCount.setText(String.valueOf(likeCountNumber));
             // call api
             unLikeIt();

@@ -99,6 +99,8 @@ public class DetailViewActivity extends LocalizationActivity {
     private static String id;
     private static String type;
 
+    private static int likeCountNumber;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,6 +226,9 @@ public class DetailViewActivity extends LocalizationActivity {
         description.setText(bubleItem.getDescription().replaceAll("<|>|p|/", ""));
 
 
+        likeCountNumber = Integer.parseInt(bubleItem.getLikes_count());
+
+
     }
 
     private void fillFranchiseData(){
@@ -296,14 +301,14 @@ public class DetailViewActivity extends LocalizationActivity {
                 bubleItem.getId())) {
             updateHeartButton(likeBtn, true);
             addItemToLike();
-            int likeCountNumber = Integer.parseInt(bubleItem.getLikes_count()) + 1;
+            likeCountNumber = likeCountNumber + 1;
             likeCount.setText(String.valueOf(likeCountNumber));
             // call api
             likeIt();
         } else {
             updateHeartButton(likeBtn, true);
             removeItemFromLike();
-            int likeCountNumber = Integer.parseInt(bubleItem.getLikes_count()) - 1;
+            likeCountNumber = likeCountNumber - 1;
             likeCount.setText(String.valueOf(likeCountNumber));
             // call api
             unLikeIt();
