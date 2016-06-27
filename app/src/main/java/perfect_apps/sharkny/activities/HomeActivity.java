@@ -238,6 +238,22 @@ public class HomeActivity extends LocalizationActivity
         }else if (id == R.id.favorite) {
             startActivity(new Intent(HomeActivity.this, FavoriteActivity.class));
             overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+        }else if (id == R.id.advantages){
+            startActivity(new Intent(HomeActivity.this, AccountAdvanageActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+        }else if (id == R.id.finance){
+            startActivity(new Intent(HomeActivity.this, AccountFinanceActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+        }else if (id == R.id.projects){
+            startActivity(new Intent(HomeActivity.this, AccountProjectActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
+        }else if (id == R.id.other_services){
+            startActivity(new Intent(HomeActivity.this, AccountServicesActivity.class));
+            overridePendingTransition(R.anim.push_up_enter, R.anim.push_up_exit);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
