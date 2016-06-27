@@ -8,6 +8,10 @@
             android:icon="@drawable/my_profile_ic"
             android:title="@string/drawer_authenticated_my_profile" />
         <item
+            android:id="@+id/projects"
+            android:icon="@drawable/profiel_projects_icon"
+            android:title="@string/projects" />
+        <item
             android:id="@+id/advantages"
             android:icon="@drawable/profile_franchise_icon"
             android:title="@string/advantages" />
@@ -15,10 +19,6 @@
             android:id="@+id/finance"
             android:icon="@drawable/profile_finance_icon"
             android:title="@string/finance" />
-        <item
-            android:id="@+id/projects"
-            android:icon="@drawable/profiel_projects_icon"
-            android:title="@string/projects" />
         <item
             android:id="@+id/other_services"
             android:icon="@drawable/profile_other_services"
