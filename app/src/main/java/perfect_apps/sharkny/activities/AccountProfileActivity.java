@@ -79,14 +79,6 @@ public class AccountProfileActivity extends LocalizationActivity {
     // edit text
     @Bind(R.id.editText1)
     EditText userName;
-    @Bind(R.id.editText2)
-    EditText password;
-    @Bind(R.id.text_input2)
-    TextInputLayout textInputLayout0;
-    @Bind(R.id.editText3)
-    EditText confirmPassword;
-    @Bind(R.id.text_input3)
-    TextInputLayout textInputLayout;
     @Bind(R.id.editText4)
     EditText fullName;
     @Bind(R.id.editText5)
@@ -102,6 +94,7 @@ public class AccountProfileActivity extends LocalizationActivity {
     // radio button
     @Bind(R.id.button21)
     RadioButton radioButtonMale;
+
     @Bind(R.id.button22)
     RadioButton radioButtonFemale;
 
@@ -121,8 +114,6 @@ public class AccountProfileActivity extends LocalizationActivity {
         fetchCounAnNationalityData();
         viewProfile();
 
-        confirmPassword.addTextChangedListener(new MyTextWatcher(confirmPassword));
-        password.addTextChangedListener(new MyTextWatcher(password));
 
         radioButtonMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -145,50 +136,6 @@ public class AccountProfileActivity extends LocalizationActivity {
 
     }
 
-    // for confirm password
-    private class MyTextWatcher implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.editText3:
-                    if (validateConFirmPassword()) {
-                        textInputLayout.setErrorEnabled(false);
-                    } else {
-                        textInputLayout.setError("not match");
-                    }
-                    break;
-                case R.id.editText2:
-                    if (password.getText().toString().trim().length() < 4) {
-                        textInputLayout0.setError("password is short");
-
-                    } else {
-                        textInputLayout0.setErrorEnabled(false);
-                    }
-                    break;
-            }
-        }
-    }
-
-    private boolean validateConFirmPassword() {
-        String passwordText = password.getText().toString().trim();
-        String confirmPas = confirmPassword.getText().toString().trim();
-
-        if (passwordText.equalsIgnoreCase(confirmPas)) {
-            return true;
-        } else return false;
-    }
 
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -626,8 +573,7 @@ public class AccountProfileActivity extends LocalizationActivity {
 
 
     private boolean attempRegister() {
-        if (!password.getText().toString().trim().isEmpty()
-                && !fullName.getText().toString().trim().isEmpty()
+        if (!fullName.getText().toString().trim().isEmpty()
                 && !email.getText().toString().trim().isEmpty()) {
             return true;
 
@@ -719,7 +665,7 @@ public class AccountProfileActivity extends LocalizationActivity {
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
 //                        params.put("username", userName.getText().toString());
-                        params.put("password", password.getText().toString());
+                       // params.put("password", password.getText().toString());
                         params.put("email", email.getText().toString());
                         params.put("fullname", fullName.getText().toString());
                         params.put("nationality", String.valueOf(returnIndex(spinner1, nationality)));
