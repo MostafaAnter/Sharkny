@@ -16,8 +16,9 @@
         android:id="@+id/splash_image_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="30dp"
-        android:src="@drawable/logo"/>
+        android:padding="50dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/splash_logo"/>
 
 
 

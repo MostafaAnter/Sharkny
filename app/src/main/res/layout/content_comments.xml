@@ -31,7 +31,7 @@
                 android:id="@+id/send_comment"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:imeOptions="actionUnspecified"
+                android:imeOptions="actionDone"
                 android:inputType="textLongMessage"
                 android:background="@color/white"
                 android:maxLines="3" />
