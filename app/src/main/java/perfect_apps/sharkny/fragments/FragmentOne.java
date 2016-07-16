@@ -20,6 +20,7 @@ import perfect_apps.sharkny.activities.MyAccountActivity;
  * Created by mostafa on 23/05/16.
  */
 public class FragmentOne extends Fragment {
+    public static int mFlag = 0;
     @Bind(R.id.button1) Button button1;
     @Bind(R.id.button2) Button button2;
     @Bind(R.id.button3) Button button3;
@@ -59,6 +60,7 @@ public class FragmentOne extends Fragment {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mFlag = 1;
                 ((HomeActivity) getActivity()).bottomNavigationView.selectTab(1);
             }
         });
@@ -66,6 +68,7 @@ public class FragmentOne extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mFlag = 2;
                 ((HomeActivity) getActivity()).bottomNavigationView.selectTab(1);
             }
         });
@@ -80,6 +83,7 @@ public class FragmentOne extends Fragment {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mFlag = 3;
                 ((HomeActivity) getActivity()).bottomNavigationView.selectTab(1);
             }
         });

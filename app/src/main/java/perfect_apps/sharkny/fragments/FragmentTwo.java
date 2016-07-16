@@ -151,6 +151,29 @@ public class FragmentTwo extends Fragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            // load data here
+            if (FragmentOne.mFlag == 1){
+                radioButton1.setChecked(true);
+                filterProjectsWithType("Current Projects");
+
+            }else if (FragmentOne.mFlag == 2){
+                radioButton3.setChecked(true);
+                filterProjectsWithType("Deals");
+
+            }else if (FragmentOne.mFlag == 3){
+                radioButton4.setChecked(true);
+                filterProjectsWithType("Franchise");
+            }
+            Log.e("onResume", FragmentOne.mFlag + "");
+        }else{
+            // fragment is no longer visible
+        }
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Start our refresh background task
