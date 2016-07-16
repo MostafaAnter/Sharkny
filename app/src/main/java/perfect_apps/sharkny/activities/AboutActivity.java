@@ -1,46 +1,83 @@
 package perfect_apps.sharkny.activities;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.app.AppController;
+import perfect_apps.sharkny.store.SharknyPrefStore;
+import perfect_apps.sharkny.utils.Constants;
 import perfect_apps.sharkny.utils.Utils;
 
 public class AboutActivity extends LocalizationActivity {
+    private static final String TAG = "AboutActivity";
     private static ProgressBar progressBar;
+
+
+    @Bind(R.id.title)TextView title;
+    @Bind(R.id.content)TextView content;
+    @Bind(R.id.image)ImageView image;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        ButterKnife.bind(this);
         setToolbar();
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        WebView wv1 = (WebView) findViewById(R.id.webview);
-        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
 
         if (Utils.isOnline(this)) {
-            progressBar.setVisibility(View.VISIBLE);
-            wv1.setWebViewClient(new MyBrowser());
-            wv1.getSettings().setLoadsImagesAutomatically(true);
-            wv1.getSettings().setJavaScriptEnabled(true);
-            wv1.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-            wv1.loadUrl("http://sharkny.net/en/page/1/about-us");
+            String  tag_string_req = "string_req";
+
+            String url = "http://sharkny.net/en/api/pages/about";
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d(TAG, response.toString());
+                    progressBar.setVisibility(View.GONE);
+                    parseResponse(response);
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
         } else {
             // show error message
+            progressBar.setVisibility(View.GONE);
             new SweetAlertDialog(AboutActivity.this, SweetAlertDialog.ERROR_TYPE)
                     .setTitleText("Oops...")
                     .setContentText("Please check your Network connection!")
@@ -50,19 +87,6 @@ public class AboutActivity extends LocalizationActivity {
 
     }
 
-    private class MyBrowser extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            progressBar.setVisibility(View.GONE);
-        }
-    }
 
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -90,12 +114,39 @@ public class AboutActivity extends LocalizationActivity {
         * */
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         Typeface sharknyFont;
-        if (getLanguage().equalsIgnoreCase("en")){
+        if (getLanguage().equalsIgnoreCase("en")) {
             sharknyFont = Typeface.createFromAsset(getAssets(), "fonts/daisy.ttf");
-        }else {
+        } else {
             sharknyFont = Typeface.createFromAsset(getAssets(), "fonts/daisy.ttf");
         }
         mTitle.setTypeface(sharknyFont);
+
+    }
+
+    private void parseResponse(String feed){
+        String imageUrl = "http://sharkny.net/";
+        try {
+            JSONObject rootObject = new JSONObject(feed);
+            imageUrl  = imageUrl +  rootObject.optString("image");
+            if (getLanguage().equalsIgnoreCase("en")){
+                title.setText(rootObject.optString("title_en"));
+                content.setText(Html.fromHtml(rootObject.optString("desc_en")).toString().replaceAll("</p>|</br>", ""));
+            }else {
+                title.setText(rootObject.optString("title_ar"));
+                content.setText(Html.fromHtml(rootObject.optString("desc_ar")).toString().replaceAll("</p>|</br>", ""));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+        Glide.with(AboutActivity.this).load(imageUrl)
+                .thumbnail(0.5f)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(image);
 
     }
 

@@ -4,18 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="perfect_apps.sharkny.activities.AboutActivity"
     tools:showIn="@layout/activity_about">
-    <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/webview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        />
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="none">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            style="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text=""/>
+        <ImageView
+            android:id="@+id/image"
+            android:scaleType="fitStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_gravity="center" />
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
