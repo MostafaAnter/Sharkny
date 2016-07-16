@@ -359,6 +359,27 @@ public class JsonParser {
 
     }
 
+    public static int parseInboxCount(String feed){
+
+        try {
+            JSONObject  jsonRootObject = new JSONObject(feed);//done
+            JSONArray jsonNewsArray = jsonRootObject.optJSONArray("data");
+            int counter = 0;
+            for (int i = 0; i < jsonNewsArray.length(); i++) {
+                JSONObject jsonObject = jsonNewsArray.getJSONObject(i);
+                boolean read = jsonObject.optBoolean("is_read");
+                if (!read)
+                    counter++;
+            }
+            return counter;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+
+    }
+
     public static List<MessageModel> parseUserSentMail(String feed){
 
         try {

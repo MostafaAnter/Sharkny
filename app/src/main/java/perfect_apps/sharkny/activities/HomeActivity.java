@@ -11,12 +11,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -26,22 +28,31 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
+import com.android.volley.Cache;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
+import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.fragments.FragmentFout;
 import perfect_apps.sharkny.fragments.FragmentOne;
 import perfect_apps.sharkny.fragments.FragmentThree;
 import perfect_apps.sharkny.fragments.FragmentTwo;
+import perfect_apps.sharkny.parse.JsonParser;
 import perfect_apps.sharkny.store.SharknyPrefStore;
 import perfect_apps.sharkny.utils.Constants;
 import perfect_apps.sharkny.utils.CustomTypefaceSpan;
@@ -49,6 +60,8 @@ import perfect_apps.sharkny.utils.CustomViewPager;
 
 public class HomeActivity extends LocalizationActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    TextView inboxCount;
 
     public BottomNavigationView bottomNavigationView;
     CustomViewPager pager;
@@ -96,6 +109,14 @@ public class HomeActivity extends LocalizationActivity
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_home_drawer_authenticated_user);
             changeFontOfNavigation();
+
+
+            inboxCount =(TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+                    findItem(R.id.inbox));
+
+            //This method will initialize the count value
+            initializeCountDrawer();
+
         }
 
 
@@ -397,5 +418,54 @@ public class HomeActivity extends LocalizationActivity
        // sendIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack");
         sendIntent.putExtra(Intent.EXTRA_TEXT, "");
         startActivity(sendIntent);
+    }
+
+    private void fetchInBoxCount(){
+        int id = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+        String url = BuildConfig.Get_User_Inbox + id;
+
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if(entry != null){
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // handle data, like converting it to xml, json, bitmap etc.,
+                inboxCount.setText(JsonParser.parseInboxCount(data) + "");
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else{
+            // Cached response doesn't exists. Make network call here
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    inboxCount.setText(JsonParser.parseInboxCount(response) + "");
+
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq);
+        }
+    }
+
+    private void initializeCountDrawer(){
+        //Gravity property aligns the text
+        inboxCount.setGravity(Gravity.CENTER_VERTICAL);
+        inboxCount.setTypeface(null, Typeface.BOLD);
+        inboxCount.setTextColor(getResources().getColor(R.color.white));
+        fetchInBoxCount();
+
+
     }
 }
