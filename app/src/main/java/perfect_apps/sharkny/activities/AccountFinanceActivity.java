@@ -220,6 +220,8 @@ public class AccountFinanceActivity extends LocalizationActivity {
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
 
+                Utils.setListViewHeightBasedOnItems(mHlvCustomList);
+
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -235,6 +237,8 @@ public class AccountFinanceActivity extends LocalizationActivity {
                     mDataset.addAll(0, JsonParser.parseUserProjects(response));
                     adapter.notifyDataSetChanged();
                     onRefreshComplete();
+
+                    Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
                 }
             }, new Response.ErrorListener() {

@@ -230,6 +230,8 @@ public class SearchResultOtherServiceActivity extends LocalizationActivity {
                         adapter.notifyDataSetChanged();
                         onRefreshComplete();
 
+                        Utils.setListViewHeightBasedOnItems(mHlvCustomList);
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -252,6 +254,8 @@ public class SearchResultOtherServiceActivity extends LocalizationActivity {
                         mDataset.addAll(0, JsonParser.searchOtherParse(response));
                         adapter.notifyDataSetChanged();
                         onRefreshComplete();
+
+                        Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
                     }
                 }, new Response.ErrorListener() {

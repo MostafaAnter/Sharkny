@@ -211,6 +211,8 @@ public class SearchResultFranchisActivity extends LocalizationActivity {
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
 
+                Utils.setListViewHeightBasedOnItems(mHlvCustomList);
+
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -226,6 +228,8 @@ public class SearchResultFranchisActivity extends LocalizationActivity {
                     mDataset.addAll(0, JsonParser.searchFranchisParse(response));
                     adapter.notifyDataSetChanged();
                     onRefreshComplete();
+
+                    Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
                 }
             }, new Response.ErrorListener() {

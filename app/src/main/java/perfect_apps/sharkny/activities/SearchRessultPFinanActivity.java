@@ -221,6 +221,8 @@ public class SearchRessultPFinanActivity extends LocalizationActivity {
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
 
+                Utils.setListViewHeightBasedOnItems(mHlvCustomList);
+
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -245,6 +247,8 @@ public class SearchRessultPFinanActivity extends LocalizationActivity {
                     mDataset.addAll(0, JsonParser.parseUserSearchp(response));
                     adapter.notifyDataSetChanged();
                     onRefreshComplete();
+
+                    Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
                 }
             }, new Response.ErrorListener() {

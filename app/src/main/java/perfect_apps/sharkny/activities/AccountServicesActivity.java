@@ -224,6 +224,8 @@ public class AccountServicesActivity extends LocalizationActivity {
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
 
+                Utils.setListViewHeightBasedOnItems(mHlvCustomList);
+
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -239,6 +241,8 @@ public class AccountServicesActivity extends LocalizationActivity {
                     mDataset.addAll(0, JsonParser.parseUserProjects(response));
                     adapter.notifyDataSetChanged();
                     onRefreshComplete();
+
+                    Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
                 }
             }, new Response.ErrorListener() {
