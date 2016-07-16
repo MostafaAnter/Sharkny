@@ -45,8 +45,7 @@ public class SearchRessultPFinanActivity extends LocalizationActivity {
     private HorizontalListView mHlvCustomList;
     private CustomArrayAdapter adapter;
 
-    // for swipe to refresh
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,14 +60,6 @@ public class SearchRessultPFinanActivity extends LocalizationActivity {
         // populate mDataSet
         mDataset = new ArrayList<>();
         setRecyclerViewAndSwipe();
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.i("swip", "onRefresh called from SwipeRefreshLayout");
-
-                initiateRefresh();
-            }
-        });
 
 
 
@@ -142,25 +133,12 @@ public class SearchRessultPFinanActivity extends LocalizationActivity {
         mHlvCustomList.setAdapter(adapter);
         // Retrieve the SwipeRefreshLayout and ListView instances
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
-        // Set the color scheme of the SwipeRefreshLayout by providing 4 color resource ids
-        //noinspection ResourceAsColor
-        mSwipeRefreshLayout.setColorScheme(
-                R.color.swipe_color_1, R.color.swipe_color_2,
-                R.color.swipe_color_3, R.color.swipe_color_4);
-        mSwipeRefreshLayout.setProgressViewOffset(false, 0,
-                (int) TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        24,
-                        getResources().getDisplayMetrics()));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (!mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(true);
-        }
+
 
         // Start our refresh background task
         initiateRefresh();
@@ -176,8 +154,6 @@ public class SearchRessultPFinanActivity extends LocalizationActivity {
 
     private void onRefreshComplete() {
 
-        // Stop the refreshing indicator
-        mSwipeRefreshLayout.setRefreshing(false);
 
 
     }
@@ -197,9 +173,6 @@ public class SearchRessultPFinanActivity extends LocalizationActivity {
     }
 
     private void fetchData(){
-        if (!mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(true);
-        }
 
         int id = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
         String url;
