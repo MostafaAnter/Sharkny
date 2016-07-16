@@ -394,7 +394,7 @@ public class HomeActivity extends LocalizationActivity
         sendIntent.setData(Uri.parse("support@sharkny.net"));
         sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
         sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "support@sharkny.net" });
-        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack");
+       // sendIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack");
         sendIntent.putExtra(Intent.EXTRA_TEXT, "");
         startActivity(sendIntent);
     }
