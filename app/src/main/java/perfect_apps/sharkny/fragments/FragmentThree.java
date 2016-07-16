@@ -207,10 +207,9 @@ public class FragmentThree extends Fragment {
                 mDataOrigine.addAll(0, mDataset);
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
-
                 radioButton1.setChecked(true);
                 filterProjectsWithType("1");
-
+                Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -228,9 +227,9 @@ public class FragmentThree extends Fragment {
                     mDataOrigine.addAll(0, mDataset);
                     adapter.notifyDataSetChanged();
                     onRefreshComplete();
-
                     radioButton1.setChecked(true);
                     filterProjectsWithType("1");
+                    Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
                 }
             }, new Response.ErrorListener() {
@@ -255,5 +254,7 @@ public class FragmentThree extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         }
+
+        Utils.setListViewHeightBasedOnItems(mHlvCustomList);
     }
 }

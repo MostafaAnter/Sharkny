@@ -165,6 +165,7 @@ public class FragmentFout extends Fragment {
                 mDataset.addAll(0, JsonParser.parseServiceList(data));
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
+                Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
 
             } catch (UnsupportedEncodingException e) {
@@ -181,6 +182,7 @@ public class FragmentFout extends Fragment {
                     mDataset.addAll(0, JsonParser.parseServiceList(response));
                     adapter.notifyDataSetChanged();
                     onRefreshComplete();
+                    Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
                 }
             }, new Response.ErrorListener() {

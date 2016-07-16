@@ -10,9 +10,12 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.Display;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -152,6 +155,27 @@ public class Utils {
         return builder.build().toString();
     }
 
+    public static boolean setListViewHeightBasedOnItems(HorizontalListView listView) {
+
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter != null && listAdapter.getCount() == 1) {
+            // Set list height.
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.width = 600;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+
+            return true;
+
+        } else {
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+            return false;
+        }
+
+    }
 
 
 }

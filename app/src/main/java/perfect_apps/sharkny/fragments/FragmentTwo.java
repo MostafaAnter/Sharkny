@@ -254,6 +254,7 @@ public class FragmentTwo extends Fragment {
                 adapter.notifyDataSetChanged();
                 onRefreshComplete();
 
+                Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -295,6 +296,8 @@ public class FragmentTwo extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         }
+
+        Utils.setListViewHeightBasedOnItems(mHlvCustomList);
     }
 
 }
