@@ -1,6 +1,7 @@
 package perfect_apps.sharkny.adapters;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class CustomArrayAdapter extends ArrayAdapter<BubleItem> {
         holder.titelView.setText(bubleItem.getTitle());
 
         // populate description
-        holder.descriptionView.setText(bubleItem.getDescription().replaceAll("<|>|/|p", ""));
+        holder.descriptionView.setText(Html.fromHtml(bubleItem.getDescription()));
 
         // populate mainImage
         Glide.with(mContext)
