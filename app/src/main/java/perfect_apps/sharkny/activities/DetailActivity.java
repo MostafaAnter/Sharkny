@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -211,7 +212,7 @@ public class DetailActivity extends LocalizationActivity {
         }
 
 
-        description.setText(bubleItem.getDescription().replaceAll("<|>|p|/", ""));
+        description.setText(Html.fromHtml(bubleItem.getDescription()));
 
         owner_name.setText(bubleItem.getOwnerUser().getFullname());
     }

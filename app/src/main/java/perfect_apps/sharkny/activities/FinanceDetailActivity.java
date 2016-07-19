@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -171,7 +172,7 @@ public class FinanceDetailActivity extends LocalizationActivity {
             investment_percentag.setText(bubleItem.getInvestment_percentage() + "%");
         }
         country.setText(bubleItem.getCountry());
-        description.setText(bubleItem.getDescription());
+        description.setText(Html.fromHtml(bubleItem.getDescription()));
         owner_name.setText(bubleItem.getOwnerUser().getFullname());
     }
 

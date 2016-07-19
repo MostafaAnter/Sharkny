@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="ltr"
     android:fitsSystemWindows="true"
     tools:context="perfect_apps.sharkny.activities.FinanceDetailActivity">
 
@@ -15,6 +14,7 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+            android:layoutDirection="ltr"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"

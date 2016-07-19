@@ -173,9 +173,9 @@
     <string name="idea_owner">مالك الفكرة</string>
     <string name="project_field">مجال المشروع:</string>
     <string name="project_type">نوع المشروع:</string>
-    <string name="start_date">تاريخ البداية</string>
+    <string name="start_date">تاريخ البداية:</string>
     <string name="country">الدولة:</string>
-    <string name="end_date">تاريخ النهاية</string>
+    <string name="end_date">تاريخ النهاية:</string>
     <string name="guarantees">الضمانات:</string>
     <string name="search_result">نتائج البحث</string>
     <string name="comments">التعليقات</string>
