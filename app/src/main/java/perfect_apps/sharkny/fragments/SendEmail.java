@@ -224,6 +224,8 @@ public class SendEmail extends DialogFragment implements View.OnClickListener {
         }
 
 
+        if(subject.trim().isEmpty() || subject.equalsIgnoreCase(""))
+            subject = "no subject";
 
         if (name != null && !name.trim().isEmpty()
                 && subject != null && !subject.trim().isEmpty()

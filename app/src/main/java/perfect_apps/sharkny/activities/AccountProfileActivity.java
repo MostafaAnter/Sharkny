@@ -179,8 +179,8 @@ public class AccountProfileActivity extends LocalizationActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(AccountProfileActivity.this, MyAccountActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+//        startActivity(new Intent(AccountProfileActivity.this, MyAccountActivity.class)
+//                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
         finish();
     }
