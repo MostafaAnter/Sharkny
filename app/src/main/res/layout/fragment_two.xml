@@ -1,79 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top|center_horizontal">
+    android:gravity="top"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/relative1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:minHeight="45dp"
         android:background="@color/colorPrimary"
-        android:gravity="center">
+        android:gravity="center"
+        android:minHeight="45dp">
 
         <info.hoang8f.android.segmented.SegmentedGroup
             android:id="@+id/segmented2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layoutDirection="ltr"
             android:layout_margin="10dp"
+            android:layoutDirection="ltr"
             android:orientation="horizontal"
             segmentedgroup:sc_border_width="1dp"
+            segmentedgroup:sc_checked_text_color="@color/colorPrimary"
             segmentedgroup:sc_corner_radius="10dp"
             segmentedgroup:sc_tint_color="@color/colorAccent"
-            segmentedgroup:sc_unchecked_tint_color="@color/colorPrimary"
-            segmentedgroup:sc_checked_text_color="@color/colorPrimary">
+            segmentedgroup:sc_unchecked_tint_color="@color/colorPrimary">
 
             <RadioButton
                 android:id="@+id/button21"
+                style="@style/RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/stand_projects"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="9sp"
-                style="@style/RadioButton" />
+                android:text="@string/stand_projects"
+                android:textSize="9sp" />
 
             <RadioButton
                 android:id="@+id/button22"
+                style="@style/RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="9sp"
                 android:text="@string/new_ideas"
-                style="@style/RadioButton" />
+                android:textSize="9sp" />
+
             <RadioButton
                 android:id="@+id/button23"
+                style="@style/RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:textSize="9sp"
                 android:maxLines="1"
                 android:text="@string/Deals"
-                style="@style/RadioButton" />
+                android:textSize="9sp" />
+
             <RadioButton
                 android:id="@+id/button24"
+                style="@style/RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="9sp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/advantages"
-                style="@style/RadioButton" />
+                android:textSize="9sp" />
         </info.hoang8f.android.segmented.SegmentedGroup>
 
     </RelativeLayout>
-        <perfect_apps.sharkny.utils.HorizontalListView
-            android:id="@+id/hlvCustomList"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="match_parent">
-        </perfect_apps.sharkny.utils.HorizontalListView>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/projects_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+
 </LinearLayout>

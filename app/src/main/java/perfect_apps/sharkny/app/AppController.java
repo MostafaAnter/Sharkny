@@ -1,6 +1,7 @@
 package perfect_apps.sharkny.app;
 
 import android.app.Application;
+import android.content.res.Resources;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -52,5 +53,12 @@ public class AppController extends Application {
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
         }
+    }
+
+    public static int getDPasPIXILS(int dp) {
+
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+
+
     }
 }

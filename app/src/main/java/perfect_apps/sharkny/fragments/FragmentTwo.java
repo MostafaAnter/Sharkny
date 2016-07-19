@@ -1,21 +1,21 @@
 package perfect_apps.sharkny.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
@@ -37,31 +37,43 @@ import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.activities.DetailActivity;
 import perfect_apps.sharkny.activities.SearchActivity;
-import perfect_apps.sharkny.adapters.CustomArrayAdapter;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.parse.JsonParser;
-import perfect_apps.sharkny.utils.HorizontalListView;
 import perfect_apps.sharkny.utils.Utils;
 
 /**
- * Created by mostafa on 23/05/16.
+ * Created by zeyadgholmish on 6/24/16.
  */
 public class FragmentTwo extends Fragment {
-    @Bind(R.id.button21) RadioButton radioButton1;
-    @Bind(R.id.button22) RadioButton radioButton2;
-    @Bind(R.id.button23) RadioButton radioButton3;
-    @Bind(R.id.button24) RadioButton radioButton4;
+    @Bind(R.id.button21)
+    RadioButton radioButton1;
 
-    @Bind(R.id.segmented2) SegmentedGroup segmentedGroup;
+    @Bind(R.id.button22)
+    RadioButton radioButton2;
+
+    @Bind(R.id.button23)
+    RadioButton radioButton3;
+
+    @Bind(R.id.button24)
+    RadioButton radioButton4;
+
+    @Bind(R.id.segmented2)
+    SegmentedGroup segmentedGroup;
+
+
+    @Bind(R.id.projects_view_pager)
+    ViewPager projects_view_pager;
+
+    SampleFragmentPagerAdapter pagerAdapter;
+
+    private int PAGE_COUNT = 0;
 
     // for recycler view
     private List<BubleItem> mDataset;
     private List<BubleItem> mDataOrigine;
-    private HorizontalListView mHlvCustomList;
-    private CustomArrayAdapter adapter;
 
-    public FragmentTwo(){
+    public FragmentTwo() {
 
     }
 
@@ -81,23 +93,18 @@ public class FragmentTwo extends Fragment {
         View view = inflater.inflate(R.layout.fragment_two, container, false);
         ButterKnife.bind(this, view);
 
-        // set added recycler view
-        mHlvCustomList = (HorizontalListView) view.findViewById(R.id.hlvCustomList);
-        mHlvCustomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                Bundle arguments = new Bundle();
-                arguments.putParcelable(DetailActivity.ARG_ITEM_ID, (Parcelable) mHlvCustomList.getItemAtPosition(position));
-                intent.putExtras(arguments);
-                getActivity().startActivity(intent);
-                (getActivity()).overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+        PAGE_COUNT = mDataset.size();
 
-            }
-        });
-        // adapter
-        adapter = new CustomArrayAdapter(getActivity(), mDataset);
-        mHlvCustomList.setAdapter(adapter);
+        projects_view_pager.setClipToPadding(false);
+        projects_view_pager.setPadding(AppController.getDPasPIXILS(40), 0, AppController.getDPasPIXILS(40), 0);
+        projects_view_pager.setPageMargin(AppController.getDPasPIXILS(10));
+
+        pagerAdapter =
+                new SampleFragmentPagerAdapter(getChildFragmentManager(), getActivity());
+
+        projects_view_pager.setAdapter(pagerAdapter);
+
+
         changeFont();
         return view;
     }
@@ -111,7 +118,7 @@ public class FragmentTwo extends Fragment {
         radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     filterProjectsWithType("Current Projects");
 
                 }
@@ -121,7 +128,7 @@ public class FragmentTwo extends Fragment {
         radioButton2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     filterProjectsWithType("New Ideas");
 
                 }
@@ -131,7 +138,7 @@ public class FragmentTwo extends Fragment {
         radioButton3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     filterProjectsWithType("Deals");
 
                 }
@@ -141,7 +148,7 @@ public class FragmentTwo extends Fragment {
         radioButton4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     filterProjectsWithType("Franchise");
 
                 }
@@ -190,12 +197,18 @@ public class FragmentTwo extends Fragment {
 
     private void onRefreshComplete() {
 
+        Log.e("reponse", PAGE_COUNT + "");
+
+        pagerAdapter =
+                new SampleFragmentPagerAdapter(getChildFragmentManager(), getActivity());
+
+        projects_view_pager.setAdapter(pagerAdapter);
     }
 
-    private void makeNewsRequest(){
-        if(Utils.isOnline(getActivity())){
+    private void makeNewsRequest() {
+        if (Utils.isOnline(getActivity())) {
             fetchData();
-        }else {
+        } else {
             // show error message
             new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
                     .setTitleText("Oops...")
@@ -207,7 +220,7 @@ public class FragmentTwo extends Fragment {
 
     }
 
-    private void changeFont(){
+    private void changeFont() {
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/thin.ttf");
 
         radioButton1.setTypeface(font);
@@ -238,12 +251,12 @@ public class FragmentTwo extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void fetchData(){
+    private void fetchData() {
         String url = BuildConfig.Get_Projects;
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);
-        if(entry != null){
+        if (entry != null) {
             try {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
@@ -251,16 +264,16 @@ public class FragmentTwo extends Fragment {
                 mDataOrigine.clear();
                 mDataset.addAll(0, JsonParser.parseBublesItem(data));
                 mDataOrigine.addAll(0, mDataset);
-                adapter.notifyDataSetChanged();
+
+                PAGE_COUNT = mDataset.size();
                 onRefreshComplete();
 
-                Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-        } else{
-        // Cached response doesn't exists. Make network call here
+        } else {
+            // Cached response doesn't exists. Make network call here
             StringRequest strReq = new StringRequest(Request.Method.GET,
                     url, new Response.Listener<String>() {
 
@@ -270,7 +283,8 @@ public class FragmentTwo extends Fragment {
                     mDataOrigine.clear();
                     mDataset.addAll(0, JsonParser.parseBublesItem(response));
                     mDataOrigine.addAll(0, mDataset);
-                    adapter.notifyDataSetChanged();
+
+                    PAGE_COUNT = mDataset.size();
                     onRefreshComplete();
 
                 }
@@ -287,17 +301,57 @@ public class FragmentTwo extends Fragment {
         }
     }
 
-    private void filterProjectsWithType(String type){
+    private void filterProjectsWithType(String type) {
+
         mDataset.clear();
-        adapter.notifyDataSetChanged();
-        for (BubleItem bubleItem : mDataOrigine){
-            if (bubleItem.getProject_type().equalsIgnoreCase(type)){
+
+        for (BubleItem bubleItem : mDataOrigine) {
+            if (bubleItem.getProject_type().equalsIgnoreCase(type)) {
                 mDataset.add(bubleItem);
-                adapter.notifyDataSetChanged();
             }
         }
 
-        Utils.setListViewHeightBasedOnItems(mHlvCustomList);
+        PAGE_COUNT = mDataset.size();
+
+        pagerAdapter.notifyDataSetChanged();
+    }
+
+
+    public class SampleFragmentPagerAdapter extends FragmentStatePagerAdapter {
+
+
+        private Context context;
+
+        public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
+            super(fm);
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+
+            ProjectItemFragment fragment = new ProjectItemFragment();
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(DetailActivity.ARG_ITEM_ID, mDataset.get(position));
+            bundle.putInt("type", 0);
+            fragment.setArguments(bundle);
+            return fragment;
+        }
+
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+
+
     }
 
 }

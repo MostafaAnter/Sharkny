@@ -1,21 +1,21 @@
 package perfect_apps.sharkny.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
@@ -32,32 +32,40 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import info.hoang8f.android.segmented.SegmentedGroup;
 import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
-import perfect_apps.sharkny.activities.FinanceDetailActivity;
+import perfect_apps.sharkny.activities.DetailActivity;
 import perfect_apps.sharkny.activities.SearchActivity;
-import perfect_apps.sharkny.adapters.CustomFinanceArrayAdapter;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.models.FinanceModel;
 import perfect_apps.sharkny.parse.JsonParser;
-import perfect_apps.sharkny.utils.HorizontalListView;
 import perfect_apps.sharkny.utils.Utils;
 
 /**
- * Created by mostafa on 23/05/16.
+ * Created by zeyadgholmish on 6/24/16.
  */
 public class FragmentThree extends Fragment {
+    @Bind(R.id.button21)
+    RadioButton radioButton1;
 
-    @Bind(R.id.button21) RadioButton radioButton1;
-    @Bind(R.id.button22) RadioButton radioButton2;
+    @Bind(R.id.button22)
+    RadioButton radioButton2;
+
+
+
+    @Bind(R.id.projects_view_pager)
+    ViewPager projects_view_pager;
+
+    SampleFragmentPagerAdapter pagerAdapter;
+
+    private int PAGE_COUNT = 0;
 
     // for recycler view
     private List<FinanceModel> mDataset;
     private List<FinanceModel> mDataOrigine;
-    private HorizontalListView mHlvCustomList;
-    private CustomFinanceArrayAdapter adapter;
 
-    public FragmentThree(){
+    public FragmentThree() {
 
     }
 
@@ -77,35 +85,97 @@ public class FragmentThree extends Fragment {
         View view = inflater.inflate(R.layout.fragment_three, container, false);
         ButterKnife.bind(this, view);
 
-        // set added recycler view
-        // set added recycler view
-        mHlvCustomList = (HorizontalListView) view.findViewById(R.id.hlvCustomList);
-        mHlvCustomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), FinanceDetailActivity.class);
-                Bundle arguments = new Bundle();
-                arguments.putParcelable(FinanceDetailActivity.ARG_ITEM_ID, (Parcelable) mHlvCustomList.getItemAtPosition(position));
-                intent.putExtras(arguments);
-                getActivity().startActivity(intent);
-                (getActivity()).overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+        PAGE_COUNT = mDataset.size();
 
-            }
-        });
-        // adapter
-        adapter = new CustomFinanceArrayAdapter(getActivity(), mDataset);
-        mHlvCustomList.setAdapter(adapter);
+        projects_view_pager.setClipToPadding(false);
+        projects_view_pager.setPadding(AppController.getDPasPIXILS(40), 0, AppController.getDPasPIXILS(40), 0);
+        projects_view_pager.setPageMargin(AppController.getDPasPIXILS(10));
+
+        pagerAdapter =
+                new SampleFragmentPagerAdapter(getChildFragmentManager(), getActivity());
+
+        projects_view_pager.setAdapter(pagerAdapter);
+
 
         changeFont();
-
         return view;
     }
 
-    private void changeFont(){
+    // called immediately after onViewCreate
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    filterProjectsWithType("1");
+
+                }
+            }
+        });
+
+        radioButton2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    filterProjectsWithType("2");
+
+                }
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // Start our refresh background task
+        initiateRefresh();
+    }
+
+    private void initiateRefresh() {
+        /**
+         * Execute the background task
+         */
+        makeNewsRequest();
+
+    }
+
+    private void onRefreshComplete() {
+
+        Log.e("reponse", PAGE_COUNT + "");
+
+        pagerAdapter =
+                new SampleFragmentPagerAdapter(getChildFragmentManager(), getActivity());
+
+        projects_view_pager.setAdapter(pagerAdapter);
+    }
+
+    private void makeNewsRequest() {
+        if (Utils.isOnline(getActivity())) {
+            fetchData();
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please check your Network connection!")
+                    .show();
+            fetchData();
+        }
+
+
+    }
+
+    private void changeFont() {
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/thin.ttf");
 
         radioButton1.setTypeface(font);
         radioButton2.setTypeface(font);
+
     }
 
     @Override
@@ -130,74 +200,12 @@ public class FragmentThree extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    // called immediately after onViewCreate
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    filterProjectsWithType("1");
-
-                }
-            }
-        });
-
-        radioButton2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    filterProjectsWithType("2");
-
-                }
-            }
-        });
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // Start our refresh background task
-        initiateRefresh();
-    }
-
-    private void initiateRefresh() {
-        /**
-         * Execute the background task
-         */
-        makeNewsRequest();
-
-    }
-
-    private void onRefreshComplete() {
-
-    }
-
-
-    private void makeNewsRequest(){
-        if(Utils.isOnline(getActivity())){
-            fetchData();
-        }else {
-            // show error message
-            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Oops...")
-                    .setContentText("Please check your Network connection!")
-                    .show();
-            fetchData();
-        }
-
-
-    }
-
-    private void fetchData(){
+    private void fetchData() {
         String url = BuildConfig.Get_Finance_List;
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);
-        if(entry != null){
+        if (entry != null) {
             try {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
@@ -205,16 +213,15 @@ public class FragmentThree extends Fragment {
                 mDataOrigine.clear();
                 mDataset.addAll(0, JsonParser.parseFinanceList(data));
                 mDataOrigine.addAll(0, mDataset);
-                adapter.notifyDataSetChanged();
+
+                PAGE_COUNT = mDataset.size();
                 onRefreshComplete();
-                radioButton1.setChecked(true);
-                filterProjectsWithType("1");
-                Utils.setListViewHeightBasedOnItems(mHlvCustomList);
+
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-        } else{
+        } else {
             // Cached response doesn't exists. Make network call here
             StringRequest strReq = new StringRequest(Request.Method.GET,
                     url, new Response.Listener<String>() {
@@ -225,11 +232,9 @@ public class FragmentThree extends Fragment {
                     mDataOrigine.clear();
                     mDataset.addAll(0, JsonParser.parseFinanceList(response));
                     mDataOrigine.addAll(0, mDataset);
-                    adapter.notifyDataSetChanged();
+
+                    PAGE_COUNT = mDataset.size();
                     onRefreshComplete();
-                    radioButton1.setChecked(true);
-                    filterProjectsWithType("1");
-                    Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
                 }
             }, new Response.ErrorListener() {
@@ -245,16 +250,57 @@ public class FragmentThree extends Fragment {
         }
     }
 
-    private void filterProjectsWithType(String type){
+    private void filterProjectsWithType(String type) {
+
         mDataset.clear();
-        adapter.notifyDataSetChanged();
-        for (FinanceModel bubleItem : mDataOrigine){
-            if (bubleItem.getInance_type().equalsIgnoreCase(type)){
-                mDataset.add(bubleItem);
-                adapter.notifyDataSetChanged();
+
+        for (FinanceModel FinanceModel : mDataOrigine) {
+            if (FinanceModel.getInance_type().equalsIgnoreCase(type)) {
+                mDataset.add(FinanceModel);
             }
         }
 
-        Utils.setListViewHeightBasedOnItems(mHlvCustomList);
+        PAGE_COUNT = mDataset.size();
+
+        pagerAdapter.notifyDataSetChanged();
     }
+
+
+    public class SampleFragmentPagerAdapter extends FragmentStatePagerAdapter {
+
+
+        private Context context;
+
+        public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
+            super(fm);
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+
+            ProjectItemFragment fragment = new ProjectItemFragment();
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(DetailActivity.ARG_ITEM_ID, mDataset.get(position));
+            bundle.putInt("type", 1);
+            fragment.setArguments(bundle);
+            return fragment;
+        }
+
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+
+
+    }
+
 }

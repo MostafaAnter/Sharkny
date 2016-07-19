@@ -1,20 +1,24 @@
 package perfect_apps.sharkny.fragments;
 
+
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 
 import com.android.volley.Cache;
 import com.android.volley.Request;
@@ -26,29 +30,37 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.activities.DetailActivity;
 import perfect_apps.sharkny.activities.SearchActivity;
-import perfect_apps.sharkny.adapters.CustomArrayAdapter;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.models.BubleItem;
 import perfect_apps.sharkny.parse.JsonParser;
-import perfect_apps.sharkny.utils.HorizontalListView;
 import perfect_apps.sharkny.utils.Utils;
 
 /**
- * Created by mostafa on 23/05/16.
+ * Created by zeyadgholmish on 6/24/16.
  */
 public class FragmentFout extends Fragment {
 
+
+
+    @Bind(R.id.projects_view_pager)
+    ViewPager projects_view_pager;
+
+    SampleFragmentPagerAdapter pagerAdapter;
+
+    private int PAGE_COUNT = 0;
+
     // for recycler view
     private List<BubleItem> mDataset;
-    private HorizontalListView mHlvCustomList;
-    private CustomArrayAdapter adapter;
+    private List<BubleItem> mDataOrigine;
 
-    public FragmentFout(){
+    public FragmentFout() {
 
     }
 
@@ -59,33 +71,85 @@ public class FragmentFout extends Fragment {
 
         // populate mDataSet
         mDataset = new ArrayList<>();
+        mDataOrigine = new ArrayList<>();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_four, container, false);
+        ButterKnife.bind(this, view);
 
-        // set added recycler view
-        // set added recycler view
-        mHlvCustomList = (HorizontalListView) view.findViewById(R.id.hlvCustomList);
-        mHlvCustomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                Bundle arguments = new Bundle();
-                arguments.putParcelable(DetailActivity.ARG_ITEM_ID, (Parcelable) mHlvCustomList.getItemAtPosition(position));
-                intent.putExtras(arguments);
-                getActivity().startActivity(intent);
-                (getActivity()).overridePendingTransition(R.anim.push_right_enter, R.anim.push_right_exit);
+        PAGE_COUNT = mDataset.size();
 
-            }
-        });
-        // adapter
-        adapter = new CustomArrayAdapter(getActivity(), mDataset);
-        mHlvCustomList.setAdapter(adapter);
+        projects_view_pager.setClipToPadding(false);
+        projects_view_pager.setPadding(AppController.getDPasPIXILS(40), 0, AppController.getDPasPIXILS(40), 0);
+        projects_view_pager.setPageMargin(AppController.getDPasPIXILS(10));
 
+        pagerAdapter =
+                new SampleFragmentPagerAdapter(getChildFragmentManager(), getActivity());
+
+        projects_view_pager.setAdapter(pagerAdapter);
+
+
+        changeFont();
         return view;
+    }
+
+    // called immediately after onViewCreate
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+
+
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // Start our refresh background task
+        initiateRefresh();
+    }
+
+    private void initiateRefresh() {
+        /**
+         * Execute the background task
+         */
+        makeNewsRequest();
+
+    }
+
+    private void onRefreshComplete() {
+
+        Log.e("reponse", PAGE_COUNT + "");
+
+        pagerAdapter =
+                new SampleFragmentPagerAdapter(getChildFragmentManager(), getActivity());
+
+        projects_view_pager.setAdapter(pagerAdapter);
+    }
+
+    private void makeNewsRequest() {
+        if (Utils.isOnline(getActivity())) {
+            fetchData();
+        } else {
+            // show error message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please check your Network connection!")
+                    .show();
+            fetchData();
+        }
+
+
+    }
+
+    private void changeFont() {
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/thin.ttf");
+
     }
 
     @Override
@@ -110,68 +174,28 @@ public class FragmentFout extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    // called immediately after onViewCreate
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // Start our refresh background task
-        initiateRefresh();
-    }
-
-    private void initiateRefresh() {
-        /**
-         * Execute the background task
-         */
-        makeNewsRequest();
-
-    }
-
-    private void onRefreshComplete() {
-    }
-
-
-    private void makeNewsRequest(){
-        if(Utils.isOnline(getActivity())){
-            fetchData();
-        }else {
-            // show error message
-            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Oops...")
-                    .setContentText("Please check your Network connection!")
-                    .show();
-            fetchData();
-        }
-
-
-    }
-
-    private void fetchData(){
+    private void fetchData() {
         String url = BuildConfig.Get_Other_service_List;
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);
-        if(entry != null){
+        if (entry != null) {
             try {
                 String data = new String(entry.data, "UTF-8");
                 // handle data, like converting it to xml, json, bitmap etc.,
                 mDataset.clear();
+                mDataOrigine.clear();
                 mDataset.addAll(0, JsonParser.parseServiceList(data));
-                adapter.notifyDataSetChanged();
+                mDataOrigine.addAll(0, mDataset);
+
+                PAGE_COUNT = mDataset.size();
                 onRefreshComplete();
-                Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-        } else{
+        } else {
             // Cached response doesn't exists. Make network call here
             StringRequest strReq = new StringRequest(Request.Method.GET,
                     url, new Response.Listener<String>() {
@@ -179,10 +203,12 @@ public class FragmentFout extends Fragment {
                 @Override
                 public void onResponse(String response) {
                     mDataset.clear();
+                    mDataOrigine.clear();
                     mDataset.addAll(0, JsonParser.parseServiceList(response));
-                    adapter.notifyDataSetChanged();
+                    mDataOrigine.addAll(0, mDataset);
+
+                    PAGE_COUNT = mDataset.size();
                     onRefreshComplete();
-                    Utils.setListViewHeightBasedOnItems(mHlvCustomList);
 
                 }
             }, new Response.ErrorListener() {
@@ -197,4 +223,58 @@ public class FragmentFout extends Fragment {
             AppController.getInstance().addToRequestQueue(strReq);
         }
     }
+
+    private void filterProjectsWithType(String type) {
+
+        mDataset.clear();
+
+        for (BubleItem BubleItem : mDataOrigine) {
+            if (BubleItem.getProject_type().equalsIgnoreCase(type)) {
+                mDataset.add(BubleItem);
+            }
+        }
+
+        PAGE_COUNT = mDataset.size();
+
+        pagerAdapter.notifyDataSetChanged();
+    }
+
+
+    public class SampleFragmentPagerAdapter extends FragmentStatePagerAdapter {
+
+
+        private Context context;
+
+        public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
+            super(fm);
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+
+            ProjectItemFragment fragment = new ProjectItemFragment();
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(DetailActivity.ARG_ITEM_ID, mDataset.get(position));
+            bundle.putInt("type", 0);
+            fragment.setArguments(bundle);
+            return fragment;
+        }
+
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+
+
+    }
+
 }
