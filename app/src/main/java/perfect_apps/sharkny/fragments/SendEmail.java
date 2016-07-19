@@ -41,7 +41,7 @@ public class SendEmail extends DialogFragment implements View.OnClickListener {
 
 
     private static String name;
-    private static String subject = "no subject";
+    private static String subject;
     private static String message;
 
 
@@ -118,6 +118,7 @@ public class SendEmail extends DialogFragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         button1.setOnClickListener(this);
+        editText2.setText("no subject");
     }
 
     @Override
