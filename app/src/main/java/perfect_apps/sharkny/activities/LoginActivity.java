@@ -219,8 +219,9 @@ public class LoginActivity extends LocalizationActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        int id = Integer.parseInt(jsonRootObject.optString("id").toString());
-        String profileImage = jsonRootObject.optString("image").toString();
+        int id = Integer.parseInt(jsonRootObject.optString("id"));
+        String profileImage = jsonRootObject.optString("image");
+        String userName = jsonRootObject.optString("username");
 
         //debug
         Log.d("user_id", "" + id);
@@ -228,6 +229,7 @@ public class LoginActivity extends LocalizationActivity{
         // store user id in authenticated state & pic url
         new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_AUTHENTICATION_STATE, id);
         new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_IMAGE_URL, profileImage);
+        new SharknyPrefStore(this).addPreference(Constants.PREFERENCE_USER_NAME, userName);
         // show success dialog and go to home
         startActivity(new Intent(LoginActivity.this, HomeActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
