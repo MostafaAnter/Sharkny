@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
+import perfect_apps.sharkny.store.SharknyPrefStore;
+import perfect_apps.sharkny.utils.Constants;
 import perfect_apps.sharkny.utils.Utils;
 
 /**
@@ -132,15 +135,19 @@ public class SendEmail extends DialogFragment implements View.OnClickListener {
         if (Utils.isOnline(getActivity())) {
 
             if (checkValidation()) {
+                // send message to user with id
+                final int iduser = new SharknyPrefStore(getActivity()).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
+
                 // Set up a progress dialog
                 final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("أنتظر...");
+                pDialog.setTitleText(getResources().getString(R.string.wait));
                 pDialog.setCancelable(false);
                 pDialog.show();
 
                 // Tag used to cancel the request
-                String url = "http://services-apps.net/tutors/api/contact_us";
+                String tag_string_req = "string_req";
+                String url = "http://sharkny.net/en/api/contacts/send-email";
 
                 StringRequest strReq = new StringRequest(Request.Method.POST,
                         url, new Response.Listener<String>() {
@@ -149,25 +156,20 @@ public class SendEmail extends DialogFragment implements View.OnClickListener {
                     public void onResponse(String response) {
 
                         pDialog.dismissWithAnimation();
-                        try {
-                            response = URLDecoder.decode(response, "UTF-8");
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-
                         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
-                                .setTitleText("عمل رأئع!")
-                                .setContentText("تم ارسال رسالتك بنجاح")
+                                .setTitleText("Good job!")
+                                .setContentText("Your message sent successfully!")
+                                .setConfirmText("Done!")
                                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sDialog) {
                                         sDialog.dismissWithAnimation();
-                                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                                        fm.popBackStack();
-
+                                        dismiss();
                                     }
                                 })
                                 .show();
+
+                        Log.d("response", response);
 
                     }
                 }, new Response.ErrorListener() {
@@ -177,24 +179,28 @@ public class SendEmail extends DialogFragment implements View.OnClickListener {
                         pDialog.dismissWithAnimation();
                         // show error message
                         new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("خطأ")
-                                .setContentText("حاول مره أخري")
+                                .setTitleText("Error")
+                                .setContentText("some thing went wrong try again")
                                 .show();
                     }
                 }) {
+
+
                     @Override
                     protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<>();
-
-                        params.put("full_name", name);
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("sender_id", String.valueOf(iduser));
+                        params.put("recipient", getArguments().getString("recipient"));
                         params.put("subject", subject);
-                        params.put("message", message);
+                        params.put("content", message);
+
                         return params;
 
                     }
                 };
+
                 // Adding request to request queue
-                AppController.getInstance().addToRequestQueue(strReq);
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
             }
 
 

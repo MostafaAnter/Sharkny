@@ -36,6 +36,7 @@ import butterknife.ButterKnife;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.dialog.ImageViewerDialog;
+import perfect_apps.sharkny.fragments.SendEmail;
 import perfect_apps.sharkny.models.FavoriteModel;
 import perfect_apps.sharkny.models.FinanceModel;
 import perfect_apps.sharkny.store.FavoriteStore;
@@ -44,6 +45,7 @@ import perfect_apps.sharkny.store.SharknyPrefStore;
 import perfect_apps.sharkny.utils.Constants;
 
 public class FinanceDetailActivity extends LocalizationActivity {
+    private static int mStackLevel = 0;
     // belong like button animations
     private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
     private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
@@ -178,7 +180,21 @@ public class FinanceDetailActivity extends LocalizationActivity {
 
 
     public void sendMessage(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", bubleItem.getOwnerUser().getMobile(), null)));
+        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", bubleItem.getOwnerUser().getMobile(), null)));
+        mStackLevel++;
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        android.support.v4.app.Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        android.support.v4.app.DialogFragment newFragment = SendEmail.newInstance(mStackLevel);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("recipient", bubleItem.getOwnerUser().getId());
+        newFragment.setArguments(bundle1);
+        newFragment.show(ft, "dialog");
     }
 
     public void like(View view) {

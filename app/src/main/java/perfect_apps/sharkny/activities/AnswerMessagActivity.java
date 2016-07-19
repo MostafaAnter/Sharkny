@@ -127,7 +127,7 @@ public class AnswerMessagActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("sender_id", String.valueOf(iduser));
                 params.put("recipient", id);
-                params.put("subject", reply.getText().toString());
+                params.put("subject", "no subject");
                 params.put("content", reply.getText().toString());
 
                 return params;
