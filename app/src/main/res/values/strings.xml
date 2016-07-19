@@ -81,12 +81,12 @@
     <string name="save">Save</string>
     <string name="details">Details</string>
     <string name="safeguards">Grantuees</string>
-    <string name="investment_value">Investment Value</string>
+    <string name="investment_value">Investment Value:</string>
     <string name="select_project_pic">Select Project Picture</string>
     <string name="select_service_pic">Select Service Picture</string>
     <string name="select_franchise_pic">Select Franchise Picture</string>
     <string name="select_finance_pic">Select Finance Picture</string>
-    <string name="ratio_invest">Investment Percentage</string>
+    <string name="ratio_invest">Investment Percentage:</string>
 
     <string-array name="search1">
         <item>Section</item>
@@ -197,10 +197,10 @@
     <string name="idea_owner">Idea Owner</string>
     <string name="start_date">Start Date:</string>
     <string name="end_date">End Date:</string>
-    <string name="project_field">Project Field</string>
-    <string name="project_type">Project Type</string>
-    <string name="guarantees">Guarantees</string>
-    <string name="country">Country</string>
+    <string name="project_field">Project Field:</string>
+    <string name="project_type">Project Type:</string>
+    <string name="guarantees">Guarantees:</string>
+    <string name="country">Country:</string>
     <string name="title_activity_answer_messag" translatable="false">AnswerMessagActivity</string>
     <string name="title_activity_finance_detail" translatable="false">FinanceDetailActivity</string>
     <string name="title_activity_search_ressult_pfinan" translatable="false">SearchRessultPFinanActivity</string>

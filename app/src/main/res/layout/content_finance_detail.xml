@@ -164,10 +164,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:gravity="center_horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/investment_value"
                     android:layout_gravity="center_vertical"
@@ -192,10 +195,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:gravity="center_horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/project_field"
                     android:layout_gravity="center_vertical"
@@ -220,10 +226,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:gravity="center_horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/project_type"
                     android:layout_gravity="center_vertical"
@@ -248,10 +257,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:orientation="horizontal"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/ratio_invest"
                     android:layout_gravity="center_vertical"
@@ -276,10 +288,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightSmall"
                 android:orientation="horizontal"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/country"
                     android:layout_gravity="center_vertical"
@@ -304,11 +319,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
 
                 <TextView
                     android:id="@+id/description"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/start_date"
@@ -407,7 +425,6 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:onClick="sendMessage"/>
-        </LinearLayout>
-    </ScrollView>
+        </LinearLayout>    </ScrollView>
 
 </RelativeLayout>
