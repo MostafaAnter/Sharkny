@@ -121,7 +121,6 @@ public class DetailActivity extends LocalizationActivity {
             public void onClick(View v) {
                 finish();
                 overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
-                finish();
             }
         });
         /*

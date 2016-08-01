@@ -236,6 +236,9 @@ public class FragmentThree extends Fragment {
                     PAGE_COUNT = mDataset.size();
                     onRefreshComplete();
 
+                    filterProjectsWithType("1");
+                    radioButton1.setChecked(true);
+
                 }
             }, new Response.ErrorListener() {
 
