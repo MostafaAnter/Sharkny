@@ -255,6 +255,7 @@ public class CommentsActivity extends LocalizationActivity {
                         pDialog.dismissWithAnimation();
                         initiateRefresh();
                         Log.d("response", response);
+                        comment.setText("");
 
                     }
                 }, new Response.ErrorListener() {
