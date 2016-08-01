@@ -149,7 +149,8 @@ public class FragmentTwo extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    filterProjectsWithType("Franchise");
+                   // filterProjectsWithType("Franchise");
+                    fetchfranchiseData();
 
                 }
             }
@@ -300,6 +301,57 @@ public class FragmentTwo extends Fragment {
             AppController.getInstance().addToRequestQueue(strReq);
         }
     }
+
+    private void fetchfranchiseData() {
+        String url = BuildConfig.Get_Franchise;
+
+        Cache cache = AppController.getInstance().getRequestQueue().getCache();
+        Cache.Entry entry = cache.get(url);
+        if (entry != null) {
+            try {
+                String data = new String(entry.data, "UTF-8");
+                // handle data, like converting it to xml, json, bitmap etc.,
+                mDataset.clear();
+                mDataOrigine.clear();
+                mDataset.addAll(0, JsonParser.parseBublesItem(data));
+                mDataOrigine.addAll(0, mDataset);
+
+                PAGE_COUNT = mDataset.size();
+                onRefreshComplete();
+
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Cached response doesn't exists. Make network call here
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    mDataset.clear();
+                    mDataOrigine.clear();
+                    mDataset.addAll(0, JsonParser.parseBublesItem(response));
+                    mDataOrigine.addAll(0, mDataset);
+
+                    PAGE_COUNT = mDataset.size();
+                    onRefreshComplete();
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    onRefreshComplete();
+                }
+            });
+
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq);
+        }
+    }
+
 
     private void filterProjectsWithType(String type) {
 
