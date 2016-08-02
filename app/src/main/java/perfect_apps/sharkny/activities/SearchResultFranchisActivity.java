@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -171,7 +172,12 @@ public class SearchResultFranchisActivity extends LocalizationActivity {
 
 
         int id = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
-        String url = Utils.searchFranchisUrl(title,country,type,"");
+        String url = null;
+        try {
+            url = URLDecoder.decode(Utils.searchFranchisUrl(title,country,type,""), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);

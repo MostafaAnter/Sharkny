@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,12 +176,20 @@ public class SearchRessultPFinanActivity extends LocalizationActivity {
     private void fetchData(){
 
         int id = new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE);
-        String url;
+        String url = "";
 
         if (flag == 1){
-            url = Utils.searchProjectUrl(title, country, type,"");
+            try {
+                url = URLDecoder.decode(Utils.searchProjectUrl(title, country, type,""), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }else {
-            url =Utils.searchFinanceUrl(title, country, type,"");
+            try {
+                url = URLDecoder.decode(Utils.searchFinanceUrl(title, country, type,""), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
