@@ -65,8 +65,8 @@ public class AccountAdvanageActivity extends LocalizationActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AccountAdvanageActivity.this, MyAccountActivity.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+//                startActivity(new Intent(AccountAdvanageActivity.this, MyAccountActivity.class)
+//                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                 overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
                 finish();
             }
