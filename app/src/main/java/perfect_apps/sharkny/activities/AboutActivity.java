@@ -91,7 +91,7 @@ public class AboutActivity extends LocalizationActivity {
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_navigate_before_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_navigate);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
