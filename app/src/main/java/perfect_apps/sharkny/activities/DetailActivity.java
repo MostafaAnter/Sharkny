@@ -233,6 +233,7 @@ public class DetailActivity extends LocalizationActivity {
         android.support.v4.app.DialogFragment newFragment = SendEmail.newInstance(mStackLevel);
         Bundle bundle1 = new Bundle();
         bundle1.putString("recipient", bubleItem.getOwnerUser().getId());
+        bundle1.putString("owner_name", bubleItem.getOwnerUser().getFullname());
         newFragment.setArguments(bundle1);
         newFragment.show(ft, "dialog");
     }

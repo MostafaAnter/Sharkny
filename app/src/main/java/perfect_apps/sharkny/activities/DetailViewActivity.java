@@ -45,6 +45,7 @@ import perfect_apps.sharkny.BuildConfig;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.dialog.ImageViewerDialog;
+import perfect_apps.sharkny.fragments.SendEmail;
 import perfect_apps.sharkny.models.FavoriteModel;
 import perfect_apps.sharkny.models.FranchisesModel;
 import perfect_apps.sharkny.models.OwnerUser;
@@ -55,6 +56,7 @@ import perfect_apps.sharkny.store.SharknyPrefStore;
 import perfect_apps.sharkny.utils.Constants;
 
 public class DetailViewActivity extends LocalizationActivity {
+    private static int mStackLevel = 0;
 
     // belong like button animations
     private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
@@ -292,7 +294,22 @@ public class DetailViewActivity extends LocalizationActivity {
 
 
     public void sendMessage(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", ownerUser.getMobile(), null)));
+        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", bubleItem.getOwnerUser().getMobile(), null)));
+        mStackLevel++;
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        android.support.v4.app.Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        android.support.v4.app.DialogFragment newFragment = SendEmail.newInstance(mStackLevel);
+        Bundle bundle1 = new Bundle();
+        bundle1.putString("recipient", ownerUser.getId());
+        bundle1.putString("owner_name", ownerUser.getFullname());
+        newFragment.setArguments(bundle1);
+        newFragment.show(ft, "dialog");
     }
 
     public void like(View view) {
