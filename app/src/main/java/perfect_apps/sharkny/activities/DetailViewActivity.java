@@ -290,6 +290,13 @@ public class DetailViewActivity extends LocalizationActivity {
                 .into(mainOwnerImageView);
 
         owner_name.setText(ownerUser.getFullname());
+
+
+        if (String.valueOf(new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE)).
+                equalsIgnoreCase(ownerUser.getId())){
+            sendMessageBtn.setVisibility(View.GONE);
+
+        }
     }
 
 

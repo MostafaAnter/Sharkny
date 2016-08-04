@@ -216,6 +216,13 @@ public class DetailActivity extends LocalizationActivity {
         description.setText(Html.fromHtml(bubleItem.getDescription()));
 
         owner_name.setText(bubleItem.getOwnerUser().getFullname());
+
+
+        if (String.valueOf(new SharknyPrefStore(this).getIntPreferenceValue(Constants.PREFERENCE_USER_AUTHENTICATION_STATE)).
+                equalsIgnoreCase(bubleItem.getOwnerUser().getId())){
+            sendMessageBtn.setVisibility(View.GONE);
+
+        }
     }
 
 
