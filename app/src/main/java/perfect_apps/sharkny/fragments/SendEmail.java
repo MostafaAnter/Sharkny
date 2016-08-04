@@ -118,8 +118,8 @@ public class SendEmail extends DialogFragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         button1.setOnClickListener(this);
-        editText2.setText("no subject");
-        editText1.setText(new SharknyPrefStore(getActivity()).getPreferenceValue(Constants.PREFERENCE_USER_NAME));
+        editText2.setText("");
+        editText1.setText(getArguments().getString("owner_name"));
     }
 
     @Override
