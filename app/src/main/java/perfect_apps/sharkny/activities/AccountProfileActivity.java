@@ -532,7 +532,8 @@ public class AccountProfileActivity extends LocalizationActivity {
         email.setText(jsonRootObject.optString("email"));
         if (jsonRootObject.optString("gender").equalsIgnoreCase("male"))
             genderType = 1;
-        genderType = 2;
+        if (jsonRootObject.optString("gender").equalsIgnoreCase("female"))
+            genderType = 2;
         nationality = jsonRootObject.optString("nationality");
         country = jsonRootObject.optString("country");
 
@@ -558,7 +559,7 @@ public class AccountProfileActivity extends LocalizationActivity {
     private void selectValue(Spinner spinner, String value) {
         for (int i = 1; i < spinner.getCount(); i++) {
             if (((String) spinner.getItemAtPosition(i)).equalsIgnoreCase(value)) {
-                spinner.setSelection(i);
+                spinner.setSelection(i-1);
                 break;
             }
         }
