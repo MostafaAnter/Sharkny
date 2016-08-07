@@ -78,8 +78,7 @@ public class AddServeiceActivity extends LocalizationActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddServeiceActivity.this, AccountServicesActivity.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+
                 overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
                 finish();
             }
@@ -113,8 +112,7 @@ public class AddServeiceActivity extends LocalizationActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(AddServeiceActivity.this, AccountServicesActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+
         overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
         finish();
     }

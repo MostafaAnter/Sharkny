@@ -3,6 +3,7 @@ package perfect_apps.sharkny.activities;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -66,6 +67,10 @@ public class AccountProjectActivity extends LocalizationActivity {
             public void onClick(View v) {
 //                startActivity(new Intent(AccountProjectActivity.this, MyAccountActivity.class)
 //                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+
+                Intent upIntent = NavUtils.getParentActivityIntent(AccountProjectActivity.this);
+                NavUtils.navigateUpTo(AccountProjectActivity.this, upIntent);
+
                 overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
                 finish();
             }
@@ -114,6 +119,8 @@ public class AccountProjectActivity extends LocalizationActivity {
         super.onBackPressed();
 //        startActivity(new Intent(AccountProjectActivity.this, MyAccountActivity.class)
 //                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        Intent upIntent = NavUtils.getParentActivityIntent(AccountProjectActivity.this);
+        NavUtils.navigateUpTo(AccountProjectActivity.this, upIntent);
         overridePendingTransition(R.anim.push_left_enter, R.anim.push_left_exit);
         finish();
     }
