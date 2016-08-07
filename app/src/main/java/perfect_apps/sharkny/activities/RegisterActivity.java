@@ -47,6 +47,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.sharkny.BuildConfig;
@@ -185,11 +186,12 @@ public class RegisterActivity extends LocalizationActivity {
         selectProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(RegisterActivity.this);
-                intent.setPhotoCount(1);
-                intent.setShowCamera(true);
-                intent.setShowGif(true);
-                startActivityForResult(intent, REQUEST_CODE);
+                PhotoPicker.builder()
+                        .setPhotoCount(1)
+                        .setShowCamera(true)
+                        .setShowGif(true)
+                        .setPreviewEnabled(false)
+                        .start(RegisterActivity.this, PhotoPicker.REQUEST_CODE);
             }
         });
     }
@@ -200,7 +202,7 @@ public class RegisterActivity extends LocalizationActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             if (data != null) {
                 ArrayList<String> photos =
-                        data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+                        data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
                 Uri uri = Uri.fromFile(new File(photos.get(0)));
                 setSelectedPhotoInsideCircleShap(uri);
                 profileImagePath = uri;
