@@ -10,6 +10,16 @@ public class MessageModel implements Parcelable {
     private String userName;
     private String messageBody;
 
+    public String getMessage_id() {
+        return message_id;
+    }
+
+    public void setMessage_id(String message_id) {
+        this.message_id = message_id;
+    }
+
+    private String message_id;
+
     public String getSender_id() {
         return sender_id;
     }
@@ -49,17 +59,19 @@ public class MessageModel implements Parcelable {
 
     }
 
-    public MessageModel(String userName, String messageBody, String sender_id, Boolean read){
+    public MessageModel(String userName, String messageBody, String sender_id, Boolean read, String message_id){
         this.userName = userName;
         this.messageBody = messageBody;
         this.read = read;
         this.sender_id = sender_id;
+        this.message_id = message_id;
     }
 
     protected MessageModel(Parcel in) {
         userName = in.readString();
         messageBody = in.readString();
         sender_id = in.readString();
+        message_id = in.readString();
         read = in.readByte() != 0x00;
     }
 
@@ -73,6 +85,7 @@ public class MessageModel implements Parcelable {
         dest.writeString(userName);
         dest.writeString(messageBody);
         dest.writeString(sender_id);
+        dest.writeString(message_id);
         dest.writeByte((byte) (read ? 0x01 : 0x00));
     }
 

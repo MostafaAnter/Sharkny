@@ -346,8 +346,9 @@ public class JsonParser {
                 String subject = jsonObject.optString("message_subject");
                 String sender_id = jsonObject.optString("sender_id");
                 boolean read = jsonObject.optBoolean("is_read");
+                String message_id = jsonObject.optString("message_id");
 
-                MessageModel messageModel = new MessageModel(userName, subject, sender_id, read);
+                MessageModel messageModel = new MessageModel(userName, subject, sender_id, read, message_id);
                 newsList.add(messageModel);
             }
             return newsList;
@@ -391,8 +392,9 @@ public class JsonParser {
 
                 String userName = jsonObject.optString("recipients");
                 String subject = jsonObject.optString("subject");
+                String message_id = jsonObject.optString("message_id");
 
-                MessageModel messageModel = new MessageModel(userName, subject, null, true);
+                MessageModel messageModel = new MessageModel(userName, subject, null, true, message_id);
                 newsList.add(messageModel);
             }
             return newsList;
