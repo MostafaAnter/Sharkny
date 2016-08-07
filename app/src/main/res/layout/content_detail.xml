@@ -27,8 +27,8 @@
                 android:layout_height="200dp"
                 android:orientation="vertical"
                 android:paddingBottom="30dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
                 android:onClick="viewImage">
 
                 <LinearLayout
@@ -172,6 +172,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:textColor="@android:color/black"
                     android:layout_height="wrap_content"
                     android:text="@string/start_date"
                     android:layout_gravity="center_vertical"
@@ -182,6 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="25/7/2016"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:layout_margin="5dp"/>
@@ -205,6 +207,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:textColor="@android:color/black"
                     android:layout_height="wrap_content"
                     android:text="@string/end_date"
                     android:layout_gravity="center_vertical"
@@ -214,6 +217,7 @@
                     android:id="@+id/end_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="25/7/2016"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
@@ -239,6 +243,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/investment_value"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
@@ -247,6 +252,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1000"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:layout_margin="5dp"/>
@@ -269,6 +275,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="@string/project_field"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
@@ -277,6 +284,7 @@
                     android:id="@+id/project_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="sector fdsjal"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
@@ -301,6 +309,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/project_type"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
@@ -308,6 +317,7 @@
                     android:id="@+id/project_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="25/7/2016"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
@@ -332,6 +342,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/ratio_invest"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
@@ -339,6 +350,7 @@
                     android:id="@+id/investment_percentag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="1000"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
@@ -362,12 +374,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="@string/guarantees"
                     android:layout_gravity="center"
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/guarantees"
+                    android:textColor="@android:color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="hi ther is no gurantee"
@@ -392,6 +406,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:textColor="@android:color/black"
                     android:layout_height="wrap_content"
                     android:text="@string/country"
                     android:layout_gravity="center_vertical"
@@ -399,6 +414,7 @@
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/country"
+                    android:textColor="@android:color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Egypt"
@@ -421,6 +437,7 @@
 
                 <TextView
                     android:id="@+id/description"
+                    android:textColor="@android:color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -437,6 +454,7 @@
                 android:background="@android:color/black" />
 
             <TextView
+                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -450,8 +468,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:orientation="vertical"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
                 android:onClick="viewImage1">
 
                 <LinearLayout

@@ -28,8 +28,8 @@
                 android:layout_height="200dp"
                 android:orientation="vertical"
                 android:paddingBottom="30dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
                 android:onClick="viewImage">
 
                 <LinearLayout
@@ -172,6 +172,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="@string/investment_value"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
@@ -180,6 +181,7 @@
                     android:id="@+id/investment_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="1000"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
@@ -204,6 +206,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/project_field"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
@@ -211,7 +214,8 @@
                     android:id="@+id/project_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sector fdsjal"
+                    android:textColor="@android:color/black"
+                    android:text="--"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:layout_margin="5dp"/>
@@ -235,6 +239,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/project_type"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
@@ -243,6 +248,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="25/7/2016"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:layout_margin="5dp"/>
@@ -274,6 +280,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1000"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:layout_margin="5dp"/>
@@ -297,6 +304,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/country"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"/>
@@ -305,6 +313,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Egypt"
+                    android:textColor="@android:color/black"
                     android:layout_gravity="center_vertical"
                     style="?android:attr/textAppearanceMedium"
                     android:layout_margin="5dp"/>
@@ -329,6 +338,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="@android:color/black"
                     android:text="@string/start_date"
                     android:layout_gravity="center_vertical|center_horizontal"
                     style="?android:attr/textAppearanceMedium"
@@ -346,6 +356,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/idea_owner"
+                android:textColor="@android:color/black"
                 style="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -355,8 +366,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:orientation="vertical"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
                 android:onClick="viewImage1">
 
                 <LinearLayout
