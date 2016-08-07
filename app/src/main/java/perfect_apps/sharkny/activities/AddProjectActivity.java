@@ -595,6 +595,20 @@ public class AddProjectActivity extends LocalizationActivity {
     }
 
     private boolean attempAdd(){
+        String regex = "[0-9]+";
+
+        if (!investValue.getText().toString().trim().matches(regex)||
+                investPrec.getText().toString().trim().matches(regex)){
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Enter Numbers only")
+                    .show();
+            return false;
+
+        }
+
+
         if (!title.getText().toString().trim().isEmpty()
                 && !describtion.getText().toString().trim().isEmpty()
                 && !startDate.trim().isEmpty()
