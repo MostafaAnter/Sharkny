@@ -24,10 +24,12 @@
         <activity
             android:name=".activities.HomeActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SplashActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +40,7 @@
         <activity
             android:name=".activities.MyAccountActivity"
             android:label="@string/title_activity_my_account"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -47,6 +50,7 @@
         <activity
             android:name=".activities.AccountProfileActivity"
             android:label="@string/title_activity_account_profile"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.MyAccountActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -56,6 +60,7 @@
         <activity
             android:name=".activities.AccountFinanceActivity"
             android:label="@string/title_activity_account_finance"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.MyAccountActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -65,6 +70,7 @@
         <activity
             android:name=".activities.AccountAdvanageActivity"
             android:label="@string/title_activity_account_advanage"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.MyAccountActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -74,6 +80,7 @@
         <activity
             android:name=".activities.AccountProjectActivity"
             android:label="@string/title_activity_account_project"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.MyAccountActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -83,6 +90,7 @@
         <activity
             android:name=".activities.AccountServicesActivity"
             android:label="@string/title_activity_account_services"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.MyAccountActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -92,6 +100,7 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -101,6 +110,7 @@
         <activity
             android:name=".activities.AddAdvantageActivity"
             android:label="@string/title_activity_add_advantage"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.AccountAdvanageActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -110,6 +120,7 @@
         <activity
             android:name=".activities.AddFinanceActivity"
             android:label="@string/title_activity_add_finance"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.AccountFinanceActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -119,6 +130,7 @@
         <activity
             android:name=".activities.AddServeiceActivity"
             android:label="@string/title_activity_add_serveice"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.AccountServicesActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -128,6 +140,7 @@
         <activity
             android:name=".activities.AddProjectActivity"
             android:label="@string/title_activity_add_project"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.AccountProjectActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -137,6 +150,7 @@
         <activity
             android:name=".activities.FavoriteActivity"
             android:label="@string/title_activity_favorite"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -146,6 +160,7 @@
         <activity
             android:name=".activities.InboxActivity"
             android:label="@string/title_activity_inbox"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -155,6 +170,7 @@
         <activity
             android:name=".activities.SentMailActivity"
             android:label="@string/title_activity_sent_mail"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -164,10 +180,12 @@
         <activity
             android:name=".activities.MessageDetailActivity"
             android:label="@string/title_activity_message_detail"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SearchActivity"
             android:label="@string/title_activity_search"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -177,6 +195,7 @@
         <activity
             android:name=".activities.RegisterActivity"
             android:label="@string/title_activity_register"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -192,22 +211,27 @@
         <activity
             android:name=".activities.DetailActivity"
             android:label="@string/title_activity_detail"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.DetailViewActivity"
             android:label="@string/title_activity_detail"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.AnswerMessagActivity"
             android:label="@string/title_activity_answer_messag"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.FinanceDetailActivity"
             android:label="@string/title_activity_finance_detail"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SearchRessultPFinanActivity"
             android:label="@string/title_activity_search_ressult_pfinan"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -217,6 +241,7 @@
         <activity
             android:name=".activities.SearchResultFranchisActivity"
             android:label="@string/title_activity_search_result_franchis"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -226,6 +251,7 @@
         <activity
             android:name=".activities.SearchResultOtherServiceActivity"
             android:label="@string/title_activity_search_result_other_service"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -235,6 +261,7 @@
         <activity
             android:name=".activities.CommentsActivity"
             android:label="@string/title_activity_comments"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.DetailActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
@@ -245,6 +272,7 @@
         <activity
             android:name=".activities.AboutActivity"
             android:label="@string/title_activity_about"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
