@@ -6,9 +6,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
 import com.android.volley.Cache;
@@ -41,7 +37,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +44,6 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.sharkny.BuildConfig;
@@ -155,12 +149,11 @@ public class AddProjectActivity extends LocalizationActivity {
         selectProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoPicker.builder()
-                        .setPhotoCount(1)
-                        .setShowCamera(true)
-                        .setShowGif(true)
-                        .setPreviewEnabled(false)
-                        .start(AddProjectActivity.this, PhotoPicker.REQUEST_CODE);
+                PhotoPickerIntent intent = new PhotoPickerIntent(AddProjectActivity.this);
+                intent.setPhotoCount(1);
+                intent.setShowCamera(true);
+                intent.setShowGif(true);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
     }
@@ -171,7 +164,7 @@ public class AddProjectActivity extends LocalizationActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             if (data != null) {
                 ArrayList<String> photos =
-                        data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+                        data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
                 Uri uri = Uri.fromFile(new File(photos.get(0)));
                 profileImagePath = uri;
                 setSelectedPhotoInsideCircleShap(uri);
