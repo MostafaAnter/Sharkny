@@ -44,6 +44,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.sharkny.BuildConfig;
@@ -63,7 +64,6 @@ public class AddProjectActivity extends LocalizationActivity {
     LinearLayout selectProfilePic;
     @Bind(R.id.user_avatar)
     ImageView circleImageView;
-    private static final int REQUEST_CODE = 1;
 
     // for spinners
     @Bind(R.id.spinner3) Spinner spinner3;
@@ -149,11 +149,12 @@ public class AddProjectActivity extends LocalizationActivity {
         selectProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoPickerIntent intent = new PhotoPickerIntent(AddProjectActivity.this);
-                intent.setPhotoCount(1);
-                intent.setShowCamera(true);
-                intent.setShowGif(true);
-                startActivityForResult(intent, REQUEST_CODE);
+                PhotoPicker.builder()
+                        .setPhotoCount(1)
+                        .setShowCamera(true)
+                        .setShowGif(false)
+                        .setPreviewEnabled(false)
+                        .start(AddProjectActivity.this, PhotoPicker.REQUEST_CODE);
             }
         });
     }
@@ -161,10 +162,10 @@ public class AddProjectActivity extends LocalizationActivity {
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+        if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
             if (data != null) {
                 ArrayList<String> photos =
-                        data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+                        data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
                 Uri uri = Uri.fromFile(new File(photos.get(0)));
                 profileImagePath = uri;
                 setSelectedPhotoInsideCircleShap(uri);
