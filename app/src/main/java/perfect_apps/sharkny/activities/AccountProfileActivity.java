@@ -115,7 +115,7 @@ public class AccountProfileActivity extends LocalizationActivity {
         ButterKnife.bind(this);
         setOnLinearSelected();
         fetchCounAnNationalityData();
-        viewProfile();
+
 
 
         radioButtonMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -380,6 +380,8 @@ public class AccountProfileActivity extends LocalizationActivity {
                 populateSpinner2(countryList);
                 if (country != null || !country.trim().isEmpty())
                     selectValue(spinner2, country);
+
+                viewProfile();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -440,6 +442,8 @@ public class AccountProfileActivity extends LocalizationActivity {
                         if (country != null || !country.trim().isEmpty())
                             selectValue(spinner2, country);
                         pDialog.dismissWithAnimation();
+
+                        viewProfile();
 
                     }
                 }, new Response.ErrorListener() {
@@ -560,11 +564,8 @@ public class AccountProfileActivity extends LocalizationActivity {
     }
 
     private void selectValue(Spinner spinner, String value) {
-        for (int i = 1; i < spinner.getCount(); i++) {
-            if (((String) spinner.getItemAtPosition(i)).equalsIgnoreCase(value)) {
-                spinner.setSelection(i-1);
-                break;
-            }
+        if (value != null && !value.trim().isEmpty()) {
+            spinner.setSelection(Integer.valueOf(value));
         }
     }
 
