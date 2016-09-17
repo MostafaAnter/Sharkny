@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,11 @@ public class SearchResultOtherServiceActivity extends LocalizationActivity {
         setToolbar();
 
         title = getIntent().getStringExtra("title");
+        try {
+            title = URLEncoder.encode(title, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         flage = getIntent().getIntExtra("flag", 0);
 
         // populate mDataSet
@@ -175,6 +181,7 @@ public class SearchResultOtherServiceActivity extends LocalizationActivity {
         if (flage == 5)
             url = "http://sharkny.net/en/api/search?title=" + title;
 
+
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);
         if(entry != null){
@@ -198,6 +205,7 @@ public class SearchResultOtherServiceActivity extends LocalizationActivity {
 
                     @Override
                     public void onResponse(String response) {
+                        Log.d("response", response);
                         mDataset.clear();
                         mDataset.addAll(0, JsonParser.searchOtherParse(response));
                         adapter.notifyDataSetChanged();
@@ -218,11 +226,12 @@ public class SearchResultOtherServiceActivity extends LocalizationActivity {
                 AppController.getInstance().addToRequestQueue(strReq);
             } else {
                 // Cached response doesn't exists. Make network call here
-                StringRequest strReq = new StringRequest(Request.Method.POST,
+                StringRequest strReq = new StringRequest(Request.Method.GET,
                         url, new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
+                        Log.d("responce", response);
                         mDataset.clear();
                         mDataset.addAll(0, JsonParser.searchOtherParse(response));
                         adapter.notifyDataSetChanged();

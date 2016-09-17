@@ -52,7 +52,7 @@ public class SearchActivity extends LocalizationActivity {
     @Bind(R.id.editText1) EditText title;
 
 
-    private static int flag_go_to = 1;
+    private static int flag_go_to = 5;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

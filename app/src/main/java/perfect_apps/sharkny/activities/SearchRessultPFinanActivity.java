@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,11 @@ public class SearchRessultPFinanActivity extends LocalizationActivity {
         type = getIntent().getStringExtra("type");
         country = getIntent().getStringExtra("country");
         title = getIntent().getStringExtra("title");
+        try {
+            title = URLEncoder.encode(title, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         flag = getIntent().getIntExtra("flag", 0);
         // populate mDataSet
         mDataset = new ArrayList<>();
