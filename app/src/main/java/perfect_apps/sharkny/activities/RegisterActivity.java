@@ -579,7 +579,7 @@ public class RegisterActivity extends LocalizationActivity {
                         Map<String, DataPart> params = new HashMap<>();
                         // file name could found file base or direct access from real path
                         // for now just get bitmap data from ImageView
-                        params.put("image", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromDrawable(RegisterActivity.this, profileImagePath), "image/jpeg"));
+                        params.put("image", new DataPart("profileImage.jpeg", AppHelper.getFileDataFromDrawable(RegisterActivity.this, profileImagePath), "image/jpeg"));
                         return params;
                     }
                 };
@@ -606,9 +606,9 @@ public class RegisterActivity extends LocalizationActivity {
         JSONObject jsonRootObject = null;
         try {
             jsonRootObject = new JSONObject(strJson);
-            if (! jsonRootObject.optBoolean("error") == true) {
-                int id = Integer.parseInt(jsonRootObject.optString("id").toString());
-                String profileImage = jsonRootObject.optString("image").toString();
+            if (!jsonRootObject.optBoolean("error")) {
+                int id = Integer.parseInt(jsonRootObject.optString("id"));
+                String profileImage = jsonRootObject.optString("image");
 
                 //debug
                 Log.d("user_id", "" + id);
