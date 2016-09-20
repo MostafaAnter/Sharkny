@@ -6,16 +6,12 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.akexorcist.localizationactivity.LocalizationActivity;
@@ -39,10 +35,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPicker;
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.sharkny.BuildConfig;
-import perfect_apps.sharkny.Manifest;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.store.SharknyPrefStore;
@@ -50,10 +43,7 @@ import perfect_apps.sharkny.utils.AppHelper;
 import perfect_apps.sharkny.utils.Constants;
 import perfect_apps.sharkny.utils.Utils;
 import perfect_apps.sharkny.utils.VolleyMultipartRequest;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
 
-@RuntimePermissions
 public class AddServeiceActivity extends LocalizationActivity {
     @Bind(R.id.select_profile_pic)
     LinearLayout selectProfilePic;
@@ -122,8 +112,7 @@ public class AddServeiceActivity extends LocalizationActivity {
     }
 
     // for pick photo
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-    void setOnLinearSelected(){
+    public void setOnLinearSelected(){
         selectProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -272,11 +261,11 @@ public class AddServeiceActivity extends LocalizationActivity {
                         // file name could found file base or direct access from real path
                         // for now just get bitmap data from ImageView
                         if (profileImagePath != null) {
-                            params.put("image", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromDrawable(AddServeiceActivity.this, profileImagePath), "image/jpeg"));
+                            params.put("image", new DataPart("profileImage.jpeg", AppHelper.getFileDataFromDrawable(AddServeiceActivity.this, profileImagePath), "image/jpeg"));
                         } else {
                             circleImageView.buildDrawingCache();
                             Bitmap bmap = circleImageView.getDrawingCache();
-                            params.put("image", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromImage(AddServeiceActivity.this, bmap), "image/jpeg"));
+                            params.put("image", new DataPart("profileImage.jpeg", AppHelper.getFileDataFromImage(AddServeiceActivity.this, bmap), "image/jpeg"));
                         }
                         return params;
                     }

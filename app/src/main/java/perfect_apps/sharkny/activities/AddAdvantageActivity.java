@@ -44,10 +44,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPicker;
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.sharkny.BuildConfig;
-import perfect_apps.sharkny.Manifest;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.models.Countries;
@@ -57,10 +54,7 @@ import perfect_apps.sharkny.utils.AppHelper;
 import perfect_apps.sharkny.utils.Constants;
 import perfect_apps.sharkny.utils.Utils;
 import perfect_apps.sharkny.utils.VolleyMultipartRequest;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
 
-@RuntimePermissions
 
 public class AddAdvantageActivity extends LocalizationActivity {
 
@@ -141,8 +135,7 @@ public class AddAdvantageActivity extends LocalizationActivity {
     }
 
     // for pick photo
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-    void setOnLinearSelected(){
+    public void setOnLinearSelected(){
         selectProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -675,11 +668,11 @@ public class AddAdvantageActivity extends LocalizationActivity {
                         // file name could found file base or direct access from real path
                         // for now just get bitmap data from ImageView
                         if (profileImagePath != null) {
-                            params.put("image", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromDrawable(AddAdvantageActivity.this, profileImagePath), "image/jpeg"));
+                            params.put("image", new DataPart("profileImage.jpeg", AppHelper.getFileDataFromDrawable(AddAdvantageActivity.this, profileImagePath), "image/jpeg"));
                         } else {
                             circleImageView.buildDrawingCache();
                             Bitmap bmap = circleImageView.getDrawingCache();
-                            params.put("image", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromImage(AddAdvantageActivity.this, bmap), "image/jpeg"));
+                            params.put("image", new DataPart("profileImage.jpeg", AppHelper.getFileDataFromImage(AddAdvantageActivity.this, bmap), "image/jpeg"));
                         }
                         return params;
                     }

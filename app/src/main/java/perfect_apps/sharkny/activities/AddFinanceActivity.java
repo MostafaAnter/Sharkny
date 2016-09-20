@@ -45,10 +45,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPicker;
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.sharkny.BuildConfig;
-import perfect_apps.sharkny.Manifest;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.models.Countries;
@@ -58,10 +55,7 @@ import perfect_apps.sharkny.utils.AppHelper;
 import perfect_apps.sharkny.utils.Constants;
 import perfect_apps.sharkny.utils.Utils;
 import perfect_apps.sharkny.utils.VolleyMultipartRequest;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
 
-@RuntimePermissions
 public class AddFinanceActivity extends LocalizationActivity {
 
     @Bind(R.id.select_profile_pic)
@@ -147,8 +141,7 @@ public class AddFinanceActivity extends LocalizationActivity {
     }
 
     // for pick photo
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-    void setOnLinearSelected(){
+    public void setOnLinearSelected(){
         selectProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -504,17 +497,32 @@ public class AddFinanceActivity extends LocalizationActivity {
     }
 
     private boolean attempAdd(){
-        String regex = "[0-9]+";
-
-        if (!investValue.getText().toString().trim().matches(regex)||
-                investPrec.getText().toString().trim().matches(regex)){
+        String text = investValue.getText().toString();
+        try {
+            int num = Integer.parseInt(text);
+            Log.i("",num+" is a number");
+        } catch (NumberFormatException e) {
+            Log.i("",text+" is not a number");
             // show error message
             new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                     .setTitleText("Oops...")
-                    .setContentText("Enter Numbers only")
+                    .setContentText("invest value is Numbers only")
                     .show();
             return false;
+        }
 
+        String text1 = investPrec.getText().toString();
+        try {
+            int num = Integer.parseInt(text);
+            Log.i("",num+" is a number");
+        } catch (NumberFormatException e) {
+            Log.i("",text1+" is not a number");
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("invest percentage is Numbers only")
+                    .show();
+            return false;
         }
 
 
@@ -639,11 +647,11 @@ public class AddFinanceActivity extends LocalizationActivity {
                         // file name could found file base or direct access from real path
                         // for now just get bitmap data from ImageView
                         if (profileImagePath != null) {
-                            params.put("image", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromDrawable(AddFinanceActivity.this, profileImagePath), "image/jpeg"));
+                            params.put("image", new DataPart("profileImage.jpeg", AppHelper.getFileDataFromDrawable(AddFinanceActivity.this, profileImagePath), "image/jpeg"));
                         } else {
                             circleImageView.buildDrawingCache();
                             Bitmap bmap = circleImageView.getDrawingCache();
-                            params.put("image", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromImage(AddFinanceActivity.this, bmap), "image/jpeg"));
+                            params.put("image", new DataPart("profileImage.jpeg", AppHelper.getFileDataFromImage(AddFinanceActivity.this, bmap), "image/jpeg"));
                         }
                         return params;
                     }

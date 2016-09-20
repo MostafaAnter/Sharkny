@@ -49,10 +49,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.iwf.photopicker.PhotoPicker;
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
 import perfect_apps.sharkny.BuildConfig;
-import perfect_apps.sharkny.Manifest;
 import perfect_apps.sharkny.R;
 import perfect_apps.sharkny.app.AppController;
 import perfect_apps.sharkny.models.Countries;
@@ -62,10 +59,7 @@ import perfect_apps.sharkny.utils.AppHelper;
 import perfect_apps.sharkny.utils.Constants;
 import perfect_apps.sharkny.utils.Utils;
 import perfect_apps.sharkny.utils.VolleyMultipartRequest;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
 
-@RuntimePermissions
 public class RegisterActivity extends LocalizationActivity {
 
     @Bind(R.id.select_profile_pic) LinearLayout selectProfilePic;
@@ -182,8 +176,7 @@ public class RegisterActivity extends LocalizationActivity {
     }
 
     // for pick photo
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-     void setOnLinearSelected(){
+     public void setOnLinearSelected(){
         selectProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,7 +269,7 @@ public class RegisterActivity extends LocalizationActivity {
                         if (position < 42){
                             nationality = ++position + "";
                         }else {
-                            nationality = position + 2 +"";
+                            nationality = position +"";
                         }
                     }
                     Toast.makeText
@@ -349,7 +342,7 @@ public class RegisterActivity extends LocalizationActivity {
                         if (position < 42){
                             country = ++position + "";
                         }else {
-                            country = position + 2 +"";
+                            country = position +"";
                         }
                     }
                     Toast.makeText
