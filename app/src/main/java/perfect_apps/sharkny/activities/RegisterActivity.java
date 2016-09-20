@@ -265,13 +265,13 @@ public class RegisterActivity extends LocalizationActivity {
                 if(position > 0){
                     // Notify the selected item text
                     nationality = "" + position;
-                    if (position != 1){
-                        if (position < 42){
-                            nationality = ++position + "";
-                        }else {
-                            nationality = position +"";
-                        }
-                    }
+//                    if (position != 1){
+//                        if (position < 42){
+//                            nationality = ++position + "";
+//                        }else {
+//                            nationality = position + 2 +"";
+//                        }
+//                    }
                     Toast.makeText
                             (getApplicationContext(),  selectedItemText + " Done!", Toast.LENGTH_SHORT)
                             .show();
@@ -338,13 +338,13 @@ public class RegisterActivity extends LocalizationActivity {
                 if(position > 0){
                     // Notify the selected item text
                     country = "" + position;
-                    if (position != 1){
-                        if (position < 42){
-                            country = ++position + "";
-                        }else {
-                            country = position +"";
-                        }
-                    }
+//                    if (position != 1){
+//                        if (position < 42){
+//                            country = ++position + "";
+//                        }else {
+//                            country = position + 2 +"";
+//                        }
+//                    }
                     Toast.makeText
                             (getApplicationContext(), selectedItemText + "Done!", Toast.LENGTH_SHORT)
                             .show();

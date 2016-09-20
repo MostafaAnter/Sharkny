@@ -356,13 +356,13 @@ public class AddFinanceActivity extends LocalizationActivity {
                 if(position > 0){
                     // Notify the selected item text
                     country = position + "";
-                    if (position != 1){
-                        if (position < 42){
-                            country = ++position + "";
-                        }else {
-                            country = position + 2 +"";
-                        }
-                    }
+//                    if (position != 1){
+//                        if (position < 42){
+//                            country = ++position + "";
+//                        }else {
+//                            country = position + 2 +"";
+//                        }
+//                    }
                 }
             }
 
